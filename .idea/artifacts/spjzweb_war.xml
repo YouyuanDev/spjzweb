@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spjzweb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="spjzweb.war">
+      <element id="artifact" artifact-name="spjzweb:war exploded" />
+    </root>
+  </artifact>
+</component>
