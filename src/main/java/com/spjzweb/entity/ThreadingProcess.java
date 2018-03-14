@@ -27,7 +27,6 @@ public class ThreadingProcess {
     private float couping_od;
     private float couping_length;
     private float thread_tooth_angle;
-    private float thread_boring_size;
     private float thread_throug_hole_size;
     private String video_no;
     private String tool_measuring_record_no;
@@ -36,7 +35,7 @@ public class ThreadingProcess {
     public ThreadingProcess() {
     }
 
-    public ThreadingProcess(int id, String couping_no, String process_no, String operator_no, Date inspection_time, String visual_inspection, float thread_tooth_pitch_diameter_max, float thread_tooth_pitch_diameter_avg, float thread_tooth_pitch_diameter_min, float thread_sealing_surface_diameter_max, float thread_sealing_surface_diameter_avg, float thread_sealing_surface_diameter_min, float thread_sealing_surface_ovality, float thread_width, float thread_pitch, float thread_taper, float thread_height, float thread_length_min, float thread_bearing_surface_width, float couping_inner_end_depth, float thread_hole_inner_diameter, float couping_od, float couping_length, float thread_tooth_angle, float thread_boring_size, float thread_throug_hole_size, String video_no, String tool_measuring_record_no, String inspection_result) {
+    public ThreadingProcess(int id, String couping_no, String process_no, String operator_no, Date inspection_time, String visual_inspection, float thread_tooth_pitch_diameter_max, float thread_tooth_pitch_diameter_avg, float thread_tooth_pitch_diameter_min, float thread_sealing_surface_diameter_max, float thread_sealing_surface_diameter_avg, float thread_sealing_surface_diameter_min, float thread_sealing_surface_ovality, float thread_width, float thread_pitch, float thread_taper, float thread_height, float thread_length_min, float thread_bearing_surface_width, float couping_inner_end_depth, float thread_hole_inner_diameter, float couping_od, float couping_length, float thread_tooth_angle,float thread_throug_hole_size, String video_no, String tool_measuring_record_no, String inspection_result) {
         this.id = id;
         this.couping_no = couping_no;
         this.process_no = process_no;
@@ -61,7 +60,6 @@ public class ThreadingProcess {
         this.couping_od = couping_od;
         this.couping_length = couping_length;
         this.thread_tooth_angle = thread_tooth_angle;
-        this.thread_boring_size = thread_boring_size;
         this.thread_throug_hole_size = thread_throug_hole_size;
         this.video_no = video_no;
         this.tool_measuring_record_no = tool_measuring_record_no;
@@ -260,13 +258,6 @@ public class ThreadingProcess {
         this.thread_tooth_angle = thread_tooth_angle;
     }
 
-    public float getThread_boring_size() {
-        return thread_boring_size;
-    }
-
-    public void setThread_boring_size(float thread_boring_size) {
-        this.thread_boring_size = thread_boring_size;
-    }
 
     public float getThread_throug_hole_size() {
         return thread_throug_hole_size;
