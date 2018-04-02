@@ -46,7 +46,6 @@ public class ToolMeasuringRecordController {
                 json.put("success",false);
                 json.put("message","保存失败");
             }
-
         }catch (Exception e){
             e.printStackTrace();
             json.put("success",false);

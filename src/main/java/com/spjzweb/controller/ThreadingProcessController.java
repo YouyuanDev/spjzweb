@@ -7,6 +7,7 @@ import com.spjzweb.dao.ToolMeasuringRecordDao;
 import com.spjzweb.entity.ThreadingProcess;
 import com.spjzweb.entity.ToolMeasuringRecord;
 import com.spjzweb.util.ResponseUtil;
+import javafx.application.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,9 +51,11 @@ public class ThreadingProcessController {
             if(threadingProcess.getId()==0){
                 //添加
                 resTotal=threadingProcessDao.addThreadingProcess(threadingProcess);
+
             }else{
                 //修改！
                 resTotal=threadingProcessDao.updateThreadingProcess(threadingProcess);
+
             }
             if(resTotal>0){
                 json.put("success",true);
@@ -141,7 +147,9 @@ public class ThreadingProcessController {
             while ((input=reader.readLine())!=null){
                 sb.append(input);
             }
+
             JSONObject json=JSONObject.parseObject(sb.toString());
+            System.out.println("日志输出"+json.toString());
             String arg1=json.getString("arg1");
             String arg2=json.getString("arg2");
             String arg3=json.getString("arg3");
@@ -245,7 +253,7 @@ public class ThreadingProcessController {
                 if(arg40!=null&&arg40!="")
                     arg40_1=Float.valueOf(arg40);
                 String arg41=json.getString("arg41");
-                String arg42=json.getString("arg41");
+                String arg42=json.getString("arg42");
                 ThreadingProcess process=new ThreadingProcess();
                 process.setCouping_no(arg18);
                 process.setProcess_no(arg19);
@@ -299,7 +307,6 @@ public class ThreadingProcessController {
     public String getThreadingProcessByLike(HttpServletRequest request,HttpServletResponse response){
         String mmp=null;
         JSONObject jsonReturn=new JSONObject();
-        StringBuilder sbb=new StringBuilder();
         try{
             StringBuilder sb=new StringBuilder();
             BufferedReader reader=request.getReader();
@@ -322,15 +329,12 @@ public class ThreadingProcessController {
                 page= json.getString("pageCurrent");
                 rows= json.getString("pageSize");
             }
-            sbb.append("page="+page.length()+",rows="+rows.length());
             if(page==null||page.length()<=0){
                 page="1";
-                sbb.append("ceshi1");
             }
             if(rows==null||rows.length()<=0){
-                rows="50";sbb.append("ceshi2");
+                rows="40";
             }
-            sbb.append("page="+page+",rows="+rows);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date beginTime=null;
             Date endTime=null;
@@ -340,21 +344,33 @@ public class ThreadingProcessController {
             if(end_time!=null&&end_time!=""){
                 endTime=sdf.parse(end_time);
             }
-            sbb.append("begin_time="+begin_time+",end_time="+end_time);
             int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-            List<ThreadingProcess>list=threadingProcessDao.getThreadingProcess(couping_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
-            int count=threadingProcessDao.getCount(couping_no,operator_no,beginTime,endTime);
+            List<HashMap<String,Object>>list=threadingProcessDao.getAllByLike(couping_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
+            int count=threadingProcessDao.getCountAllByLike(couping_no,operator_no,beginTime,endTime);
+            Map<String,Object> maps=new HashMap<String,Object>();
             jsonReturn.put("total",count);
             jsonReturn.put("rowsData",list);
+            //String map= JSONArray.toJSONString(maps);
+//            int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
+//            List<ThreadingProcess>list=threadingProcessDao.getThreadingProcess(couping_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
+//            int count=threadingProcessDao.getCount(couping_no,operator_no,beginTime,endTime);
+//            jsonReturn.put("total",count);
+//            jsonReturn.put("rowsData",list);
             ResponseUtil.write(response,jsonReturn);
         }catch (Exception e){
-            mmp=e.getMessage()+ sbb.toString();
+            e.printStackTrace();
         }
         try {
             ResponseUtil.write(response,mmp);
         }catch (Exception e){
 
         }
+        return null;
+    }
+    @RequestMapping(value = "/getThreadingVideo")
+    @ResponseBody
+    public String getThreadingVideo(HttpServletRequest request,HttpServletResponse response){
+        //Filestr
         return null;
     }
 }
