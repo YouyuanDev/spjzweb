@@ -149,7 +149,6 @@ public class ThreadingProcessController {
             }
 
             JSONObject json=JSONObject.parseObject(sb.toString());
-            System.out.println("日志输出"+json.toString());
             String arg1=json.getString("arg1");
             String arg2=json.getString("arg2");
             String arg3=json.getString("arg3");
@@ -167,6 +166,13 @@ public class ThreadingProcessController {
             String arg15=json.getString("arg15");
             String arg16=json.getString("arg16");
             String arg17=json.getString("arg17");
+            String arg44=json.getString("arg43");
+            String arg45=json.getString("arg44");
+            String arg46=json.getString("arg45");
+            String arg47=json.getString("arg46");
+            String arg48=json.getString("arg47");
+            String arg49=json.getString("arg48");
+            String arg50=json.getString("arg49");
             ToolMeasuringRecord record=new ToolMeasuringRecord();
             record.setTool_measuring_record_no(arg1);
             record.setThread_pitch_gauge_no(arg2);
@@ -185,6 +191,15 @@ public class ThreadingProcessController {
             record.setCaliper_no(arg15);
             record.setCaliper_tolerance(arg16);
             record.setCollar_gauge_no(arg17);
+            record.setContract_no(arg44);
+            record.setHeat_no(arg45);
+            record.setTest_batch_no(arg46);
+            record.setSteel_grade(arg47);
+            record.setTexture(arg48);
+            record.setProduction_area(arg49);
+            record.setMachine_no(arg50);
+
+
             int resTotal=toolMeasuringRecordDao.addToolMeasuringRecord(record);
             if(resTotal>0){
                 String arg18=json.getString("arg18");
@@ -211,6 +226,7 @@ public class ThreadingProcessController {
                 String arg38=json.getString("arg38");
                 String arg39=json.getString("arg39");
                 String arg40=json.getString("arg40");
+                String arg51=json.getString("arg50");
                 float arg22_1=0,arg23_1=0,arg24_1=0,arg25_1=0,arg26_1=0,arg27_1=0,
                         arg28_1=0,arg29_1=0,arg30_1=0,arg31_1=0,arg32_1=0,arg33_1=0,
                         arg34_1=0,arg35_1=0,arg36_1=0,arg37_1=0,arg38_1=0,arg39_1=0,arg40_1=0;
@@ -254,6 +270,7 @@ public class ThreadingProcessController {
                     arg40_1=Float.valueOf(arg40);
                 String arg41=json.getString("arg41");
                 String arg42=json.getString("arg42");
+                String arg43=json.getString("arg43");
                 ThreadingProcess process=new ThreadingProcess();
                 process.setCouping_no(arg18);
                 process.setProcess_no(arg19);
@@ -281,7 +298,9 @@ public class ThreadingProcessController {
                 process.setVideo_no(arg41);
                 process.setTool_measuring_record_no(arg1);
                 process.setInspection_result(arg42);
+                process.setThread_acceptance_criteria_no(arg43);
                 process.setInspection_time(new Date());
+                process.setThread_acceptance_criteria_no(arg51);
                 int result=threadingProcessDao.addThreadingProcess(process);
                 if(result>0){
                     jsonReturn.put("resultMsg",true);
@@ -367,10 +386,5 @@ public class ThreadingProcessController {
         }
         return null;
     }
-    @RequestMapping(value = "/getThreadingVideo")
-    @ResponseBody
-    public String getThreadingVideo(HttpServletRequest request,HttpServletResponse response){
-        //Filestr
-        return null;
-    }
+
 }

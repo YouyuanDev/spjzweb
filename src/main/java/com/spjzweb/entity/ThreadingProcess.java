@@ -30,12 +30,13 @@ public class ThreadingProcess {
     private float thread_throug_hole_size;
     private String video_no;
     private String tool_measuring_record_no;
+    private String thread_acceptance_criteria_no;
     private String inspection_result;
 
     public ThreadingProcess() {
     }
 
-    public ThreadingProcess(int id, String couping_no, String process_no, String operator_no, Date inspection_time, String visual_inspection, float thread_tooth_pitch_diameter_max, float thread_tooth_pitch_diameter_avg, float thread_tooth_pitch_diameter_min, float thread_sealing_surface_diameter_max, float thread_sealing_surface_diameter_avg, float thread_sealing_surface_diameter_min, float thread_sealing_surface_ovality, float thread_width, float thread_pitch, float thread_taper, float thread_height, float thread_length_min, float thread_bearing_surface_width, float couping_inner_end_depth, float thread_hole_inner_diameter, float couping_od, float couping_length, float thread_tooth_angle,float thread_throug_hole_size, String video_no, String tool_measuring_record_no, String inspection_result) {
+    public ThreadingProcess(int id, String couping_no, String process_no, String operator_no, Date inspection_time, String visual_inspection, float thread_tooth_pitch_diameter_max, float thread_tooth_pitch_diameter_avg, float thread_tooth_pitch_diameter_min, float thread_sealing_surface_diameter_max, float thread_sealing_surface_diameter_avg, float thread_sealing_surface_diameter_min, float thread_sealing_surface_ovality, float thread_width, float thread_pitch, float thread_taper, float thread_height, float thread_length_min, float thread_bearing_surface_width, float couping_inner_end_depth, float thread_hole_inner_diameter, float couping_od, float couping_length, float thread_tooth_angle, float thread_throug_hole_size, String video_no, String tool_measuring_record_no, String thread_acceptance_criteria_no, String inspection_result) {
         this.id = id;
         this.couping_no = couping_no;
         this.process_no = process_no;
@@ -63,6 +64,7 @@ public class ThreadingProcess {
         this.thread_throug_hole_size = thread_throug_hole_size;
         this.video_no = video_no;
         this.tool_measuring_record_no = tool_measuring_record_no;
+        this.thread_acceptance_criteria_no = thread_acceptance_criteria_no;
         this.inspection_result = inspection_result;
     }
 
@@ -285,6 +287,14 @@ public class ThreadingProcess {
 
     public String getInspection_result() {
         return inspection_result;
+    }
+
+    public String getThread_acceptance_criteria_no() {
+        return thread_acceptance_criteria_no;
+    }
+
+    public void setThread_acceptance_criteria_no(String thread_acceptance_criteria_no) {
+        this.thread_acceptance_criteria_no = thread_acceptance_criteria_no;
     }
 
     public void setInspection_result(String inspection_result) {

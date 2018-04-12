@@ -138,6 +138,13 @@
                    <th field="caliper_no" align="center" width="100" class="i18n1" name="caliperno" hidden="true"></th>
                    <th field="caliper_tolerance" align="center" width="100" class="i18n1" name="calipertolerance" hidden="true"></th>
                    <th field="collar_gauge_no" align="center" width="100" class="i18n1" name="collargaugeno" hidden="true"></th>
+                   <th field="contract_no" align="center" width="100" class="i18n1" name="contractno" hidden="true"></th>
+                   <th field="heat_no" align="center" width="100" class="i18n1" name="heatno" hidden="true"></th>
+                   <th field="test_batch_no" align="center" width="100" class="i18n1" name="testbatchno" hidden="true"></th>
+                   <th field="steel_grade" align="center" width="100" class="i18n1" name="steelgrade" hidden="true"></th>
+                   <th field="texture" align="center" width="100" class="i18n1" name="texture" hidden="true"></th>
+                   <th field="production_area" align="center" width="100" class="i18n1" name="productionarea" hidden="true"></th>
+                   <th field="machine_no" align="center" width="100" class="i18n1" name="machineno" hidden="true"></th>
                </tr>
              </thead>
          </table>
@@ -163,6 +170,38 @@
        <fieldset style="width:900px;border:solid 1px #aaa;margin-top:8px;position:relative;">
            <legend>工具测量使用记录</legend>
            <table class="ht-table" width="100%" border="0">
+               <tr>
+                   <td class="i18n1" name="contractno"></td>
+                   <td><input class="easyui-textbox" type="text" name="contract_no" value=""/></td>
+                   <td></td>
+                   <td class="i18n1" name="heatno"></td>
+                   <td><input class="easyui-textbox" type="text" name="heat_no" value=""/></td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td class="i18n1" name="testbatchno"></td>
+                   <td><input class="easyui-textbox" type="text" name="test_batch_no" value=""/></td>
+                   <td></td>
+                   <td class="i18n1" name="steelgrade"></td>
+                   <td><input class="easyui-textbox" type="text" name="steel_grade" value=""/></td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td class="i18n1" name="texture"></td>
+                   <td><input class="easyui-textbox" type="text" name="texture" value=""/></td>
+                   <td></td>
+                   <td class="i18n1" name="productionarea"></td>
+                   <td><input class="easyui-textbox" type="text" name="production_area" value=""/></td>
+                   <td></td>
+               </tr>
+               <tr>
+                   <td class="i18n1" name="machineno"></td>
+                   <td><input class="easyui-textbox" type="text" name="machine_no" value=""/></td>
+                   <td></td>
+                   <td class="i18n1" name="collargaugeno"></td>
+                   <td><input class="easyui-textbox" type="text" name="collar_gauge_no" value=""/></td>
+                   <td></td>
+               </tr>
                <tr>
                    <td class="i18n1" name="toolmeasuringrecordno"></td>
                    <td><input class="easyui-textbox" type="text" name="tool_measuring_record_no" value=""/></td>
@@ -227,10 +266,7 @@
                    <td><input class="easyui-textbox" type="text" name="caliper_tolerance" value=""/></td>
                    <td></td>
                </tr>
-               <tr>
-                   <td class="i18n1" name="collargaugeno"></td>
-                   <td><input class="easyui-textbox" type="text" name="collar_gauge_no" value=""/></td>
-                   <td></td>
+
            </table>
        </fieldset>
    </form>

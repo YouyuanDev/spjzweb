@@ -25,6 +25,77 @@
     <script type="text/javascript">
         var url;
         $(function(){
+            var uriArr=["threadingprocess","toolmeasuringrecord",
+                "threadstandard",
+                "person","role","function"
+                ];
+            var oneArr=uriArr.slice(0,2);
+            var twoArr=uriArr.slice(2,3);
+            var threeArr=uriArr.slice(3,6);
+            var hsMapList="<%=session.getAttribute("userfunctionMap")%>";
+            var funArr;
+            if(hsMapList!=null&&hsMapList!=""&&hsMapList.length>0){
+                var reg=new RegExp('=1',"g")
+                hsMapList=hsMapList.replace(reg,"");
+                funArr=hsMapList.substring(1,hsMapList.length-1).split(',');
+            }
+
+            var tempNameArr=new Array();//得到的是比对uri中新的权限数组
+            for(var i=0;i<funArr.length;i++){
+                if($.inArray(funArr[i].trim(),uriArr)!=-1){
+                    tempNameArr.push(funArr[i].trim());
+                }
+            }
+            var finalNameArr=new Array();
+            $.each(uriArr,function (index,element) {
+                if($.inArray(element,tempNameArr)!=-1){
+                    finalNameArr.push(element);
+                }
+            });
+
+            if(finalNameArr.length>0){
+                var oneDiv='<div title=\"基础信息\" class=\"i18n\" name=\"basicinfo\"  style=\"padding:10px;\"><ul id=\"basic-ul\">';
+                var oneDivSon="";
+                var twoDiv='<div title=\"生产工艺\" class=\"i18n\" name=\"productionprocess\"  style=\"padding:10px;\"><ul id=\"process-ul\">';
+                var twoDivSon="";
+                var threeDiv='<div title=\"账户管理\" class=\"i18n\" name=\"accountmanagement\"  style=\"padding:10px;\"><ul id=\"account-ul\">';
+                var threeDivSon="";
+
+                var endDiv="</ul></div>";
+                //外喷砂
+
+                $.each(finalNameArr,function (index,element) {
+                    if($.inArray(element,oneArr)!=-1){
+                        oneDivSon+=MakeMenus(element);
+                        return true;
+                    }
+                    if($.inArray(element,twoArr)!=-1){
+                        twoDivSon+=MakeMenus(element);
+                        return true;
+                    }
+                    if($.inArray(element,threeArr)!=-1){
+                        threeDivSon+=MakeMenus(element);
+                        return true;
+                    }
+
+                });
+                if(oneDivSon!=""&&oneDivSon.length>0){
+                    oneDiv+=oneDivSon;
+                    oneDiv+=endDiv;
+                    $('#aa').append(oneDiv);
+                }
+                if(twoDivSon!=""&&twoDivSon.length>0){
+                    twoDiv+=twoDivSon;
+                    twoDiv+=endDiv;
+                    $('#aa').append(twoDiv);
+                }
+                if(threeDivSon!=""&&threeDivSon.length>0){
+                    threeDiv+=threeDivSon;
+                    threeDiv+=endDiv;
+                    $('#aa').append(threeDiv);
+                }
+            }
+            hlLanguage("i18n/");
             //hlLanguage("i18n/");
             $('#basic-ul').tree({
                 onClick:function(node){
@@ -54,29 +125,79 @@
                     }
                 }
             });
-
-
             //账户管理
             $("#account-ul").tree({
                 onClick:function (node) {
                     var tab=$('#bgTab').tabs('getTab',node.text);
                     var nodeTxt=node.text;
                     if(tab){
+                        $('#hlTab').tabs('select',node.text);
+                    }else{
+                        if("人员管理"==nodeTxt||"Person Management"==nodeTxt){
+
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='account/person.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }
+                        else if("角色管理"==nodeTxt||"Role Management"==nodeTxt){
+
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='account/role.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }
+                        else if("权限管理"==nodeTxt||"Function Management"==nodeTxt){
+
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='account/function.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }
+
+
+                    }
+                }
+            });
+            $('#process-ul').tree({
+                onClick:function(node){
+                    var tab=$('#bgTab').tabs('getTab',node.text);
+                    var xy=node.text;
+                    if(tab){
+                        //切换
                         $('#bgTab').tabs('select',node.text);
                     }else{
-
+                        //添加新的选项卡
+                        if("螺纹检验标准"==xy||"Thread Standard"==xy){
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='production/threadstandard.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }
                     }
                 }
             });
 
         });
+        function  MakeMenus(name) {
+            var res='<li class=\"i18n1\" name=\"'+name+'\" ></li>';
+            return res;
+        }
 
     </script>
 </head>
 <body class="easyui-layout">
-<div data-options="region:'south',split:true" style="height:50px;">
-    <div style="text-align: center"><h3>@2018 友元科技 版权所有</h3></div>
-</div>
+<%--<div data-options="region:'south',split:true" style="height:50px;">--%>
+    <%--<div style="text-align: center"><h3>@2018 友元科技 版权所有</h3></div>--%>
+<%--</div>--%>
 <div data-options="region:'north',split:true">
     <div style="float: right;padding:10px">
         <select id="language">
@@ -88,20 +209,24 @@
 <div data-options="region:'west'" title="导航菜单" class="i18n" name="navigation" style="width:200px;">
 
     <div id="aa" class="easyui-accordion">
-        <div title="基础信息" class="i18n" name="basicinfo"  style="padding:10px;">
-            <ul id="basic-ul">
-                <li class="i18n1" name="threadinginspection">螺纹检验</li>
-                <li class="i18n1" name="toolmeasuringrecord">工具测量使用记录</li>
-            </ul>
-        </div>
-        <div title="生产报表" class="i18n" name="productionreport" style="padding:10px;">
-            ff
-        </div>
-        <div title="账户管理" class="i18n" name="accountmanagement" style="padding:10px;">
-            <ul id="account-ul">
-
-            </ul>
-        </div>
+        <%--<div title="基础信息" class="i18n" name="basicinfo"  style="padding:10px;">--%>
+            <%--<ul id="basic-ul">--%>
+                <%--<li class="i18n1" name="threadinginspection">螺纹检验</li>--%>
+                <%--<li class="i18n1" name="toolmeasuringrecord">工具测量使用记录</li>--%>
+            <%--</ul>--%>
+        <%--</div>--%>
+        <%--<div title="生产工艺" class="i18n" name="productionprocess" style="padding:10px;">--%>
+          <%--<ul id="process-ul">--%>
+            <%--<li class="i18n1" name="threadstandard">螺纹检验标准</li>--%>
+           <%--</ul>--%>
+        <%--</div>--%>
+        <%--<div title="账户管理" class="i18n" name="accountmanagement" style="padding:10px;">--%>
+            <%--<ul id="account-ul">--%>
+                <%--<li class="i18n1" name="personmanagement">人员管理</li>--%>
+                <%--<li class="i18n1" name="rolemanagement">角色管理</li>--%>
+                <%--<li class="i18n1" name="functionmanagement">权限管理</li>--%>
+            <%--</ul>--%>
+        <%--</div>--%>
 
     </div>
 

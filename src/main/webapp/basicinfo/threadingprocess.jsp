@@ -86,6 +86,99 @@
                         hlAlertThree();
                     }
                 });
+                $.ajax({
+                    url:'/AcceptanceCriteriaOperation/getAcceptanceCriteriaByNo.action',
+                    dataType:'json',
+                    data:{'thread_acceptance_criteria_no':row.thread_acceptance_criteria_no},
+                    success:function (data) {
+                        if(data!=null&&data!=""){
+                            var $obj1=$("input[name='thread_tooth_pitch_diameter_max']");
+                            var $obj2=$("input[name='thread_tooth_pitch_diameter_avg']");
+                            var $obj3=$("input[name='thread_tooth_pitch_diameter_min']");
+                            var $obj4=$("input[name='thread_sealing_surface_diameter_max']");
+                            var $obj5=$("input[name='thread_sealing_surface_diameter_avg']");
+                            var $obj6=$("input[name='thread_sealing_surface_diameter_min']");
+                            var $obj7=$("input[name='thread_sealing_surface_ovality']");
+
+                            var $obj8=$("input[name='thread_width']");
+                            var $obj9=$("input[name='thread_pitch']");
+                            var $obj10=$("input[name='thread_taper']");
+                            var $obj11=$("input[name='thread_bearing_surface_width']");
+                            var $obj12=$("input[name='couping_inner_end_depth']");
+                            var $obj13=$("input[name='thread_hole_inner_diameter']");
+                            var $obj14=$("input[name='couping_od']");
+                            var $obj15=$("input[name='couping_length']");
+
+
+                            $obj1.siblings().css("background-color","#FFFFFF");
+                            $obj2.siblings().css("background-color","#FFFFFF");
+                            $obj3.siblings().css("background-color","#FFFFFF");
+                            $obj4.siblings().css("background-color","#FFFFFF");
+                            $obj5.siblings().css("background-color","#FFFFFF");
+                            $obj6.siblings().css("background-color","#FFFFFF");
+                            $obj7.siblings().css("background-color","#FFFFFF");
+                            $obj8.siblings().css("background-color","#FFFFFF");
+                            $obj9.siblings().css("background-color","#FFFFFF");
+                            $obj10.siblings().css("background-color","#FFFFFF");
+                            $obj11.siblings().css("background-color","#FFFFFF");
+                            $obj12.siblings().css("background-color","#FFFFFF");
+                            $obj13.siblings().css("background-color","#FFFFFF");
+                            $obj14.siblings().css("background-color","#FFFFFF");
+                            $obj15.siblings().css("background-color","#FFFFFF");
+                            if(data!=null){
+                                var res1=$obj1.val();
+                                var res2=$obj2.val();
+                                var res3=$obj3.val();
+                                var res4=$obj4.val();
+                                var res5=$obj5.val();
+                                var res6=$obj6.val();
+                                var res7=$obj7.val();
+                                var res8=$obj8.val();
+                                var res9=$obj9.val();
+                                var res10=$obj10.val();
+                                var res11=$obj11.val();
+                                var res12=$obj12.val();
+                                var res13=$obj13.val();
+                                var res14=$obj14.val();
+                                var res15=$obj15.val();
+                                if(!((res1>=data.thread_pitch_diameter_min)&&(res1<=data.thread_pitch_diameter_max)))
+                                    $obj1.siblings().css("background-color","#F9A6A6");
+                                if(!((res2>=data.thread_pitch_diameter_min)&&(res2<=data.thread_pitch_diameter_max)))
+                                    $obj2.siblings().css("background-color","#F9A6A6");
+                                if(!((res3>=data.thread_pitch_diameter_min)&&(res3<=data.thread_pitch_diameter_max)))
+                                    $obj3.siblings().css("background-color","#F9A6A6");
+                                if(!((res4>=data.thread_sealing_surface_diameter_min)&&(res4<=data.thread_sealing_surface_diameter_max)))
+                                    $obj4.siblings().css("background-color","#F9A6A6");
+                                if(!((res5>=data.thread_sealing_surface_diameter_min)&&(res5<=data.thread_sealing_surface_diameter_max)))
+                                    $obj5.siblings().css("background-color","#F9A6A6");
+                                if(!((res6>=data.thread_sealing_surface_diameter_min)&&(res6<=data.thread_sealing_surface_diameter_max)))
+                                    $obj6.siblings().css("background-color","#F9A6A6");
+                                if(!((res7>=data.thread_sealing_surface_ovality_min)&&(res7<=data.thread_sealing_surface_ovality_max)))
+                                    $obj7.siblings().css("background-color","#F9A6A6");
+
+                                if(!((res8>=data.thread_pitch_min)&&(res8<=data.thread_pitch_max)))
+                                    $obj8.siblings().css("background-color","#F9A6A6");
+                                if(!((res9>=data.thread_taper_min)&&(res9<=data.thread_taper_max)))
+                                    $obj9.siblings().css("background-color","#F9A6A6");
+                                if(!((res10>=data.thread_height_min)&&(res10<=data.thread_height_max)))
+                                    $obj10.siblings().css("background-color","#F9A6A6");
+                                if(!((res11>=data.thread_bearing_surface_width_min)&&(res11<=data.thread_bearing_surface_width_max)))
+                                    $obj11.siblings().css("background-color","#F9A6A6");
+                                if(!((res12>=data.couping_inner_end_depth_min)&&(res12<=data.couping_inner_end_depth_max)))
+                                    $obj12.siblings().css("background-color","#F9A6A6");
+                                if(!((res13>=data.thread_hole_inner_diameter_min)&&(res13<=data.thread_hole_inner_diameter_max)))
+                                    $obj13.siblings().css("background-color","#F9A6A6");
+                                if(!((res14>=data.couping_od_min)&&(res14<=data.couping_od_max)))
+                                    $obj14.siblings().css("background-color","#F9A6A6");
+                                if(!((res15>=data.couping_length_min)&&(res15<=data.couping_length_max)))
+                                    $obj15.siblings().css("background-color","#F9A6A6");
+
+                            }
+                        }
+                    },error:function () {
+
+                    }
+                });
             }else{
                 hlAlertTwo();
             }
@@ -389,6 +482,20 @@
                        </select>
                    </td>
                    <td></td>
+               </tr>
+               <tr>
+                   <td class="i18n1" name="threadacceptancecriteriano">螺纹检验接收标准编号</td>
+                   <td colspan="5">
+                       <input class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
+                               "url:'/AcceptanceCriteriaOperation/getAllDropDownAcceptanceCriteria.action',
+					        method:'get',
+					        valueField:'id',
+					        editable:false,
+					        textField:'text',
+					        panelHeight:'auto'"/>
+
+                   </td>
+
                </tr>
            </table>
        </fieldset>
