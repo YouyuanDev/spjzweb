@@ -10,7 +10,7 @@ public interface ThreadingAcceptanceCriteriaDao {
 
 
         //模糊搜索带分页
-        public List<HashMap<String,Object>> getAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no, @Param("skip") int skip, @Param("take") int take);
+        public List<ThreadingAcceptanceCriteria> getAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no, @Param("skip") int skip, @Param("take") int take);
 
         //模糊搜索总数
         public int getCountAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
@@ -25,5 +25,5 @@ public interface ThreadingAcceptanceCriteriaDao {
         //根据 thread_acceptance_criteria_no 得到 ThreadingAcceptanceCriteria 集合
         public List<HashMap<String,Object>> getThreadingAcceptanceCriteriaByAcceptanceCriteriaNo(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
 
-
+        public List<ThreadingAcceptanceCriteria> getAllDropDown();
 }

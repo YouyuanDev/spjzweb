@@ -38,7 +38,7 @@
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');//流水号
             clearFormLabel();
-            url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
+            url="/Contract/saveContract.action";
         }
         function delFunction() {
             var row = $('#contentDatagrids').datagrid('getSelections');
@@ -50,7 +50,7 @@
                 var idArrs=idArr.join(',');
                 $.messager.confirm('系统提示',"您确定要删除这<font color=red>"+idArr.length+ "</font>条数据吗？",function (r) {
                     if(r){
-                        $.post("/AcceptanceCriteriaOperation/delThreadAcceptanceCriteria.action",{"hlparam":idArrs},function (data) {
+                        $.post("/Contract/delContract.action",{"hlparam":idArrs},function (data) {
                             if(data.success){
                                 $("#contentDatagrids").datagrid("reload");
                             }
@@ -71,14 +71,14 @@
                 $("#serialNumber").text(row.id);
                 var lasttime=formatterdate(row.last_update_time);
                 $("#lastupdatetime").text(lasttime);
-                url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id="+row.id;
+                url="/Contract/saveContract.action?id="+row.id;
             }else{
                 hlAlertTwo();
             }
         }
         function searchFunction() {
             $('#contentDatagrids').datagrid('load',{
-                'contract_no': $('#contract_no').val()
+                'contract_no': $('#searcharg1').val()
             });
         }
         function addEditFormSubmit() {
@@ -94,11 +94,13 @@
                 },
                 success: function(result){
                     var result = eval('('+result+')');
-                    $('#addEditDialog').dialog('close');
-                    if (result.success){
+                    if (result.promptkey=="success"){
+                        $('#addEditDialog').dialog('close');
                         $('#contentDatagrids').datagrid('reload');
+                    }else if(result.promptkey=="fail1"){
+                        hlAlertFour(result.promptValue);
                     }
-                    hlAlertFour(result.message);
+                    hlAlertFour(result.promptValue);
                 },
                 error:function () {
                     //clearFormLabel();
@@ -125,7 +127,7 @@
 <fieldset class="b3" style="padding:10px;margin:10px;">
     <legend> <h3><b style="color: orange" >|&nbsp;</b><span class="i18n1" name="datadisplay">数据展示</span></h3></legend>
     <div  style="margin-top:5px;">
-        <table class="easyui-datagrid" id="contentDatagrids" url="/AcceptanceCriteriaOperation/getAllThreadAcceptanceCriteria.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
+        <table class="easyui-datagrid" id="contentDatagrids" url="/Contract/getContractByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
             <thead>
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
@@ -153,7 +155,7 @@
 <!--工具栏-->
 <div id="toolsTab" style="padding:10px;">
     <span class="i18n1" name="contractno">合同号</span>:
-    <input id="contract_no" name="contract_no" style="line-height:22px;border:1px solid #ccc">
+    <input id="searcharg1" name="searcharg1" style="line-height:22px;border:1px solid #ccc">
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
         <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
@@ -183,7 +185,16 @@
                     <td><input class="easyui-textbox" type="text" name="machining_contract_no" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="threadacceptancecriteriano"></td>
-                    <td><input class="easyui-textbox" type="text" name="thread_acceptance_criteria_no" value=""/></td>
+                    <td>
+                        <input id="millno" class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
+                                "url:'/AcceptanceCriteriaOperation/getAllDropDownAcceptanceCriteria.action',
+					        method:'get',
+					        valueField:'id',
+					        width: 185,
+					        editable:false,
+					        textField:'text'"/>
+                        <%--<input class="easyui-textbox" type="text" name="thread_acceptance_criteria_no" value=""/>--%>
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
@@ -231,7 +242,6 @@
                     <td class="i18n1" name="remark"></td>
                     <td colspan="5" ><input class="easyui-textbox" type="text" data-options="multiline:true" name="remark" value=""/></td>
                 </tr>
-
             </table>
         </fieldset>
     </form>

@@ -38,7 +38,7 @@
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');
             clearFormLabel();
-            url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
+            url="/StaticMeasure/saveStaticMeasureItem.action";
         }
         function delFunction() {
             var row = $('#contentDatagrids').datagrid('getSelections');
@@ -50,7 +50,7 @@
                 var idArrs=idArr.join(',');
                 $.messager.confirm('系统提示',"您确定要删除这<font color=red>"+idArr.length+ "</font>条数据吗？",function (r) {
                     if(r){
-                        $.post("/AcceptanceCriteriaOperation/delThreadAcceptanceCriteria.action",{"hlparam":idArrs},function (data) {
+                        $.post("/StaticMeasure/delStaticMeasureItem.action",{"hlparam":idArrs},function (data) {
                             if(data.success){
                                 $("#contentDatagrids").datagrid("reload");
                             }
@@ -69,32 +69,46 @@
                 $('#addEditDialog').dialog('open').dialog('setTitle','修改');
                 $('#addEditForm').form('load',row);
                 $("#serialNumber").text(row.id);
-                var lasttime=formatterdate(row.last_update_time);
-                $("#lastupdatetime").text(lasttime);
-                url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id="+row.id;
+                url="/StaticMeasure/saveStaticMeasureItem.action?id="+row.id;
             }else{
                 hlAlertTwo();
             }
         }
         function searchFunction() {
             $('#contentDatagrids').datagrid('load',{
-                'measure_item_name': $('#measure_item_name').val()
+                'measure_item_code': $('#searchArg1').val(),
+                'measure_item_name': $('#searchArg2').val()
             });
         }
         function addEditFormSubmit() {
             $('#addEditForm').form('submit',{
                 url:url,
                 onSubmit:function () {
-
-
+                    //判断是否输入编码
+                    if($("input[name='measure_item_code']").val()==""){
+                        hlAlertFour("请输入测量项编码!");
+                        return false;
+                    }
+                    //判断是否输入名称
+                    if($("input[name='measure_item_name']").val()==""){
+                        hlAlertFour("请输入测量项名称!");
+                        return false;
+                    }
+                    //判断是否输入英文名称
+                    if($("input[name='measure_item_name_en]").val()==""){
+                        hlAlertFour("请输入测量项英文名称!");
+                        return false;
+                    }
                 },
                 success: function(result){
                     var result = eval('('+result+')');
-                    $('#addEditDialog').dialog('close');
-                    if (result.success){
+                    if (result.promptkey=="success"){
+                        $('#addEditDialog').dialog('close');
                         $('#contentDatagrids').datagrid('reload');
+                    }else if(result.promptkey=="fail1"){
+                        hlAlertFour(result.promptValue);
                     }
-                    hlAlertFour(result.message);
+                    hlAlertFour(result.promptValue);
                 },
                 error:function () {
                     //clearFormLabel();
@@ -122,13 +136,14 @@
 <fieldset class="b3" style="padding:10px;margin:10px;">
     <legend> <h3><b style="color: orange" >|&nbsp;</b><span class="i18n1" name="datadisplay">数据展示</span></h3></legend>
     <div  style="margin-top:5px;">
-        <table class="easyui-datagrid" id="contentDatagrids" url="/AcceptanceCriteriaOperation/getAllThreadAcceptanceCriteria.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
+        <table class="easyui-datagrid" id="contentDatagrids" url="/StaticMeasure/getStaticMeasureItemByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
             <thead>
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th field="id" align="center" width="100" class="i18n1" name="id"></th>
                 <th field="measure_item_code" align="center" width="100" class="i18n1" name="measureitemcode"></th>
                 <th field="measure_item_name" align="center" width="100" class="i18n1" name="measureitemname"></th>
+                <th field="measure_item_name_en" align="center" width="100" class="i18n1" name="measureitemnameen"></th>
                 <th field="measure_tool1" align="center" width="100" class="i18n1" name="measuretool1"></th>
                 <th field="measure_tool2" align="center" width="100" class="i18n1" name="measuretool2"></th>
                 <th field="measure_sample1" align="center" width="100" class="i18n1" name="measuresample1"></th>
@@ -143,8 +158,10 @@
 
 <!--工具栏-->
 <div id="toolsTab" style="padding:10px;">
+    <span class="i18n1" name="measureitemcode">测量项编码</span>:
+    <input id="searchArg1"  style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="measureitemname">测量项名称</span>:
-    <input id="measure_item_name" name="measure_item_name" style="line-height:22px;border:1px solid #ccc">
+    <input id="searchArg2" style="line-height:22px;border:1px solid #ccc">
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
         <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
@@ -161,17 +178,21 @@
             <table class="ht-table"  width="100%" border="0">
                 <tr>
                     <td class="i18n1" name="id">流水号</td>
-                    <td colspan="5">
+                    <td>
                         <label id="serialNumber" class="hl-label"></label>
                     </td>
-                </tr>
-
-                <tr>
+                    <td></td>
                     <td class="i18n1" name="measureitemcode"></td>
                     <td><input class="easyui-textbox" type="text" name="measure_item_code" value=""/></td>
                     <td></td>
+                </tr>
+
+                <tr>
                     <td class="i18n1" name="measureitemname"></td>
                     <td><input class="easyui-textbox" type="text" name="measure_item_name" value=""/></td>
+                    <td></td>
+                    <td class="i18n1" name="measureitemnameen"></td>
+                    <td><input class="easyui-textbox" type="text" name="measure_item_name_en" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -195,7 +216,7 @@
                     <td><input class="easyui-textbox" type="text" name="measure_unit" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="itemfrequency"></td>
-                    <td><input class="easyui-textbox" data-options="precision:2" type="text" name="item_frequency" value=""/></td>
+                    <td><input class="easyui-numberbox" data-options="precision:2" type="text" name="item_frequency" value=""/></td>
                     <td></td>
                 </tr>
 

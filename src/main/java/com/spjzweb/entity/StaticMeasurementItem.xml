@@ -12,32 +12,50 @@
             <if test="measure_item_code!=null and measure_item_code!=''">
                 AND r.measure_item_code LIKE CONCAT('%',#{measure_item_code},'%')
             </if>
+            <if test="measure_item_name!=null and measure_item_name!=''">
+                AND r.measure_item_name LIKE CONCAT('%',#{measure_item_name},'%')
+            </if>
+            <if test="measure_item_name!=null and measure_item_name!=''">
+                AND r.measure_item_name_en LIKE CONCAT('%',#{measure_item_name},'%')
+            </if>
         </where>
     </select>
 
     <select id="getAllByLike" resultType="map">
         select * from  static_measurement_item r
-
         <where>
             <if test="measure_item_code!=null and measure_item_code!=''">
                 AND r.measure_item_code LIKE CONCAT('%',#{measure_item_code},'%')
+            </if>
+            <if test="measure_item_name!=null and measure_item_name!=''">
+                AND r.measure_item_name LIKE CONCAT('%',#{measure_item_name},'%')
+            </if>
+            <if test="measure_item_name!=null and measure_item_name!=''">
+                AND r.measure_item_name_en LIKE CONCAT('%',#{measure_item_name},'%')
             </if>
         </where>
         ORDER BY id DESC
         limit #{skip},#{take}
     </select>
 
-
-    <select id="getStaticMeasurementItemByItemCode" resultType="com.spjzweb.entity.StaticMeasurementItem">
+    <!--修改时判断编号是否存在-->
+    <select id="getStaticMeasurementItemByItemCodeOfEdit" resultType="com.spjzweb.entity.StaticMeasurementItem">
         select * from  static_measurement_item r
         <where>
             <if test="measure_item_code!=null and measure_item_code!=''">
-                AND r.measure_item_code =#{measure_item_code}
+                #{measure_item_code}  IN (SELECT measure_item_code FROM static_measurement_item where measure_item_code!=#{measure_item_code})
             </if>
         </where>
     </select>
-
-
+    <!--添加时判断编号是否存在-->
+    <select id="getStaticMeasurementItemByItemCodeOfAdd" resultType="com.spjzweb.entity.StaticMeasurementItem">
+        select * from  static_measurement_item r
+        <where>
+            <if test="measure_item_code!=null and measure_item_code!=''">
+                AND r.measure_item_code=#{measure_item_code}
+            </if>
+        </where>
+    </select>
     <insert id="addStaticMeasurementItem" parameterType="com.spjzweb.entity.StaticMeasurementItem">
         INSERT INTO static_measurement_item(measure_item_code,measure_item_name,measure_item_name_en,measure_tool1,measure_tool2,measure_sample1,measure_sample2,measure_unit,item_frequency) VALUES (#{measure_item_code},#{measure_item_name},#{measure_item_name_en},#{measure_tool1},#{measure_tool2},#{measure_sample1},#{measure_sample2},#{measure_unit},#{item_frequency})
     </insert>

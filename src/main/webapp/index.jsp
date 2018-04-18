@@ -26,12 +26,12 @@
         var url;
         $(function(){
             var uriArr=["threadingprocess","toolmeasuringrecord",
-                "threadstandard","contractmanagement",
+                "threadstandard","contractmanagement","staticmeasureitem","dynamicmeasureitem",
                 "person","role","function"
                 ];
             var oneArr=uriArr.slice(0,2);
-            var twoArr=uriArr.slice(2,4);
-            var threeArr=uriArr.slice(4,7);
+            var twoArr=uriArr.slice(2,6);
+            var threeArr=uriArr.slice(6,9);
             var hsMapList="<%=session.getAttribute("userfunctionMap")%>";
             var funArr;
             if(hsMapList!=null&&hsMapList!=""&&hsMapList.length>0){
@@ -185,6 +185,20 @@
                             $('#bgTab').tabs('add',{
                                 title:node.text,
                                 content:"<iframe scrolling='auto' frameborder='0'  src='production/contractmanagement.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }else  if("静态测量项"==xy||"Static Measure Item"==xy){
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='production/staticmeasureitem.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }else  if("动态测量项"==xy||"Dynamic Measure Item"==xy){
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='production/dynamicmeasureitem.jsp' style='width:100%;height:100%;'></iframe>",
                                 closable:true
                             });
                             hlLanguage();

@@ -5,17 +5,17 @@ package com.spjzweb.dao;
 import com.spjzweb.entity.ThreadInspectionRecord;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public interface ThreadInspectionRecordDao {
 
-
     //模糊搜索带分页
-    public List<HashMap<String,Object>> getAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code, @Param("skip") int skip, @Param("take") int take);
+    public List<HashMap<String,Object>> getAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code, @Param("couping_no") String couping_no, @Param("operator_no")String operator_no, @Param("begin_time")Date begin_time, @Param("end_time")Date end_time, @Param("skip") int skip, @Param("take") int take);
 
     //模糊搜索总数
-    public int getCountAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    public int getCountAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code, @Param("couping_no") String couping_no,@Param("operator_no")String operator_no,@Param("begin_time")Date begin_time, @Param("end_time")Date end_time);
 
     //修改ItemRecord
     public int updateThreadInspectionRecord(ThreadInspectionRecord threadInspectionRecord);
@@ -23,10 +23,7 @@ public interface ThreadInspectionRecordDao {
     public int addThreadInspectionRecord(ThreadInspectionRecord threadInspectionRecord);
     //删除ItemRecord
     public int delThreadInspectionRecord(String[] arrId);
-
     //根据 thread_inspection_record_code 得到 ThreadInspectionRecord 集合
     public List<HashMap<String,Object>> getThreadInspectionRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
-
-
 
 }

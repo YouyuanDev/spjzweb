@@ -15,7 +15,7 @@
         </where>
     </select>
 
-    <select id="getAllByLike" resultType="map">
+    <select id="getAllByLike" resultType="com.spjzweb.entity.ThreadingAcceptanceCriteria">
         select * from  threading_acceptance_criteria r
         <where>
             <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
@@ -26,6 +26,11 @@
         limit #{skip},#{take}
     </select>
 
+    <select id="getAllDropDown" resultType="com.spjzweb.entity.ThreadingAcceptanceCriteria">
+        select * from  threading_acceptance_criteria
+        ORDER BY id DESC
+        limit 1000
+    </select>
 
     <select id="getThreadingAcceptanceCriteriaByAcceptanceCriteriaNo" resultType="map">
         select * from  threading_acceptance_criteria r inner join dynamic_measurement_item d

@@ -22,6 +22,6 @@ public interface ContractInfoDao {
     public int delContractInfo(String[] arrId);
 
     //根据 contract_no 得到 ContractInfo 集合
-    public List<ContractInfo> getContractInfoByContractNo(@Param("contract_no") String contract_no);
-
+    public List<ContractInfo> getContractInfoByContractNoOfAdd(@Param("contract_no") String contract_no);
+    public List<ContractInfo> getContractInfoByContractNoOfEdit(@Param("contract_no") String contract_no);
 }

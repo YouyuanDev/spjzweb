@@ -38,7 +38,7 @@
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');
             clearFormLabel();
-            url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
+            url="/DynamicMeasure/saveDynamicMeasureItem.action";
         }
         function delFunction() {
             var row = $('#contentDatagrids').datagrid('getSelections');
@@ -50,7 +50,7 @@
                 var idArrs=idArr.join(',');
                 $.messager.confirm('系统提示',"您确定要删除这<font color=red>"+idArr.length+ "</font>条数据吗？",function (r) {
                     if(r){
-                        $.post("/AcceptanceCriteriaOperation/delThreadAcceptanceCriteria.action",{"hlparam":idArrs},function (data) {
+                        $.post("/DynamicMeasure/delDynamicMeasureItem.action",{"hlparam":idArrs},function (data) {
                             if(data.success){
                                 $("#contentDatagrids").datagrid("reload");
                             }
@@ -71,7 +71,7 @@
                 $("#serialNumber").text(row.id);
                 var lasttime=formatterdate(row.last_update_time);
                 $("#lastupdatetime").text(lasttime);
-                url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id="+row.id;
+                url="/DynamicMeasure/saveDynamicMeasureItem.action?id="+row.id;
             }else{
                 hlAlertTwo();
             }
@@ -85,7 +85,12 @@
             $('#addEditForm').form('submit',{
                 url:url,
                 onSubmit:function () {
-
+                    if($("input[name='item_frequency']").val()==""){
+                        hlAlertFour("请输入测量项检验频率!");
+                        return false;
+                    }
+                    setParamsMax($("input[name='item_max_value']"));
+                    setParamsMin($("input[name='item_min_value']"));
                 },
                 success: function(result){
                     var result = eval('('+result+')');
@@ -109,6 +114,14 @@
             $('#addEditForm').form('clear');
             $('.hl-label').text('');
         }
+        function  setParamsMax($obj) {
+            if($obj.val()==null||$obj.val()=="")
+                $obj.val(9999);
+        }
+        function  setParamsMin($obj) {
+            if($obj.val()==null||$obj.val()=="")
+                $obj.val(-9999);
+        }
     </script>
 
 
@@ -121,7 +134,7 @@
 <fieldset class="b3" style="padding:10px;margin:10px;">
     <legend> <h3><b style="color: orange" >|&nbsp;</b><span class="i18n1" name="datadisplay">数据展示</span></h3></legend>
     <div  style="margin-top:5px;">
-        <table class="easyui-datagrid" id="contentDatagrids" url="/AcceptanceCriteriaOperation/getAllThreadAcceptanceCriteria.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
+        <table class="easyui-datagrid" id="contentDatagrids" url="/DynamicMeasure/getDynamicMeasureItemByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
             <thead>
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
@@ -160,24 +173,42 @@
                     <td>
                         <label id="serialNumber" class="hl-label"></label>
                     </td>
+                    <td></td>
+                    <td class="i18n1" name="threadacceptancecriteriano"></td>
+                    <td>
+                        <input id="millno" class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
+                                "url:'/AcceptanceCriteriaOperation/getAllDropDownAcceptanceCriteria.action',
+					        method:'get',
+					        valueField:'id',
+					        width: 185,
+					        editable:false,
+					        textField:'text',
+                            onSelect: function(rec){
+                               var url = '/DynamicMeasure/getAllDropDownAcceptanceCriteria.action?id='+rec.id;
+                               $('#mic').combobox('reload', url);
+                             }
+                         "/>
+                        <%--<input class="easyui-textbox" type="text" name="thread_acceptance_criteria_no" value=""/>--%>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td class="i18n1" name="measureitemcode"></td>
-                    <td><input class="easyui-textbox" type="text" name="measure_item_code" value=""/></td>
+                    <td>
+                        <input id="mic" class="easyui-combobox" name="measure_item_code" data-options="valueField:'id',textField:'text'">
+                        <%--<input class="easyui-textbox" type="text" name="measure_item_code" value=""/>--%>
+                    </td>
+                    <td></td>
+                    <td class="i18n1" name="itemfrequency"></td>
+                    <td><input class="easyui-textbox" type="text" data-options="precision:2" name="item_frequency" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td class="i18n1" name="itemmaxvalue"></td>
-                    <td><input class="easyui-textbox" data-options="precision:2" type="text" name="item_max_value" value=""/></td>
+                    <td><input class="easyui-numberbox" data-options="precision:2" type="text" name="item_max_value" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="itemminvalue"></td>
-                    <td><input class="easyui-textbox" data-options="precision:2" type="text" name="item_min_value" value=""/></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="i18n1" name="itemfrequency"></td>
-                    <td><input class="easyui-textbox" type="text" data-options="precision:2" name="item_frequency" value=""/></td>
-                    <td></td>
-                    <td class="i18n1" name="threadacceptancecriteriano"></td>
-                    <td><input class="easyui-textbox" type="text" name="thread_acceptance_criteria_no" value=""/></td>
+                    <td><input class="easyui-numberbox" data-options="precision:2" type="text" name="item_min_value" value=""/></td>
                     <td></td>
                 </tr>
             </table>

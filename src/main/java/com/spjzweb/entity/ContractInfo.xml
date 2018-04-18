@@ -28,7 +28,7 @@
     </select>
 
 
-    <select id="getContractInfoByContractNo" resultType="com.spjzweb.entity.ContractInfo">
+    <select id="getContractInfoByContractNoOfAdd" resultType="com.spjzweb.entity.ContractInfo">
         select * from  contract_info r
         <where>
             <if test="contract_no!=null and contract_no!=''">
@@ -36,15 +36,20 @@
             </if>
         </where>
     </select>
-
-
-
+    <select id="getContractInfoByContractNoOfEdit" resultType="com.spjzweb.entity.ContractInfo">
+        select * from  contract_info r
+        <where>
+            <if test="contract_no!=null and contract_no!=''">
+                #{contract_no}  IN (SELECT contract_no FROM contract_info where contract_no!=#{contract_no})
+            </if>
+        </where>
+    </select>
     <insert id="addContractInfo" parameterType="com.spjzweb.entity.ContractInfo">
-        INSERT INTO contract_info(contract_no,machining_contract_no,od,wt,pipe_heat_no,pipe_lot_no,pipe_steel_grade,pipe_meterial,graph_no,handbook_no,seal_sample_graph_no,thread_sample_graph_no,thread_acceptance_criteria_no,remark) VALUES (#{measure_item_code},#{measure_item_name},#{measure_item_name_en},#{measure_tool1},#{measure_tool2},#{measure_sample1},#{measure_sample2},#{measure_unit},#{item_frequency})
+      INSERT INTO contract_info(contract_no,machining_contract_no,od,wt,pipe_heat_no,pipe_lot_no,pipe_steel_grade,pipe_meterial,graph_no,handbook_no,seal_sample_graph_no,thread_sample_graph_no,thread_acceptance_criteria_no,remark) VALUES (#{contract_no},#{machining_contract_no},#{od},#{wt},#{pipe_heat_no},#{pipe_lot_no},#{pipe_steel_grade},#{pipe_meterial},#{graph_no},#{handbook_no},#{seal_sample_graph_no},#{thread_sample_graph_no},#{thread_acceptance_criteria_no},#{remark})
     </insert>
 
     <update id="updateContractInfo" parameterType="com.spjzweb.entity.ContractInfo">
-        UPDATE contract_info set #{contract_no},#{machining_contract_no},#{od},#{wt},#{pipe_heat_no},#{pipe_lot_no},#{pipe_steel_grade},#{pipe_meterial},#{graph_no},#{handbook_no},#{seal_sample_graph_no},#{thread_sample_graph_no},#{thread_acceptance_criteria_no},#{remark} where id=#{id}
+      UPDATE contract_info set contract_no=#{contract_no},machining_contract_no=#{machining_contract_no},od=#{od},wt=#{wt},pipe_heat_no=#{pipe_heat_no},pipe_lot_no=#{pipe_lot_no},pipe_steel_grade=#{pipe_steel_grade},pipe_meterial=#{pipe_meterial},graph_no=#{graph_no},handbook_no=#{handbook_no},seal_sample_graph_no=#{seal_sample_graph_no},thread_sample_graph_no=#{thread_sample_graph_no},thread_acceptance_criteria_no=#{thread_acceptance_criteria_no},remark=#{remark} where id=#{id}
     </update>
 
 

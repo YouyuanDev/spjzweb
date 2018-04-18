@@ -41,6 +41,17 @@
             </if>
         </where>
     </select>
+    <select id="getDataByItemCodeAndAcceptanceCriteriaNo" resultType="com.spjzweb.entity.DynamicMeasurementItem">
+        select * from  dynamic_measurement_item r
+        <where>
+            <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
+                AND r.thread_acceptance_criteria_no =#{thread_acceptance_criteria_no}
+            </if>
+            <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
+                AND r.measure_item_code =#{measure_item_code}
+            </if>
+        </where>
+    </select>
 
 
 
@@ -59,4 +70,10 @@
             #{item}
         </foreach>
     </delete>
+
+    <select id="getAllDropDownStaticMeasureItem" resultType="map">
+        select s.measure_item_code,s.measure_item_name,s.measure_item_name_en from static_measurement_item s WHERE s.measure_item_code not in(
+             SELECT d.measure_item_code from dynamic_measurement_item as d where d.thread_acceptance_criteria_no=#{thread_acceptance_criteria_no}
+        )
+    </select>
 </mapper>
