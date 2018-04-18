@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spjzweb.dao.ThreadInspectionRecordDao">
+
+
+    <select id="getCountAllByLike" resultType="int">
+        select count(*) from thread_inspection_record r
+        <where>
+            <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                AND r.thread_inspection_record_code LIKE CONCAT('%',#{thread_inspection_record_code},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllByLike" resultType="map">
+        select * from  thread_inspection_record r
+
+        <where>
+            <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                AND r.thread_inspection_record_code LIKE CONCAT('%',#{thread_inspection_record_code},'%')
+            </if>
+        </where>
+        ORDER BY id DESC
+        limit #{skip},#{take}
+    </select>
+
+
+    <select id="getThreadInspectionRecordByInspectionRecordCode" resultType="map">
+        select * from  thread_inspection_record r inner join item_record ir on ir.thread_inspection_record_code=r.thread_inspection_record_code
+        <where>
+            <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                AND r.thread_inspection_record_code =#{thread_inspection_record_code}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addThreadInspectionRecord" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
+        INSERT INTO thread_inspection_record(thread_inspection_record_code,couping_no,contract_no,production_line,machine_no,process_no,operator_no,production_crew,production_shift,video_no,inspection_time,inspection_result) VALUES (#{thread_inspection_record_code},#{couping_no},#{contract_no},#{production_line},#{machine_no},#{process_no},#{operator_no},#{production_crew},#{production_shift},#{video_no},#{inspection_time},#{inspection_result})
+    </insert>
+
+    <update id="updateThreadInspectionRecord" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
+        UPDATE thread_inspection_record set thread_inspection_record_code=#{thread_inspection_record_code},couping_no=#{couping_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result} where id=#{id}
+    </update>
+
+
+    <delete id="delThreadInspectionRecord">
+        delete from thread_inspection_record WHERE
+        <foreach collection="array" item="item" open="id in (" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

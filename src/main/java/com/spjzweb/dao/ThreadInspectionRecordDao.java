@@ -1,0 +1,32 @@
+package com.spjzweb.dao;
+
+
+
+import com.spjzweb.entity.ThreadInspectionRecord;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.HashMap;
+import java.util.List;
+
+public interface ThreadInspectionRecordDao {
+
+
+    //模糊搜索带分页
+    public List<HashMap<String,Object>> getAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code, @Param("skip") int skip, @Param("take") int take);
+
+    //模糊搜索总数
+    public int getCountAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+
+    //修改ItemRecord
+    public int updateThreadInspectionRecord(ThreadInspectionRecord threadInspectionRecord);
+    //增加ItemRecord
+    public int addThreadInspectionRecord(ThreadInspectionRecord threadInspectionRecord);
+    //删除ItemRecord
+    public int delThreadInspectionRecord(String[] arrId);
+
+    //根据 thread_inspection_record_code 得到 ThreadInspectionRecord 集合
+    public List<HashMap<String,Object>> getThreadInspectionRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+
+
+
+}

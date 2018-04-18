@@ -3,8 +3,6 @@ package com.spjzweb.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.spjzweb.dao.ThreadAcceptanceCriteriaDao;
-import com.spjzweb.entity.ThreadAcceptanceCriteria;
 import com.spjzweb.util.ComboxItem;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;

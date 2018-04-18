@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spjzweb.dao.StaticMeasurementItemDao">
+
+
+    <select id="getCountAllByLike" resultType="int">
+        select count(*) from static_measurement_item r
+        <where>
+            <if test="measure_item_code!=null and measure_item_code!=''">
+                AND r.measure_item_code LIKE CONCAT('%',#{measure_item_code},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllByLike" resultType="map">
+        select * from  static_measurement_item r
+
+        <where>
+            <if test="measure_item_code!=null and measure_item_code!=''">
+                AND r.measure_item_code LIKE CONCAT('%',#{measure_item_code},'%')
+            </if>
+        </where>
+        ORDER BY id DESC
+        limit #{skip},#{take}
+    </select>
+
+
+    <select id="getStaticMeasurementItemByItemCode" resultType="com.spjzweb.entity.StaticMeasurementItem">
+        select * from  static_measurement_item r
+        <where>
+            <if test="measure_item_code!=null and measure_item_code!=''">
+                AND r.measure_item_code =#{measure_item_code}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addStaticMeasurementItem" parameterType="com.spjzweb.entity.StaticMeasurementItem">
+        INSERT INTO static_measurement_item(measure_item_code,measure_item_name,measure_item_name_en,measure_tool1,measure_tool2,measure_sample1,measure_sample2,measure_unit,item_frequency) VALUES (#{measure_item_code},#{measure_item_name},#{measure_item_name_en},#{measure_tool1},#{measure_tool2},#{measure_sample1},#{measure_sample2},#{measure_unit},#{item_frequency})
+    </insert>
+
+    <update id="updateStaticMeasurementItem" parameterType="com.spjzweb.entity.StaticMeasurementItem">
+        UPDATE static_measurement_item set measure_item_code=#{measure_item_code},measure_item_name=#{measure_item_name},measure_item_name_en=#{measure_item_name_en},measure_tool1=#{measure_tool1},measure_tool2=#{measure_tool2},measure_sample1=#{measure_sample1},measure_sample2=#{measure_sample2},measure_unit=#{measure_unit},item_frequency=#{item_frequency} where id=#{id}
+    </update>
+
+
+    <delete id="delStaticMeasurementItem">
+        delete from static_measurement_item WHERE
+        <foreach collection="array" item="item" open="id in (" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>
