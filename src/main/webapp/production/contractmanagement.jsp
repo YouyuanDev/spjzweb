@@ -33,15 +33,15 @@
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
             // hlLanguage("../i18n/");
         });
-        function addContractInfo(){
+        function addFunction(){
             $('#hlcancelBtn').attr('operationtype','add');
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
-            $('#idContractInfoId').text('');
+            $('#serialNumber').text('');//流水号
             clearFormLabel();
             url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
         }
-        function delContractInfo() {
-            var row = $('#ContractInfoDatagrids').datagrid('getSelections');
+        function delFunction() {
+            var row = $('#contentDatagrids').datagrid('getSelections');
             if(row.length>0){
                 var idArr=[];
                 for (var i=0;i<row.length;i++){
@@ -52,7 +52,7 @@
                     if(r){
                         $.post("/AcceptanceCriteriaOperation/delThreadAcceptanceCriteria.action",{"hlparam":idArrs},function (data) {
                             if(data.success){
-                                $("#ContractInfoDatagrids").datagrid("reload");
+                                $("#contentDatagrids").datagrid("reload");
                             }
                             hlAlertFour(data.message);
                         },"json");
@@ -62,13 +62,13 @@
                 hlAlertOne();
             }
         }
-        function editContractInfo(){
+        function editFunction(){
             $('#hlcancelBtn').attr('operationtype','edit');
-            var row = $('#ContractInfoDatagrids').datagrid('getSelected');
+            var row = $('#contentDatagrids').datagrid('getSelected');
             if(row){
                 $('#addEditDialog').dialog('open').dialog('setTitle','修改');
                 $('#addEditForm').form('load',row);
-                $("#idContractInfoId").text(row.id);
+                $("#serialNumber").text(row.id);
                 var lasttime=formatterdate(row.last_update_time);
                 $("#lastupdatetime").text(lasttime);
                 url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id="+row.id;
@@ -76,8 +76,8 @@
                 hlAlertTwo();
             }
         }
-        function searchContractInfo() {
-            $('#ContractInfoDatagrids').datagrid('load',{
+        function searchFunction() {
+            $('#contentDatagrids').datagrid('load',{
                 'contract_no': $('#contract_no').val()
             });
         }
@@ -96,7 +96,7 @@
                     var result = eval('('+result+')');
                     $('#addEditDialog').dialog('close');
                     if (result.success){
-                        $('#ContractInfoDatagrids').datagrid('reload');
+                        $('#contentDatagrids').datagrid('reload');
                     }
                     hlAlertFour(result.message);
                 },
@@ -106,7 +106,7 @@
                 }
             });
         }
-        function idContractInfoCancelSubmit() {
+        function CancelSubmit() {
             $('#addEditDialog').dialog('close');
         }
         function  clearFormLabel(){
@@ -125,7 +125,7 @@
 <fieldset class="b3" style="padding:10px;margin:10px;">
     <legend> <h3><b style="color: orange" >|&nbsp;</b><span class="i18n1" name="datadisplay">数据展示</span></h3></legend>
     <div  style="margin-top:5px;">
-        <table class="easyui-datagrid" id="ContractInfoDatagrids" url="/AcceptanceCriteriaOperation/getAllThreadAcceptanceCriteria.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
+        <table class="easyui-datagrid" id="contentDatagrids" url="/AcceptanceCriteriaOperation/getAllThreadAcceptanceCriteria.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
             <thead>
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
@@ -154,11 +154,11 @@
 <div id="toolsTab" style="padding:10px;">
     <span class="i18n1" name="contractno">合同号</span>:
     <input id="contract_no" name="contract_no" style="line-height:22px;border:1px solid #ccc">
-    <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchContractInfo()">Search</a>
+    <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
-        <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addContractInfo()">添加</a>
-        <a href="#" id="editObpLinkBtn" class="easyui-linkbutton i18n1" name="edit" data-options="iconCls:'icon-edit',plain:true" onclick="editContractInfo()">修改</a>
-        <a href="#" id="deltObpLinkBtn" class="easyui-linkbutton i18n1" name="delete" data-options="iconCls:'icon-remove',plain:true" onclick="delContractInfo()">删除</a>
+        <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
+        <a href="#" id="editObpLinkBtn" class="easyui-linkbutton i18n1" name="edit" data-options="iconCls:'icon-edit',plain:true" onclick="editFunction()">修改</a>
+        <a href="#" id="deltObpLinkBtn" class="easyui-linkbutton i18n1" name="delete" data-options="iconCls:'icon-remove',plain:true" onclick="delFunction()">删除</a>
     </div>
 </div>
 
@@ -171,7 +171,7 @@
                 <tr>
                     <td class="i18n1" name="id">流水号</td>
                     <td colspan="1">
-                        <label id="idContractInfoId" class="hl-label"></label>
+                        <label id="serialNumber" class="hl-label"></label>
                     </td>
                     <td></td>
                     <td class="i18n1" name="contractno"></td>
@@ -240,7 +240,7 @@
 </div>
 <div id="dlg-buttons" align="center" style="width:900px;">
     <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="addEditFormSubmit()">Save</a>
-    <a href="#" class="easyui-linkbutton" id="hlcancelBtn" operationtype="add" iconCls="icon-cancel" onclick="idContractInfoCancelSubmit()">Cancel</a>
+    <a href="#" class="easyui-linkbutton" id="hlcancelBtn" operationtype="add" iconCls="icon-cancel" onclick="CancelSubmit()">Cancel</a>
 </div>
 
 
