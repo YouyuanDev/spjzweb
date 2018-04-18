@@ -26,12 +26,12 @@
         var url;
         $(function(){
             var uriArr=["threadingprocess","toolmeasuringrecord",
-                "threadstandard",
+                "threadstandard","contractmanagement",
                 "person","role","function"
                 ];
             var oneArr=uriArr.slice(0,2);
-            var twoArr=uriArr.slice(2,3);
-            var threeArr=uriArr.slice(3,6);
+            var twoArr=uriArr.slice(2,4);
+            var threeArr=uriArr.slice(4,7);
             var hsMapList="<%=session.getAttribute("userfunctionMap")%>";
             var funArr;
             if(hsMapList!=null&&hsMapList!=""&&hsMapList.length>0){
@@ -178,6 +178,13 @@
                             $('#bgTab').tabs('add',{
                                 title:node.text,
                                 content:"<iframe scrolling='auto' frameborder='0'  src='production/threadstandard.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }else  if("合同管理"==xy||"Contract Management"==xy){
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='production/contractmanagement.jsp' style='width:100%;height:100%;'></iframe>",
                                 closable:true
                             });
                             hlLanguage();
