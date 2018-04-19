@@ -8,8 +8,6 @@ public class StaticMeasurementItem {
     private String measure_item_name_en;
     private String measure_tool1;
     private String measure_tool2;
-    private String measure_sample1;
-    private String measure_sample2;
     private String measure_unit;
     private float  item_frequency;
 
@@ -18,15 +16,13 @@ public class StaticMeasurementItem {
     }
 
 
-    public StaticMeasurementItem(int id, String measure_item_code, String measure_item_name, String measure_item_name_en, String measure_tool1, String measure_tool2, String measure_sample1, String measure_sample2, String measure_unit, float item_frequency) {
+    public StaticMeasurementItem(int id, String measure_item_code, String measure_item_name, String measure_item_name_en, String measure_tool1, String measure_tool2,String measure_unit, float item_frequency) {
         this.id = id;
         this.measure_item_code = measure_item_code;
         this.measure_item_name = measure_item_name;
         this.measure_item_name_en = measure_item_name_en;
         this.measure_tool1 = measure_tool1;
         this.measure_tool2 = measure_tool2;
-        this.measure_sample1 = measure_sample1;
-        this.measure_sample2 = measure_sample2;
         this.measure_unit = measure_unit;
         this.item_frequency = item_frequency;
     }
@@ -77,22 +73,6 @@ public class StaticMeasurementItem {
 
     public void setMeasure_tool2(String measure_tool2) {
         this.measure_tool2 = measure_tool2;
-    }
-
-    public String getMeasure_sample1() {
-        return measure_sample1;
-    }
-
-    public void setMeasure_sample1(String measure_sample1) {
-        this.measure_sample1 = measure_sample1;
-    }
-
-    public String getMeasure_sample2() {
-        return measure_sample2;
-    }
-
-    public void setMeasure_sample2(String measure_sample2) {
-        this.measure_sample2 = measure_sample2;
     }
 
     public String getMeasure_unit() {

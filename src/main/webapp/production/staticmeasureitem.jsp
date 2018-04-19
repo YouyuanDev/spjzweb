@@ -136,7 +136,7 @@
 <fieldset class="b3" style="padding:10px;margin:10px;">
     <legend> <h3><b style="color: orange" >|&nbsp;</b><span class="i18n1" name="datadisplay">数据展示</span></h3></legend>
     <div  style="margin-top:5px;">
-        <table class="easyui-datagrid" id="contentDatagrids" url="/StaticMeasure/getStaticMeasureItemByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
+        <table class="easyui-datagrid" id="contentDatagrids" url="/StaticMeasure/getStaticMeasureItemAllByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#toolsTab">
             <thead>
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
@@ -146,8 +146,6 @@
                 <th field="measure_item_name_en" align="center" width="100" class="i18n1" name="measureitemnameen"></th>
                 <th field="measure_tool1" align="center" width="100" class="i18n1" name="measuretool1"></th>
                 <th field="measure_tool2" align="center" width="100" class="i18n1" name="measuretool2"></th>
-                <th field="measure_sample1" align="center" width="100" class="i18n1" name="measuresample1"></th>
-                <th field="measure_sample2" align="center" width="100" class="i18n1" name="measuresample2"></th>
                 <th field="measure_unit" align="center" width="100" class="i18n1" name="measureunit"></th>
                 <th field="item_frequency" align="center" width="100" class="i18n1" name="itemfrequency"></th>
             </tr>
@@ -201,14 +199,6 @@
                     <td></td>
                     <td class="i18n1" name="measuretool2"></td>
                     <td><input class="easyui-textbox" type="text" name="measure_tool2" value=""/></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="i18n1" name="measuresample1"></td>
-                    <td><input class="easyui-textbox" type="text" name="measure_sample1" value=""/></td>
-                    <td></td>
-                    <td class="i18n1" name="measuresample2"></td>
-                    <td><input class="easyui-textbox" type="text" name="measure_sample2" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>

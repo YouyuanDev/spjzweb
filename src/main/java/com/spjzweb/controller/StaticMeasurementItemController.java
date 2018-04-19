@@ -24,9 +24,9 @@ public class StaticMeasurementItemController {
     @Autowired
     private StaticMeasurementItemDao staticMeasurementItemDao;
     //搜索
-    @RequestMapping(value = "getStaticMeasureItemByLike",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "getStaticMeasureItemAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getStaticMeasureItemByLike(@RequestParam(value = "measure_item_code",required = false)String measure_item_code,@RequestParam(value = "measure_item_name",required = false)String measure_item_name, HttpServletRequest request){
+    public String getStaticMeasureItemAllByLike(@RequestParam(value = "measure_item_code",required = false)String measure_item_code,@RequestParam(value = "measure_item_name",required = false)String measure_item_name, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){
@@ -67,10 +67,8 @@ public class StaticMeasurementItemController {
             }else{
                 if(staticMeasurementItem.getId()==0){
                     //添加
-                    System.out.println("添加－－－－－－－－－");
                     resTotal=staticMeasurementItemDao.addStaticMeasurementItem(staticMeasurementItem);
                 }else{
-                    System.out.println("修改－－－－－－－－－");
                     //修改！
                     resTotal=staticMeasurementItemDao.updateStaticMeasurementItem(staticMeasurementItem);
                 }
@@ -116,6 +114,28 @@ public class StaticMeasurementItemController {
         }
         json.put("message",sbmessage.toString());
         ResponseUtil.write(response,json);
+        return null;
+    }
+    //获取所有的静态测量项的编码和名字
+    @RequestMapping(value = "/getAllDropdownStaticItem",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String getAllDropdownStaticItem(HttpServletResponse response){
+        JSONObject json=new JSONObject();
+        try{
+           List<HashMap<String,Object>>hsList=staticMeasurementItemDao.getAllDropdownStaticItem();
+           String mmp= JSONArray.toJSONString(hsList);
+            json.put("promptkey","success");
+            json.put("promptValue",mmp);
+        }catch (Exception e){
+            json.put("promptkey","error");
+            json.put("promptValue",e.getMessage());
+        }finally {
+            try{
+                ResponseUtil.write(response,json);
+            }catch (Exception e){
+
+            }
+        }
         return null;
     }
 }

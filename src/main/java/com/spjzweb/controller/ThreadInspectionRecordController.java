@@ -3,6 +3,7 @@ package com.spjzweb.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.spjzweb.dao.ThreadInspectionRecordDao;
+import com.spjzweb.entity.ThreadInspectionRecord;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,9 @@ public class ThreadInspectionRecordController {
    
     @Autowired
     private ThreadInspectionRecordDao threadInspectionRecordDao;
-    @RequestMapping(value = "/getAllThreadInspectionByLike")
+    @RequestMapping(value = "/getThreadInspectionAllByLike")
     @ResponseBody
-    public String getAllThreadInspectionByLike(@RequestParam(value = "thread_inspection_record_code",required = false)String thread_inspection_record_code,@RequestParam(value = "couping_no",required = false)String couping_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
+    public String getThreadInspectionAllByLike(@RequestParam(value = "thread_inspection_record_code",required = false)String thread_inspection_record_code,@RequestParam(value = "couping_no",required = false)String couping_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){
@@ -60,76 +61,72 @@ public class ThreadInspectionRecordController {
         String mmp= JSONArray.toJSONString(maps);
         return mmp;
     }
+    @RequestMapping("/saveThreadingProcess")
+    @ResponseBody
+    public String saveThreadingProcess(ThreadInspectionRecord threadingProcess, HttpServletRequest request, HttpServletResponse response){
+        JSONObject json=new JSONObject();
+        try{
+            String odbptime= request.getParameter("inspectiontime");
+            int resTotal=0;
+            if(odbptime!=null&&odbptime!=""){
+                SimpleDateFormat simFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date new_odbptime = simFormat.parse(odbptime);
+                threadingProcess.setInspection_time(new_odbptime);
+            }else{
+                threadingProcess.setInspection_time(new Date());
+            }
+            if(threadingProcess.getId()==0){
+                //添加
+                resTotal=threadInspectionRecordDao.addThreadInspectionRecord(threadingProcess);
+            }else{
+                //修改！
+                resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
 
-//    @Autowired
-//    private ToolMeasuringRecordDao toolMeasuringRecordDao;
-//    @RequestMapping("/saveThreadingProcess")
-//    @ResponseBody
-//    public String saveThreadingProcess(ThreadingProcess threadingProcess, HttpServletRequest request, HttpServletResponse response){
-//        JSONObject json=new JSONObject();
-//        try{
-//            String odbptime= request.getParameter("inspectiontime");
-//            int resTotal=0;
-//            if(odbptime!=null&&odbptime!=""){
-//                SimpleDateFormat simFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                Date new_odbptime = simFormat.parse(odbptime);
-//                threadingProcess.setInspection_time(new_odbptime);
-//            }else{
-//                threadingProcess.setInspection_time(new Date());
-//            }
-//            if(threadingProcess.getId()==0){
-//                //添加
-//                resTotal=threadingProcessDao.addThreadingProcess(threadingProcess);
-//
-//            }else{
-//                //修改！
-//                resTotal=threadingProcessDao.updateThreadingProcess(threadingProcess);
-//
-//            }
-//            if(resTotal>0){
-//                json.put("success",true);
-//                json.put("message","保存成功");
-//            }else{
-//                json.put("success",false);
-//                json.put("message","保存失败");
-//            }
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            json.put("success",false);
-//            json.put("message",e.getMessage());
-//
-//        }finally {
-//            try {
-//                ResponseUtil.write(response, json);
-//            }catch  (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return null;
-//    }
-//    @RequestMapping("/delThreadingProcess")
-//    public String delThreadingProcess(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
-//        String[]idArr=hlparam.split(",");
-//        int resTotal=0;
-//        resTotal=threadingProcessDao.delThreadingProcess(idArr);
-//        JSONObject json=new JSONObject();
-//        StringBuilder sbmessage = new StringBuilder();
-//        sbmessage.append("总共");
-//        sbmessage.append(Integer.toString(resTotal));
-//        sbmessage.append("项螺纹检验信息删除成功\n");
-//        if(resTotal>0){
-//            //System.out.print("删除成功");
-//            json.put("success",true);
-//        }else{
-//            //System.out.print("删除失败");
-//            json.put("success",false);
-//        }
-//        json.put("message",sbmessage.toString());
-//        ResponseUtil.write(response,json);
-//        return null;
-//    }
-//
+            }
+            if(resTotal>0){
+                json.put("promptkey","success");
+                json.put("promptValue","保存成功");
+            }else{
+                json.put("promptkey","fail");
+                json.put("promptValue","保存失败");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            json.put("promptkey","fail");
+            json.put("promptValue",e.getMessage());
+
+        }finally {
+            try {
+                ResponseUtil.write(response, json);
+            }catch  (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    @RequestMapping("/delThreadingProcess")
+    public String delThreadingProcess(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
+        String[]idArr=hlparam.split(",");
+        int resTotal=0;
+        resTotal=threadInspectionRecordDao.delThreadInspectionRecord(idArr);
+        JSONObject json=new JSONObject();
+        StringBuilder sbmessage = new StringBuilder();
+        sbmessage.append("总共");
+        sbmessage.append(Integer.toString(resTotal));
+        sbmessage.append("项螺纹检验信息删除成功\n");
+        if(resTotal>0){
+            //System.out.print("删除成功");
+            json.put("success",true);
+        }else{
+            //System.out.print("删除失败");
+            json.put("success",false);
+        }
+        json.put("message",sbmessage.toString());
+        ResponseUtil.write(response,json);
+        return null;
+    }
+
 
 //    @RequestMapping(value = "/saveThreadingProcessByWinform")
 //    @ResponseBody

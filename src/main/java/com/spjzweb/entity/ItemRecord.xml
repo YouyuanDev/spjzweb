@@ -45,11 +45,11 @@
 
 
     <insert id="addItemRecord" parameterType="com.spjzweb.entity.ItemRecord">
-        INSERT INTO item_record(itemcode,itemvalue,toolcode1,toolcode2,thread_inspection_record_code) VALUES (#{itemcode},#{itemvalue},#{toolcode1},#{toolcode2},#{thread_inspection_record_code})
+        INSERT INTO item_record(itemcode,itemvalue,toolcode1,toolcode2,measure_sample1,measure_sample2,thread_inspection_record_code) VALUES (#{itemcode},#{itemvalue},#{toolcode1},#{toolcode2},#{measure_sample1},#{measure_sample2},#{thread_inspection_record_code})
     </insert>
 
     <update id="updateItemRecord" parameterType="com.spjzweb.entity.ItemRecord">
-        UPDATE item_record set itemcode=#{itemcode},itemvalue=#{itemvalue},toolcode1=#{toolcode1},toolcode2=#{toolcode2},thread_inspection_record_code=#{thread_inspection_record_code} where id=#{id}
+        UPDATE item_record set itemcode=#{itemcode},itemvalue=#{itemvalue},toolcode1=#{toolcode1},toolcode2=#{toolcode2},measure_sample1=#{measure_sample1},measure_sample2=#{measure_sample2},thread_inspection_record_code=#{thread_inspection_record_code} where id=#{id}
     </update>
 
 

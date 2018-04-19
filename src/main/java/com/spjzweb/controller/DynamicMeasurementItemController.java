@@ -26,9 +26,9 @@ import java.util.Map;
 public class DynamicMeasurementItemController {
     @Autowired
     private DynamicMeasurementItemDao dynamicMeasurementItemDao;
-    @RequestMapping(value = "getDynamicMeasureItemByLike",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "getDynamicMeasureItemAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getDynamicMeasureItemByLike(@RequestParam(value = "measure_item_code",required = false)String measure_item_code,@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
+    public String getDynamicMeasureItemAllByLike(@RequestParam(value = "measure_item_code",required = false)String measure_item_code,@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){
@@ -45,34 +45,91 @@ public class DynamicMeasurementItemController {
         maps.put("rows",list);
         String mmp= JSONArray.toJSONString(list);
         return mmp;
-
     }
+    //根据就收标准的编号查询所有的动态测量项信息
+    @RequestMapping(value = "getDynamicMeasureItemByAcceptanceNo",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String getDynamicMeasureItemByAcceptanceNo(HttpServletRequest request){
+        String thread_acceptance_criteria_no=request.getParameter("thread_acceptance_criteria_no");
+        List<DynamicMeasurementItem> list=new ArrayList<>();
+        String mmp= "";
+        if(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals("")){
+            list=dynamicMeasurementItemDao.getDynamicMeasureItemByAcceptanceNo(thread_acceptance_criteria_no);
+            Map<String,Object> maps=new HashMap<String,Object>();
+            mmp=JSONArray.toJSONString(list);
+        }
+        return mmp;
+    }
+
     //保存function
     @RequestMapping(value = "/saveDynamicMeasureItem")
     @ResponseBody
-    public String saveDynamicMeasureItem(DynamicMeasurementItem dynamicMeasurementItem, HttpServletResponse response){
+    public String saveDynamicMeasureItem(HttpServletRequest request,HttpServletResponse response){
         JSONObject json=new JSONObject();
         try{
             int resTotal=0;
             //先判断是否存在相通的合同编号
-            List<DynamicMeasurementItem>InfoList=dynamicMeasurementItemDao.getDataByItemCodeAndAcceptanceCriteriaNo(dynamicMeasurementItem.getMeasure_item_code(),dynamicMeasurementItem.getThread_acceptance_criteria_no());
-            if(InfoList!=null&&InfoList.size()>0){
-                json.put("promptkey","fail1");
-                json.put("promptValue","该动态测量项编码已存在!");
-            }else{
-                if(dynamicMeasurementItem.getId()==0){
-                    //添加
-                    resTotal=dynamicMeasurementItemDao.addDynamicMeasurementItem(dynamicMeasurementItem);
+            String id=request.getParameter("id");
+            String measure_item_code=request.getParameter("measure_item_code");
+            String thread_acceptance_criteria_no=request.getParameter("thread_acceptance_criteria_no");
+            String item_max_value=request.getParameter("item_max_value");
+            String item_min_value=request.getParameter("item_min_value");
+            String item_frequency=request.getParameter("item_frequency");
+            System.out.println(id+":"+measure_item_code+":"+thread_acceptance_criteria_no+":"+item_max_value+":"+item_min_value+":"+item_frequency);
+            if((measure_item_code!=null&&!measure_item_code.equals(""))&&(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals(""))){
+                DynamicMeasurementItem item=new DynamicMeasurementItem();
+                if(id!=null&&!id.equals("")){
+                    //修改
+                    List<DynamicMeasurementItem>InfoList=dynamicMeasurementItemDao.getDynamicMeasurementItemByItemCodeOfEdit(measure_item_code,thread_acceptance_criteria_no,Integer.parseInt(id));
+                    if (InfoList!=null&&InfoList.size()>0){
+                        //新增的时候存在相通标准的编码
+                        json.put("promptkey","ishave");
+                        json.put("promptValue","该动态测量项编码已存在!");
+                    }else{
+                        item.setId(Integer.parseInt(id));
+                        if(item_max_value!=null&&!item_max_value.equals(""))
+                            item.setItem_max_value(Float.valueOf(item_max_value));
+                        if(item_min_value!=null&&!item_min_value.equals(""))
+                            item.setItem_min_value(Float.valueOf(item_min_value));
+                        if(item_frequency!=null&&!item_frequency.equals(""))
+                            item.setItem_frequency(Float.valueOf(item_frequency));
+                        item.setMeasure_item_code(measure_item_code);
+                        item.setThread_acceptance_criteria_no(thread_acceptance_criteria_no);
+                        resTotal=dynamicMeasurementItemDao.updateDynamicMeasurementItem(item);
+                        if(resTotal>0){
+                            json.put("promptkey","success");
+                        }else{
+                            json.put("promptkey","fail2");
+                            json.put("promptValue","保存失败");
+                        }
+                    }
                 }else{
-                    //修改！
-                    resTotal=dynamicMeasurementItemDao.updateDynamicMeasurementItem(dynamicMeasurementItem);
-                }
-                if(resTotal>0){
-                    json.put("promptkey","success");
-                    json.put("promptValue","保存成功");
-                }else{
-                    json.put("promptkey","fail2");
-                    json.put("promptValue","保存失败");
+                    //新增
+                    List<DynamicMeasurementItem>InfoList=dynamicMeasurementItemDao.getDynamicMeasurementItemByItemCodeOfAdd(measure_item_code,thread_acceptance_criteria_no);
+                    if (InfoList!=null&&InfoList.size()>0){
+                         //新增的时候存在相通标准的编码
+                        json.put("promptkey","ishave");
+                        json.put("promptValue","该动态测量项编码已存在!");
+                    }else{
+                        if(item_max_value!=null&&!item_max_value.equals(""))
+                            item.setItem_max_value(Float.valueOf(item_max_value));
+                        if(item_min_value!=null&&!item_min_value.equals(""))
+                            item.setItem_min_value(Float.valueOf(item_min_value));
+                        if(item_frequency!=null&&!item_frequency.equals(""))
+                            item.setItem_frequency(Float.valueOf(item_frequency));
+                        item.setMeasure_item_code(measure_item_code);
+                        item.setThread_acceptance_criteria_no(thread_acceptance_criteria_no);
+                        resTotal=dynamicMeasurementItemDao.addDynamicMeasurementItem(item);
+                        //接收id的值
+                        if(resTotal>0){
+                            json.put("promptkey","success");
+                            json.put("promptValue",item.getId());
+                            System.out.println("ItemId--------------"+item.getId());
+                        }else{
+                            json.put("promptkey","fail2");
+                            json.put("promptValue","保存失败");
+                        }
+                    }
                 }
             }
         }catch (Exception e){
@@ -89,24 +146,29 @@ public class DynamicMeasurementItemController {
         }
         return null;
     }
-
     //删除Function信息
     @RequestMapping("/delDynamicMeasureItem")
-    public String delDynamicMeasureItem(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
-        String[]idArr=hlparam.split(",");
-        int resTotal=0;
-        resTotal=dynamicMeasurementItemDao.delDynamicMeasurementItem(idArr);
+    @ResponseBody
+    public String delDynamicMeasureItem(HttpServletRequest request,HttpServletResponse response)throws Exception{
         JSONObject json=new JSONObject();
-        StringBuilder sbmessage = new StringBuilder();
-        sbmessage.append("总共");
-        sbmessage.append(Integer.toString(resTotal));
-        sbmessage.append("项动态测量项信息删除成功\n");
-        if(resTotal>0){
-            json.put("success",true);
-        }else{
-            json.put("success",false);
+        try{
+            String hlparam=request.getParameter("hlparam");
+            StringBuilder sbmessage = new StringBuilder();
+            if(hlparam!=null){
+                String[]idArr=hlparam.split(",");
+                int resTotal=0;
+                resTotal=dynamicMeasurementItemDao.delDynamicMeasurementItem(idArr);
+                if(resTotal>0){
+                    json.put("promptkey","success");
+                }else{
+                    json.put("promptkey","fail");
+                }
+            }else{
+                json.put("promptkey","fail");
+            }
+        }catch (Exception e){
+            json.put("promptkey","fail");
         }
-        json.put("message",sbmessage.toString());
         ResponseUtil.write(response,json);
         return null;
     }

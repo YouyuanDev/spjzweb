@@ -2,6 +2,7 @@ package com.spjzweb.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 import com.spjzweb.dao.FunctionDao;
 import com.spjzweb.entity.Function;
 import com.spjzweb.util.ResponseUtil;
@@ -22,12 +23,10 @@ import java.util.Map;
 public class FunctionController {
     @Autowired
     private FunctionDao functionDao;
-
-
     //搜索
-    @RequestMapping(value = "getFunctionByLike",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "getFunctionAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getFunctionByLike(@RequestParam(value = "function_no",required = false)String function_no, @RequestParam(value = "function_name",required = false)String function_name, HttpServletRequest request){
+    public String getFunctionAllByLike(@RequestParam(value = "function_no",required = false)String function_no, @RequestParam(value = "function_name",required = false)String function_name, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){

@@ -23,9 +23,9 @@ public class ThreadAcceptanceCriteriaController {
     @Autowired
     ThreadingAcceptanceCriteriaDao threadingAcceptanceCriteriaDao;
 
-    @RequestMapping("/getAllThreadAcceptanceCriteria")
+    @RequestMapping("/getThreadAcceptanceCriteriaAllByLike")
     @ResponseBody
-    public String getAllThreadAcceptanceCriteria(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no, HttpServletRequest request){
+    public String getThreadAcceptanceCriteriaAllByLike(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null||page==""){

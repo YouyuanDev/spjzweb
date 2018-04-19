@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface DynamicMeasurementItemDao {
-
+    public List<DynamicMeasurementItem>getDynamicMeasureItemByAcceptanceNo(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
 
     //模糊搜索带分页
     public List<HashMap<String,Object>> getAllByLike(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no, @Param("skip") int skip, @Param("take") int take);
@@ -31,5 +31,11 @@ public interface DynamicMeasurementItemDao {
     public List<DynamicMeasurementItem>getDataByItemCodeAndAcceptanceCriteriaNo(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
     //根据thread_acceptance_criteria_no查询静态多有检测项编码
     public List<HashMap<String,Object>>getAllDropDownStaticMeasureItem(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
+    //修改时判断编号是否存在
+    public List<DynamicMeasurementItem>getDynamicMeasurementItemByItemCodeOfEdit(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no,@Param("id") int id);
+    //添加时判断编号是否存在
+    public List<DynamicMeasurementItem>getDynamicMeasurementItemByItemCodeOfAdd(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
+
+
 }
 

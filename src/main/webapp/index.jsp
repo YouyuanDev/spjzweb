@@ -131,7 +131,7 @@
                     var tab=$('#bgTab').tabs('getTab',node.text);
                     var nodeTxt=node.text;
                     if(tab){
-                        $('#hlTab').tabs('select',node.text);
+                        $('#bgTab').tabs('select',node.text);
                     }else{
                         if("人员管理"==nodeTxt||"Person Management"==nodeTxt){
 
@@ -160,8 +160,6 @@
                             });
                             hlLanguage();
                         }
-
-
                     }
                 }
             });

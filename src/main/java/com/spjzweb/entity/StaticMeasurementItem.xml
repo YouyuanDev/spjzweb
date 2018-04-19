@@ -57,11 +57,11 @@
         </where>
     </select>
     <insert id="addStaticMeasurementItem" parameterType="com.spjzweb.entity.StaticMeasurementItem">
-        INSERT INTO static_measurement_item(measure_item_code,measure_item_name,measure_item_name_en,measure_tool1,measure_tool2,measure_sample1,measure_sample2,measure_unit,item_frequency) VALUES (#{measure_item_code},#{measure_item_name},#{measure_item_name_en},#{measure_tool1},#{measure_tool2},#{measure_sample1},#{measure_sample2},#{measure_unit},#{item_frequency})
+        INSERT INTO static_measurement_item(measure_item_code,measure_item_name,measure_item_name_en,measure_tool1,measure_tool2,measure_unit,item_frequency) VALUES (#{measure_item_code},#{measure_item_name},#{measure_item_name_en},#{measure_tool1},#{measure_tool2},#{measure_unit},#{item_frequency})
     </insert>
 
     <update id="updateStaticMeasurementItem" parameterType="com.spjzweb.entity.StaticMeasurementItem">
-        UPDATE static_measurement_item set measure_item_code=#{measure_item_code},measure_item_name=#{measure_item_name},measure_item_name_en=#{measure_item_name_en},measure_tool1=#{measure_tool1},measure_tool2=#{measure_tool2},measure_sample1=#{measure_sample1},measure_sample2=#{measure_sample2},measure_unit=#{measure_unit},item_frequency=#{item_frequency} where id=#{id}
+        UPDATE static_measurement_item set measure_item_code=#{measure_item_code},measure_item_name=#{measure_item_name},measure_item_name_en=#{measure_item_name_en},measure_tool1=#{measure_tool1},measure_tool2=#{measure_tool2},measure_unit=#{measure_unit},item_frequency=#{item_frequency} where id=#{id}
     </update>
 
 
@@ -71,4 +71,8 @@
             #{item}
         </foreach>
     </delete>
+
+    <select id="getAllDropdownStaticItem" resultType="map">
+        select measure_item_code,measure_item_name from  static_measurement_item
+    </select>
 </mapper>

@@ -7,18 +7,22 @@ public class ItemRecord {
     private String itemvalue;
     private String toolcode1;
     private String toolcode2;
+    private String measure_sample1;
+    private String measure_sample2;
     private String thread_inspection_record_code;
 
 
     public ItemRecord() {
     }
 
-    public ItemRecord(int id, String itemcode, String itemvalue, String toolcode1, String toolcode2, String thread_inspection_record_code) {
+    public ItemRecord(int id, String itemcode, String itemvalue, String toolcode1, String toolcode2, String measure_sample1, String measure_sample2, String thread_inspection_record_code) {
         this.id = id;
         this.itemcode = itemcode;
         this.itemvalue = itemvalue;
         this.toolcode1 = toolcode1;
         this.toolcode2 = toolcode2;
+        this.measure_sample1 = measure_sample1;
+        this.measure_sample2 = measure_sample2;
         this.thread_inspection_record_code = thread_inspection_record_code;
     }
 
@@ -68,5 +72,21 @@ public class ItemRecord {
 
     public void setThread_inspection_record_code(String thread_inspection_record_code) {
         this.thread_inspection_record_code = thread_inspection_record_code;
+    }
+
+    public String getMeasure_sample1() {
+        return measure_sample1;
+    }
+
+    public void setMeasure_sample1(String measure_sample1) {
+        this.measure_sample1 = measure_sample1;
+    }
+
+    public String getMeasure_sample2() {
+        return measure_sample2;
+    }
+
+    public void setMeasure_sample2(String measure_sample2) {
+        this.measure_sample2 = measure_sample2;
     }
 }

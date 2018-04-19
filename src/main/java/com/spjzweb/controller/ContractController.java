@@ -24,9 +24,9 @@ public class ContractController {
     @Autowired
     private ContractInfoDao contractInfoDao;
     //搜索
-    @RequestMapping(value = "getContractByLike",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "getContractAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getContractByLike(@RequestParam(value = "contract_no",required = false)String contract_no,HttpServletRequest request){
+    public String getContractAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){
@@ -60,7 +60,6 @@ public class ContractController {
             }else{
                 contractInfoDao.getContractInfoByContractNoOfEdit(contractInfo.getContract_no());
             }
-
             if(contractInfoList!=null&&contractInfoList.size()>0){
                 json.put("promptkey","fail1");
                 json.put("promptValue","该合同编号已存在!");

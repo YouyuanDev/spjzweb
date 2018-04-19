@@ -189,7 +189,7 @@
 <fieldset class="b3" style="padding:10px;margin:10px;">
     <legend> <h3><b style="color: orange" >|&nbsp;</b><span class="i18n1" name="datadisplay">数据展示</span></h3></legend>
     <div  style="margin-top:5px;">
-        <table class="easyui-datagrid" id="FunctionDatagrids" url="/Function/getFunctionByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#hlFunctionTb">
+        <table class="easyui-datagrid" id="FunctionDatagrids" url="/Function/getFunctionAllByLike.action" striped="true" loadMsg="正在加载中。。。" textField="text" pageSize="20" fitColumns="true" pagination="true" toolbar="#hlFunctionTb">
             <thead>
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>

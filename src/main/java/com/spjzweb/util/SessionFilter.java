@@ -37,7 +37,8 @@ public class SessionFilter extends OncePerRequestFilter{
             "getThreadingProcessByLike",
             "saveThreadingProcessByWinform",
             "getAllDropDownAcceptanceCriteria",
-            "getAllDropDownAcceptanceCriteria"
+            "getAllDropdownStaticItem",
+            "getDynamicMeasureItemByAcceptanceNo"
 
     }; // 不过滤的uri
 
