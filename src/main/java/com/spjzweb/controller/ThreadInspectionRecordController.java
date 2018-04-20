@@ -31,6 +31,11 @@ public class ThreadInspectionRecordController {
     public String getThreadInspectionAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "couping_no",required = false)String couping_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
+        System.out.println("contract_no="+contract_no);
+        System.out.println("couping_no="+couping_no);
+        System.out.println("operator_no="+operator_no);
+        System.out.println("beginTime="+begin_time);
+        System.out.println("endTime="+end_time);
         if(page==null){
             page="1";
         }
@@ -68,8 +73,6 @@ public class ThreadInspectionRecordController {
         try{
             String odbptime= request.getParameter("instime");
             int resTotal=0;
-
-
             if(odbptime!=null&&odbptime!=""){
                 SimpleDateFormat simFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date new_odbptime = simFormat.parse(odbptime);
@@ -87,6 +90,7 @@ public class ThreadInspectionRecordController {
                     resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
                 }
             }
+            System.out.println("-----"+resTotal);
             if(resTotal>0){
                 json.put("promptkey","success");
                 json.put("promptValue","保存成功");
@@ -94,7 +98,6 @@ public class ThreadInspectionRecordController {
                 json.put("promptkey","fail");
                 json.put("promptValue","保存失败");
             }
-
         }catch (Exception e){
             json.put("promptkey","fail");
             json.put("promptValue",e.getMessage());

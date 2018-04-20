@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface DynamicMeasurementItemDao {
-    public List<DynamicMeasurementItem>getDynamicMeasureItemByAcceptanceNo(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
+    public List<HashMap<String,Object>>getDynamicMeasureItemByAcceptanceNo(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
 
     //模糊搜索带分页
     public List<HashMap<String,Object>> getAllByLike(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no, @Param("skip") int skip, @Param("take") int take);
@@ -37,6 +37,9 @@ public interface DynamicMeasurementItemDao {
     public List<DynamicMeasurementItem>getDynamicMeasurementItemByItemCodeOfAdd(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
 
     //根据thread_inspection_record_code 得到ItemRecord 集合
-    public List<HashMap<String,Object>> getItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    public List<HashMap<String,Object>> getAllDropdownItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+
+
+
 }
 

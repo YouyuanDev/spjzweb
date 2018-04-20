@@ -64,6 +64,7 @@ public class ItemRecordController {
                         json.put("promptValue","该测量项编码已存在!");
                     }else{
                         item.setId(Integer.parseInt(id));
+                        item.setThread_inspection_record_code(thread_inspection_record_code);
                         if(itemcode!=null&&!itemcode.equals(""))
                             item.setItemcode(itemcode);
                         if(itemvalue!=null&&!itemvalue.equals(""))
@@ -86,7 +87,7 @@ public class ItemRecordController {
                     }
                 }else{
                     //新增
-                    List<ItemRecord>InfoList=itemRecordDao.getItemRecordCodeOfAdd(itemcode,thread_inspection_record_code);
+                    List<ItemRecord>InfoList=itemRecordDao.getItemRecordByItemCodeOfAdd(itemcode,thread_inspection_record_code);
                     if (InfoList!=null&&InfoList.size()>0){
                         //新增的时候存在相通标准的编码
                         json.put("promptkey","ishave");

@@ -31,6 +31,6 @@ public interface ItemRecordDao {
     //修改时判断编号是否存在
     public List<ItemRecord>getItemRecordByItemCodeOfEdit(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code,@Param("id") int id);
     //添加时判断编号是否存在
-    public List<ItemRecord>getItemRecordCodeOfAdd(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    public List<ItemRecord>getItemRecordByItemCodeOfAdd(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code);
 }
 

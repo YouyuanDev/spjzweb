@@ -15,9 +15,6 @@
             <if test="measure_item_name!=null and measure_item_name!=''">
                 AND r.measure_item_name LIKE CONCAT('%',#{measure_item_name},'%')
             </if>
-            <if test="measure_item_name!=null and measure_item_name!=''">
-                AND r.measure_item_name_en LIKE CONCAT('%',#{measure_item_name},'%')
-            </if>
         </where>
     </select>
 
@@ -29,9 +26,6 @@
             </if>
             <if test="measure_item_name!=null and measure_item_name!=''">
                 AND r.measure_item_name LIKE CONCAT('%',#{measure_item_name},'%')
-            </if>
-            <if test="measure_item_name!=null and measure_item_name!=''">
-                AND r.measure_item_name_en LIKE CONCAT('%',#{measure_item_name},'%')
             </if>
         </where>
         ORDER BY id DESC

@@ -71,6 +71,7 @@
                 //alert(getDate1(row.inspection_time));
                 url="/ThreadingOperation/saveThreadingProcess.action?id="+row.id;
                 thread_inspection_record_code=row.thread_inspection_record_code;
+                getStataticItem(row.thread_inspection_record_code);
                 loadItemRecordByInspectionRecordCode(row.thread_inspection_record_code);
             }else{
                 hlAlertTwo();
@@ -96,13 +97,14 @@
                     return $(this).form('validate');
                 },
                 success: function(result){
-                    if (result.promptkey=="success"){
+                     var datajson=JSON.parse(result);
+                    if (datajson.promptkey=="success"){
                         $('#addEditDialog').dialog('close');
                         $('#contentDatagrids').datagrid('reload');
                     }else{
-                        hlAlertFour(result.promptValue);
+                        hlAlertFour(datajson.promptValue);
                     }
-                    hlAlertFour(result.promptValue);
+                    //hlAlertFour(result.promptValue);
                 },
                 error:function () {
                     hlAlertThree();
@@ -116,6 +118,7 @@
             $('#addEditForm').form('clear');
             $('.hl-label').text('');
         }
+
         function loadItemRecordByInspectionRecordCode() {
             $('#itemrecordDatagrids').datagrid({
                 title:'',
@@ -130,13 +133,13 @@
                             rowInsert();
                         }
                     },{ text: '保存', iconCls: 'icon-save', handler: function () {
-                            rowSave(thread_acceptance_criteria_no);
+                            rowSave();
                         }
                     },{ text: '编辑', iconCls: 'icon-edit', handler: function () {
                             rowEdit();
                         }
                     },{ text: '删除', iconCls: 'icon-remove', handler: function () {
-                            rowDelete(thread_acceptance_criteria_no);
+                            rowDelete();
                         }
                     },{ text: '撤销', iconCls: 'icon-undo', handler: function () {
                             rowCancel();
@@ -146,7 +149,7 @@
                 url:'/ItemRecordOperation/getItemRecordByInspectionNo.action?thread_inspection_record_code='+thread_inspection_record_code,
                 columns:[[
                     {field:'id',title:'流水号',width:60},
-                    {field:'itemcode',title:'测量项编号',width:100,editor:'text',
+                    {field:'itemcode',title:'测量项编号',width:100,
                         formatter:function(value){
                             for(var i=0; i<staticItem.length; i++){
                                 if (staticItem.measure_item_code == value) return  staticItem.measure_item_name;
@@ -159,15 +162,14 @@
                                 valueField:'measure_item_code',
                                 textField:'measure_item_name',
                                 data:staticItem,
-                                required:true
                             }
                         }
                     },
-                    {field:'itemvalue',title:'检测项值',width:80},
-                    {field:'toolcode1',title:'量具编号1',width:80},
-                    {field:'toolcode2',title:'量具编号2',width:80},
-                    {field:'measure_sample1',title:'量具样块1编号',width:80},
-                    {field:'measure_sample2',title:'量具样块2编号',width:80},
+                    {field:'itemvalue',title:'检测项值',width:80,editor:'textbox'},
+                    {field:'toolcode1',title:'量具编号1',width:80,editor:'textbox'},
+                    {field:'toolcode2',title:'量具编号2',width:80,editor:'textbox'},
+                    {field:'measure_sample1',title:'量具样块1编号',width:80,editor:'textbox'},
+                    {field:'measure_sample2',title:'量具样块2编号',width:80,editor:'textbox'},
                 ]]
             });
         }
@@ -177,22 +179,12 @@
         }
 
         function rowInsert(){
-            var row = $('#itemrecordDatagrids').datagrid('getSelected');
-            //var index;
-            if (row){
-                var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
-            } else {
-                index = 0;
-            }
-            $('#itemrecordDatagrids').datagrid('insertRow', {
-                index: index,
-                row:{
-                }
-            });
-            $('#itemrecordDatagrids').datagrid('selectRow',index);
-            $('#itemrecordDatagrids').datagrid('beginEdit',index);
+            $('#itemrecordDatagrids').datagrid('appendRow',{ });
+            var editIndex = $('#itemrecordDatagrids').datagrid('getRows').length-1;
+            $('#itemrecordDatagrids').datagrid('selectRow', editIndex)
+            $('#itemrecordDatagrids').datagrid('beginEdit', editIndex);
         }
-        function rowSave(thread_acceptance_criteria_no){
+        function rowSave(){
             var row = $('#itemrecordDatagrids').datagrid('getSelected');
             if (row){
                 var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
@@ -205,12 +197,12 @@
                     success:function (data) {
                         //如果是新增，则返回新增id,如果是修改，则返回执行结果
                         if(data.promptkey=="success"){
-                            $("#dynamicDatagrids").datagrid("reload");
+                            $("#itemrecordDatagrids").datagrid("reload");
                         }else if(data.promptkey="ishave"){
                             hlAlertFour(data.promptValue);
                             $('#itemrecordDatagrids').datagrid('beginEdit',index);
                         }else{
-                            hlAlertFour(data.promptValue);
+                            hlAlertFour("系统繁忙!");
                         }
 
                     },error:function () {
@@ -230,8 +222,7 @@
                 hlAlertFour("请选中要修改或添加的行!");
             }
         }
-        function  rowDelete(thread_acceptance_criteria_no){
-
+        function  rowDelete(){
             var row = $('#itemrecordDatagrids').datagrid('getSelected');
             //var index;
             if (row){
@@ -268,7 +259,7 @@
         }
         function getStataticItem() {
             $.ajax({
-                url:'/DynamicMeasure/getAllDropdownStaticItemByInspectionNo.action?thread_inspection_record_code='+thread_inspection_record_code,
+                url:'/DynamicMeasure/getAllDropdownMeasureItemByInspectionNo.action?thread_inspection_record_code='+thread_inspection_record_code,
                 async:false,
                 dataType:'json',
                 success:function (data) {
@@ -317,7 +308,7 @@
     <input id="searcharg1" name="searcharg1" type="text" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="coupingno">接箍编号</span>:
     <input id="searcharg2" name="searcharg2" type="text" style="line-height:22px;border:1px solid #ccc">
-    <span class="i18n1" name="contractno">操作工号</span>:
+    <span class="i18n1" name="operatorno">操作工号</span>:
     <input id="searcharg3" name="searcharg3" type="text" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="begintime">开始时间</span>:
     <input id="searcharg4" name="searcharg4" type="text" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" style="line-height:22px;border:1px solid #ccc">
@@ -383,10 +374,24 @@
                 </tr>
                 <tr>
                     <td class="i18n1" name="productioncrew"></td>
-                    <td><input class="easyui-textbox" type="text" name="production_crew" value=""/></td>
+                    <td>
+                        <select id="pc" class="easyui-combobox" data-options="editable:false" name="production_crew"   style="width:200px;">
+                            <option value="甲" selected="selected">甲</option>
+                            <option value="乙">乙</option>
+                            <option value="丙">丙</option>
+                            <option value="丁">丁</option>
+                        </select>
+                        <%--<input class="easyui-textbox" type="text" name="production_crew" value=""/>--%>
+                    </td>
                     <td></td>
                     <td class="i18n1" name="productionshift"></td>
-                    <td><input class="easyui-textbox" type="text" name="production_shift" value=""/></td>
+                    <td>
+                        <select id="ps" class="easyui-combobox" data-options="editable:false" name="production_shift"   style="width:200px;">
+                            <option value="白班" selected="selected">白班</option>
+                            <option value="夜班">夜班</option>
+                        </select>
+                        <%--<input class="easyui-textbox" type="text" name="production_shift" value=""/>--%>
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
@@ -411,8 +416,10 @@
             </table>
         </fieldset>
     </form>
-
-
+</div>
+<div id="tooltb" style="height:auto">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 </div>
 <div id="dlg-buttons" align="center" style="width:900px;">
     <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="addEditFormSubmit()">Save</a>

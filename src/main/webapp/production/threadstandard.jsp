@@ -23,6 +23,7 @@
     <script type="text/javascript">
         var url;
         var staticItem=[];
+        var editIndex = undefined;
         $(function () {
             $('#addEditDialog').dialog({
                 onClose:function () {
@@ -30,7 +31,6 @@
                 }
             });
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
-
             //loadDynamicByAcceptanceNo();
         });
         function addFunction(){
@@ -119,7 +119,7 @@
                 title:'',
                 iconCls:'',
                 width:900,
-                height:250,
+                height:350,
                 idField:'id',
                 singleSelect:true,
                 fitColumns:true,
@@ -144,7 +144,7 @@
                 url:'/DynamicMeasure/getDynamicMeasureItemByAcceptanceNo.action?thread_acceptance_criteria_no='+thread_acceptance_criteria_no,
                 columns:[[
                     {field:'id',title:'流水号',width:60},
-                    {field:'measure_item_code',title:'测量项编号',width:100,editor:'text',
+                    {field:'measure_item_code',title:'测量项编号',width:100,
                         formatter:function(value){
                             for(var i=0; i<staticItem.length; i++){
                                 if (staticItem.measure_item_code == value) return  staticItem.measure_item_name;
@@ -161,8 +161,9 @@
                             }
                         }
                     },
-                    {field:'item_max_value',title:'接收最大值',width:80,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'item_min_value',title:'接收最小值',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'measure_item_name',title:'测量项名称',width:100},
+                    {field:'item_max_value',title:'接收最大值',width:60,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_min_value',title:'接收最小值',width:60,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'item_frequency',title:'检验频率',width:80,editor:{type:'numberbox',options:{precision:2}}}
                 ]]
             });
@@ -175,49 +176,61 @@
 
         function rowInsert(){
             var row = $('#dynamicDatagrids').datagrid('getSelected');
-            //var index;
+            var index=0;
             if (row){
-                var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-            } else {
-                index = 0;
+                index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
             }
             $('#dynamicDatagrids').datagrid('insertRow', {
                 index: index,
                 row:{
+                    status:'P'
                 }
             });
             $('#dynamicDatagrids').datagrid('selectRow',index);
             $('#dynamicDatagrids').datagrid('beginEdit',index);
+            // var row = $('#dynamicDatagrids').datagrid('getSelected');
+            // //var index;
+            // if (row){
+            //     var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
+            // } else {
+            //     index = 0;
+            // }
+            // $('#dynamicDatagrids').datagrid('insertRow', {
+            //     index: index,
+            //     row:{
+            //     }
+            // });
+            // $('#dynamicDatagrids').datagrid('selectRow',index);
+            // $('#dynamicDatagrids').datagrid('beginEdit',index);
         }
         function rowSave(thread_acceptance_criteria_no) {
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             if (row){
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
                 $('#dynamicDatagrids').datagrid('endEdit',index);
-                $.ajax({
-                    url:'/DynamicMeasure/saveDynamicMeasureItem.action',
-                    dataType:'json',
-                    data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:row.item_max_value,item_min_value:row.item_min_value,item_frequency:row.item_frequency},
-                    success:function (data) {
-                        //如果是新增，则返回新增id,如果是修改，则返回执行结果
-                        if(data.promptkey=="success"){
-                            $("#dynamicDatagrids").datagrid("reload");
-                            // var newId=data.promptValue;
-                            // if(newId!="addsuccess"){//证明是新增
-                            //     $("#dynamicDatagrids").datagrid("reload");
-                            // }
-                            // $('#dynamicDatagrids').datagrid('beginEdit',index);
-                        }else if(data.promptkey="ishave"){
-                            hlAlertFour(data.promptValue);
-                            $('#dynamicDatagrids').datagrid('beginEdit',index);
-                        }else{
-                            hlAlertFour(data.promptValue);
+                if(row.measure_item_code==null||row.measure_item_code==""){
+                    hlAlertFour("请选择测量项!");
+                    return false;
+                }else{
+                    $.ajax({
+                        url:'/DynamicMeasure/saveDynamicMeasureItem.action',
+                        dataType:'json',
+                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:row.item_max_value,item_min_value:row.item_min_value,item_frequency:row.item_frequency},
+                        success:function (data) {
+                            //如果是新增，则返回新增id,如果是修改，则返回执行结果
+                            if(data.promptkey=="success"){
+                                $("#dynamicDatagrids").datagrid("reload");
+                            }else if(data.promptkey="ishave"){
+                                hlAlertFour(data.promptValue);
+                                $('#dynamicDatagrids').datagrid('beginEdit',index);
+                            }else{
+                                hlAlertFour("系统繁忙!");
+                            }
+                        },error:function () {
+                            hlAlertFour("系统繁忙!");
                         }
-
-                    },error:function () {
-                        hlAlertFour("系统繁忙!");
-                    }
-                });
+                    });
+                }
             } else {
                 hlAlertFour("请选中要修改或添加的行!");
             }
@@ -239,21 +252,25 @@
                 $.messager.confirm('Confirm','确定要删除吗?',function(r){
                     if (r){
                         var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-                        $.ajax({
-                            url:'/DynamicMeasure/delDynamicMeasureItem.action',
-                            dataType:'json',
-                            data:{hlparam:row.id},
-                            success:function (data) {
-                                //如果是新增，则返回新增id,如果是修改，则返回执行结果
-                                if(data.promptkey=="success"){
-                                    $('#dynamicDatagrids').datagrid('deleteRow',index);
-                                }else{
-                                    hlAlertFour("删除失败!");
+                        if(row.id==null||row.id==""){
+                            $('#dynamicDatagrids').datagrid('deleteRow',index);
+                        }else{
+                            $.ajax({
+                                url:'/DynamicMeasure/delDynamicMeasureItem.action',
+                                dataType:'json',
+                                data:{hlparam:row.id},
+                                success:function (data) {
+                                    //如果是新增，则返回新增id,如果是修改，则返回执行结果
+                                    if(data.promptkey=="success"){
+                                        $('#dynamicDatagrids').datagrid('deleteRow',index);
+                                    }else{
+                                        hlAlertFour("删除失败!");
+                                    }
+                                },error:function () {
+                                    hlAlertFour("系统繁忙!");
                                 }
-                            },error:function () {
-                                hlAlertFour("系统繁忙!");
-                            }
-                        });
+                            });
+                        }
                     }
                 });
 

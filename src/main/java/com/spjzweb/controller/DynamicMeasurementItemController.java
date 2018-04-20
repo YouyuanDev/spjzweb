@@ -51,7 +51,7 @@ public class DynamicMeasurementItemController {
     @ResponseBody
     public String getDynamicMeasureItemByAcceptanceNo(HttpServletRequest request){
         String thread_acceptance_criteria_no=request.getParameter("thread_acceptance_criteria_no");
-        List<DynamicMeasurementItem> list=new ArrayList<>();
+        List<HashMap<String,Object>> list=new ArrayList<>();
         String mmp= "";
         if(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals("")){
             list=dynamicMeasurementItemDao.getDynamicMeasureItemByAcceptanceNo(thread_acceptance_criteria_no);
@@ -123,8 +123,6 @@ public class DynamicMeasurementItemController {
                         //接收id的值
                         if(resTotal>0){
                             json.put("promptkey","success");
-                            json.put("promptValue",item.getId());
-                            System.out.println("ItemId--------------"+item.getId());
                         }else{
                             json.put("promptkey","fail2");
                             json.put("promptValue","保存失败");
@@ -192,14 +190,15 @@ public class DynamicMeasurementItemController {
         return map;
     }
     //获取所有的静态测量项的编码和名字
-    @RequestMapping(value = "/getAllDropdownStaticItemByInspectionNo",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "/getAllDropdownMeasureItemByInspectionNo",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getAllDropdownStaticItemByInspectionNo(HttpServletRequest request,HttpServletResponse response){
+    public String getAllDropdownMeasureItemByInspectionNo(HttpServletRequest request,HttpServletResponse response){
         JSONObject json=new JSONObject();
         try{
             String thread_inspection_record_code=request.getParameter("thread_inspection_record_code");
-            List<HashMap<String,Object>>hsList=dynamicMeasurementItemDao.getItemRecordByInspectionNo(thread_inspection_record_code);
+            List<HashMap<String,Object>>hsList=dynamicMeasurementItemDao.getAllDropdownItemRecordByInspectionNo(thread_inspection_record_code);
             String mmp= JSONArray.toJSONString(hsList);
+            System.out.println(mmp+"-----------");
             json.put("promptkey","success");
             json.put("promptValue",mmp);
         }catch (Exception e){

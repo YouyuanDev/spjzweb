@@ -5,8 +5,11 @@
 
 <mapper namespace="com.spjzweb.dao.DynamicMeasurementItemDao">
 
-    <select id="getDynamicMeasureItemByAcceptanceNo" resultType="com.spjzweb.entity.DynamicMeasurementItem">
-        SELECT * from dynamic_measurement_item WHERE thread_acceptance_criteria_no=#{thread_acceptance_criteria_no}
+    <select id="getDynamicMeasureItemByAcceptanceNo" resultType="map">
+        SELECT s.measure_item_name,d.* from dynamic_measurement_item d
+        LEFT JOIN static_measurement_item s
+        on d.measure_item_code=s.measure_item_code
+        WHERE thread_acceptance_criteria_no=#{thread_acceptance_criteria_no}
     </select>
     <select id="getCountAllByLike" resultType="int">
         select count(*) from dynamic_measurement_item r
@@ -108,11 +111,9 @@
 
     <!--根据螺纹记录编号查询下拉测量项值-->
     <select id="getAllDropdownItemRecordByInspectionNo" resultType="map">
-      select s.measure_item_code,s.measure_item_name from static_measurement_item s left join dynamic_measurement_item d on  s.measure_item_code=d.measure_item_code  where d.thread_acceptance_criteria_no=(
-        select a.thread_acceptance_criteria_no from thread_inspection_record r
-        inner join contract_info c on r.contract_no=c.contract_no
-        inner join threading_acceptance_criteria a on c.thread_acceptance_criteria_no=a.thread_acceptance_criteria_no
-        where r.thread_inspection_record_code=#{thread_inspection_record}
-        )
+SELECT s.measure_item_code,s.measure_item_name from dynamic_measurement_item  d INNER join static_measurement_item s  on s.measure_item_code=d.measure_item_code where d.thread_acceptance_criteria_no=(
+  select c.thread_acceptance_criteria_no from contract_info c INNER join thread_inspection_record t
+ on c.contract_no=t.contract_no where t.thread_inspection_record_code=#{thread_inspection_record_code}
+)
     </select>
 </mapper>
