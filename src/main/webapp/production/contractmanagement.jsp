@@ -83,7 +83,11 @@
         }
         function searchFunction() {
             $('#contentDatagrids').datagrid('load',{
-                'contract_no': $('#searcharg1').val()
+                'contract_no': $('#searcharg1').val(),
+                'customer_spec':$('#searcharg2').val(),
+                'od':$('#searcharg3').val(),
+                'wt':$('#searcharg4').val(),
+                'threading_type':$('#searcharg5').val()
             });
         }
         function addEditFormSubmit() {
@@ -139,8 +143,11 @@
                 <th field="id" align="center" width="100" class="i18n1" name="id"></th>
                 <th field="contract_no" align="center" width="100" class="i18n1" name="contractno"></th>
                 <th field="machining_contract_no" align="center" width="100" class="i18n1" name="machiningcontractno"></th>
+                <th field="customer_spec" align="center" width="100" class="i18n1" name="customerspec"></th>
                 <th field="od" align="center" width="100" class="i18n1" name="od"></th>
                 <th field="wt" align="center" width="100" class="i18n1" name="wt"></th>
+                <th field="threading_type" align="center" width="100" class="i18n1" name="threadingtype"></th>
+                <th field="coupling_type" align="center" width="100" class="i18n1" name="couplingtype"></th>
                 <th field="pipe_heat_no" align="center" width="100" class="i18n1" name="pipeheatno"></th>
                 <th field="pipe_lot_no" align="center" width="100" class="i18n1" name="pipelotno"></th>
                 <th field="pipe_steel_grade" align="center" width="100" class="i18n1" name="pipesteelgrade"></th>
@@ -161,6 +168,14 @@
 <div id="toolsTab" style="padding:10px;">
     <span class="i18n1" name="contractno">合同号</span>:
     <input id="searcharg1" name="searcharg1" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="customerspec">客户标准号</span>:
+    <input id="searcharg2" name="searcharg2" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="od">外径</span>:
+    <input id="searcharg3" name="searcharg3" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="wt">壁厚</span>:
+    <input id="searcharg4" name="searcharg4" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="threadingtype">螺纹类型</span>:
+    <input id="searcharg5" name="searcharg5" style="line-height:22px;border:1px solid #ccc">
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
         <input id="fileupload1" class="mini-fileupload" name="Fdata" limitType="*.xls;"
@@ -217,6 +232,22 @@
                     <td><input class="easyui-numberbox" type="text" data-options="precision:2" name="wt" value=""/></td>
                     <td></td>
                 </tr>
+
+                <tr>
+                    <td class="i18n1" name="threadingtype"></td>
+                    <td><input class="easyui-textbox" type="text" name="threading_type" value=""/></td>
+                    <td></td>
+                    <td class="i18n1" name="couplingtype"></td>
+                    <td><input class="easyui-textbox" type="text" name="coupling_type" value=""/></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="i18n1" name="customerspec"></td>
+                    <td><input class="easyui-textbox" type="text" name="customer_spec" value=""/></td>
+                    <td></td>
+
+                </tr>
+
                 <tr>
                     <td class="i18n1" name="pipeheatno"></td>
                     <td><input class="easyui-textbox" type="text" name="pipe_heat_no" value=""/></td>

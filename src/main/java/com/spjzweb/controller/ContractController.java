@@ -47,7 +47,7 @@ public class ContractController {
     //搜索
     @RequestMapping(value = "getContractAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String getContractAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,HttpServletRequest request){
+    public String getContractAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "customer_spec",required = false)String customer_spec,@RequestParam(value = "od",required = false)String od,@RequestParam(value = "wt",required = false)String wt,@RequestParam(value = "threading_type",required = false)String threading_type,HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){
@@ -57,8 +57,8 @@ public class ContractController {
             rows="20";
         }
         int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-        List<HashMap<String,Object>> list=contractInfoDao.getAllByLike(contract_no,start,Integer.parseInt(rows));
-        int count=contractInfoDao.getCountAllByLike(contract_no);
+        List<HashMap<String,Object>> list=contractInfoDao.getAllByLike(contract_no,customer_spec,od,wt,threading_type,start,Integer.parseInt(rows));
+        int count=contractInfoDao.getCountAllByLike(contract_no,customer_spec,od,wt,threading_type);
         Map<String,Object> maps=new HashMap<String,Object>();
         maps.put("total",count);
         maps.put("rows",list);

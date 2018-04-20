@@ -12,15 +12,38 @@
             <if test="contract_no!=null and contract_no!=''">
                 AND r.contract_no LIKE CONCAT('%',#{contract_no},'%')
             </if>
+            <if test="customer_spec!=null and customer_spec!=''">
+                AND r.customer_spec LIKE CONCAT('%',#{customer_spec},'%')
+            </if>
+            <if test="od!=null and od!=''">
+                AND r.od =#{od}
+            </if>
+            <if test="wt!=null and wt!=''">
+                AND r.wt =#{wt}
+            </if>
+            <if test="threading_type!=null and threading_type!=''">
+                AND r.threading_type LIKE CONCAT('%',#{threading_type},'%')
+            </if>
         </where>
     </select>
 
     <select id="getAllByLike" resultType="map">
         select * from  contract_info r
-
         <where>
             <if test="contract_no!=null and contract_no!=''">
                 AND r.contract_no LIKE CONCAT('%',#{contract_no},'%')
+            </if>
+            <if test="customer_spec!=null and customer_spec!=''">
+                AND r.customer_spec LIKE CONCAT('%',#{customer_spec},'%')
+            </if>
+            <if test="od!=null and od!=''">
+                AND r.od =#{od}
+            </if>
+            <if test="wt!=null and wt!=''">
+                AND r.wt =#{wt}
+            </if>
+            <if test="threading_type!=null and threading_type!=''">
+                AND r.threading_type LIKE CONCAT('%',#{threading_type},'%')
             </if>
         </where>
         ORDER BY id DESC
@@ -44,12 +67,16 @@
             </if>
         </where>
     </select>
+
+
+
+
     <insert id="addContractInfo" parameterType="com.spjzweb.entity.ContractInfo">
-      INSERT INTO contract_info(contract_no,machining_contract_no,od,wt,pipe_heat_no,pipe_lot_no,pipe_steel_grade,pipe_meterial,graph_no,handbook_no,seal_sample_graph_no,thread_sample_graph_no,thread_acceptance_criteria_no,remark) VALUES (#{contract_no},#{machining_contract_no},#{od},#{wt},#{pipe_heat_no},#{pipe_lot_no},#{pipe_steel_grade},#{pipe_meterial},#{graph_no},#{handbook_no},#{seal_sample_graph_no},#{thread_sample_graph_no},#{thread_acceptance_criteria_no},#{remark})
+      INSERT INTO contract_info(contract_no,machining_contract_no,od,wt,pipe_heat_no,pipe_lot_no,pipe_steel_grade,pipe_meterial,graph_no,handbook_no,seal_sample_graph_no,thread_sample_graph_no,thread_acceptance_criteria_no,remark,customer_spec,threading_type,coupling_type) VALUES (#{contract_no},#{machining_contract_no},#{od},#{wt},#{pipe_heat_no},#{pipe_lot_no},#{pipe_steel_grade},#{pipe_meterial},#{graph_no},#{handbook_no},#{seal_sample_graph_no},#{thread_sample_graph_no},#{thread_acceptance_criteria_no},#{remark},#{customer_spec},#{threading_type},#{coupling_type})
     </insert>
 
     <update id="updateContractInfo" parameterType="com.spjzweb.entity.ContractInfo">
-      UPDATE contract_info set contract_no=#{contract_no},machining_contract_no=#{machining_contract_no},od=#{od},wt=#{wt},pipe_heat_no=#{pipe_heat_no},pipe_lot_no=#{pipe_lot_no},pipe_steel_grade=#{pipe_steel_grade},pipe_meterial=#{pipe_meterial},graph_no=#{graph_no},handbook_no=#{handbook_no},seal_sample_graph_no=#{seal_sample_graph_no},thread_sample_graph_no=#{thread_sample_graph_no},thread_acceptance_criteria_no=#{thread_acceptance_criteria_no},remark=#{remark} where id=#{id}
+      UPDATE contract_info set contract_no=#{contract_no},machining_contract_no=#{machining_contract_no},od=#{od},wt=#{wt},pipe_heat_no=#{pipe_heat_no},pipe_lot_no=#{pipe_lot_no},pipe_steel_grade=#{pipe_steel_grade},pipe_meterial=#{pipe_meterial},graph_no=#{graph_no},handbook_no=#{handbook_no},seal_sample_graph_no=#{seal_sample_graph_no},thread_sample_graph_no=#{thread_sample_graph_no},thread_acceptance_criteria_no=#{thread_acceptance_criteria_no},remark=#{remark},customer_spec=#{customer_spec},threading_type=#{threading_type},coupling_type=#{coupling_type} where id=#{id}
     </update>
 
 
