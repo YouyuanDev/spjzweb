@@ -40,7 +40,8 @@ public class SessionFilter extends OncePerRequestFilter{
             "getAllDropdownStaticItem",
             "getDynamicMeasureItemByAcceptanceNo",
             "getAllDropdownMeasureItemByInspectionNo",
-            "getItemRecordByInspectionNo"
+            "getItemRecordByInspectionNo",
+            "uploadContractList"
 
     }; // 不过滤的uri
 

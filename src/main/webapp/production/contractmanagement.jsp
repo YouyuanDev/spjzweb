@@ -14,11 +14,14 @@
     <script src="../easyui/jquery.min.js" type="text/javascript"></script>
     <script src="../js/common.js" type="text/javascript"></script>
     <script src="../miniui/boot.js" type="text/javascript"></script>
+    <script  src="../miniui/js/miniui.js" type="text/javascript"></script>
     <script src="../miniui/fileupload/swfupload/swfupload.js" type="text/javascript"></script>
     <script src="../miniui/multiupload/multiupload.js" type="text/javascript"></script>
     <script  src="../js/lrscroll.js" type="text/javascript"></script>
     <script src="../js/jquery.i18n.properties-1.0.9.js" type="text/javascript"></script>
     <script src="../js/language.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/ajaxFileUpload.js"></script>
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
 
 
 
@@ -32,7 +35,9 @@
             });
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
             // hlLanguage("../i18n/");
+
         });
+
         function addFunction(){
             $('#hlcancelBtn').attr('operationtype','add');
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
@@ -158,6 +163,13 @@
     <input id="searcharg1" name="searcharg1" style="line-height:22px;border:1px solid #ccc">
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
+        <input id="fileupload1" class="mini-fileupload" name="Fdata" limitType="*.xls;"
+               flashUrl="../miniui/fileupload/swfupload/swfupload.swf"
+               uploadUrl="/Contract/uploadContractList.action"
+               onuploadsuccess="onUploadSuccess"
+               onuploaderror="onUploadError" onfileselect="onFileSelect" width="50px"
+        />
+            <%--<input type="file" id="contractFile">--%>
         <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
         <a href="#" id="editObpLinkBtn" class="easyui-linkbutton i18n1" name="edit" data-options="iconCls:'icon-edit',plain:true" onclick="editFunction()">修改</a>
         <a href="#" id="deltObpLinkBtn" class="easyui-linkbutton i18n1" name="delete" data-options="iconCls:'icon-remove',plain:true" onclick="delFunction()">删除</a>
@@ -260,6 +272,24 @@
 <script type="text/javascript">
     mini.parse();
     var grid= mini.get("multiupload1");
+    var fileupload = mini.get("fileupload1");
+    function onFileSelect(e) {
+    }
+    function onUploadSuccess(e) {
+        //alert("上传成功：" + e.serverData);
+        var result = eval('('+e.serverData+')');
+        if(result.success){
+            alert("上传成功!");
+        }
+        this.setText("");
+    }
+    function onUploadError(e) {
+        alert("上传错误：" + e.serverData);
+    }
+    function startUpload() {
 
+        fileupload.setUploadUrl("/Contract/uploadContractList.action");
+        fileupload.startUpload();
+    }
     hlLanguage("../i18n/");
 </script>

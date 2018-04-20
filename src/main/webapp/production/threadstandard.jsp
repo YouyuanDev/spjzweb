@@ -175,19 +175,25 @@
 
 
         function rowInsert(){
-            var row = $('#dynamicDatagrids').datagrid('getSelected');
-            var index=0;
-            if (row){
-                index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-            }
-            $('#dynamicDatagrids').datagrid('insertRow', {
-                index: index,
-                row:{
-                    status:'P'
-                }
-            });
-            $('#dynamicDatagrids').datagrid('selectRow',index);
-            $('#dynamicDatagrids').datagrid('beginEdit',index);
+            $('#dynamicDatagrids').datagrid('appendRow',{ });
+            var editIndex = $('#dynamicDatagrids').datagrid('getRows').length-1;
+            $('#dynamicDatagrids').datagrid('selectRow', editIndex)
+            $('#dynamicDatagrids').datagrid('beginEdit', editIndex);
+
+
+            // var row = $('#dynamicDatagrids').datagrid('getSelected');
+            // var index=0;
+            // if (row){
+            //     index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
+            // }
+            // $('#dynamicDatagrids').datagrid('insertRow', {
+            //     index: index,
+            //     row:{
+            //         status:'P'
+            //     }
+            // });
+            // $('#dynamicDatagrids').datagrid('selectRow',index);
+            // $('#dynamicDatagrids').datagrid('beginEdit',index);
             // var row = $('#dynamicDatagrids').datagrid('getSelected');
             // //var index;
             // if (row){

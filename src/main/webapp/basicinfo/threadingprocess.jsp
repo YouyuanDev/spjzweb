@@ -189,26 +189,30 @@
             if (row){
                 var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
                 $('#itemrecordDatagrids').datagrid('endEdit',index);
-                $.ajax({
-                    url:'/ItemRecordOperation/saveItemRecord.action',
-                    dataType:'json',
-                    data:{id:row.id,thread_inspection_record_code:thread_inspection_record_code,itemcode:row.itemcode,itemvalue:row.itemvalue,toolcode1:row.toolcode1,toolcode2:row.toolcode2,
-                        measure_sample1:row.measure_sample1,measure_sample2:row.measure_sample2},
-                    success:function (data) {
-                        //如果是新增，则返回新增id,如果是修改，则返回执行结果
-                        if(data.promptkey=="success"){
-                            $("#itemrecordDatagrids").datagrid("reload");
-                        }else if(data.promptkey="ishave"){
-                            hlAlertFour(data.promptValue);
-                            $('#itemrecordDatagrids').datagrid('beginEdit',index);
-                        }else{
+                if(row.itemcode==null||row.itemcode==""||row.itemcode==undefined){
+                    hlAlertFour("请选择测量编号!");
+                }else{
+                    $.ajax({
+                        url:'/ItemRecordOperation/saveItemRecord.action',
+                        dataType:'json',
+                        data:{id:row.id,thread_inspection_record_code:thread_inspection_record_code,itemcode:row.itemcode,itemvalue:row.itemvalue,toolcode1:row.toolcode1,toolcode2:row.toolcode2,
+                            measure_sample1:row.measure_sample1,measure_sample2:row.measure_sample2},
+                        success:function (data) {
+                            //如果是新增，则返回新增id,如果是修改，则返回执行结果
+                            if(data.promptkey=="success"){
+                                $("#itemrecordDatagrids").datagrid("reload");
+                            }else if(data.promptkey="ishave"){
+                                hlAlertFour(data.promptValue);
+                                $('#itemrecordDatagrids').datagrid('beginEdit',index);
+                            }else{
+                                hlAlertFour("系统繁忙!");
+                            }
+
+                        },error:function () {
                             hlAlertFour("系统繁忙!");
                         }
-
-                    },error:function () {
-                        hlAlertFour("系统繁忙!");
-                    }
-                });
+                    });
+                }
             } else {
                 hlAlertFour("请选中要修改或添加的行!");
             }
@@ -417,10 +421,7 @@
         </fieldset>
     </form>
 </div>
-<div id="tooltb" style="height:auto">
-    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-</div>
+
 <div id="dlg-buttons" align="center" style="width:900px;">
     <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="addEditFormSubmit()">Save</a>
     <a href="#" class="easyui-linkbutton" id="hlcancelBtn" operationtype="add" iconCls="icon-cancel" onclick="CancelSubmit()">Cancel</a>
