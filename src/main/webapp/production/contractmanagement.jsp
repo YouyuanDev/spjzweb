@@ -178,12 +178,7 @@
     <input id="searcharg5" name="searcharg5" style="line-height:22px;border:1px solid #ccc">
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
-        <input id="fileupload1" class="mini-fileupload" name="Fdata" limitType="*.xls;"
-               flashUrl="../miniui/fileupload/swfupload/swfupload.swf"
-               uploadUrl="/Contract/uploadContractList.action"
-               onuploadsuccess="onUploadSuccess"
-               onuploaderror="onUploadError" onfileselect="onFileSelect" width="50px"
-        />
+
             <%--<input type="file" id="contractFile">--%>
         <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
         <a href="#" id="editObpLinkBtn" class="easyui-linkbutton i18n1" name="edit" data-options="iconCls:'icon-edit',plain:true" onclick="editFunction()">修改</a>
@@ -203,13 +198,32 @@
                         <label id="serialNumber" class="hl-label"></label>
                     </td>
                     <td></td>
+
+                    <td>
+                        <span class="i18n1" name="plsselectupladexcelfiles">请选择要上传的excel文件（.xls）</span>
+                    </td>
+                    <td>
+                        <input id="fileupload1" class="mini-fileupload" name="Fdata" limitType="*.xls;"
+                               flashUrl="../miniui/fileupload/swfupload/swfupload.swf"
+                               onuploadsuccess="onUploadSuccess"
+                               onuploaderror="onUploadError" onfileselect="onFileSelect" width="200px"/>
+
+                    </td>
+                    <td>
+                        <a class="mini-button mini-button-success" width="100px" value="上传" onclick="startUpload()"><span class="i18n1" name="upload">上传</span></a>
+                    </td>
+                </tr>
+                <tr>
                     <td class="i18n1" name="contractno"></td>
-                    <td><input class="easyui-textbox" type="text" name="contract_no" value=""/></td>
+                    <td><input class="easyui-textbox" type="text" id="contract_no" name="contract_no" value=""/></td>
+                    <td></td>
+                    <td class="i18n1" name="machiningcontractno"></td>
+                    <td><input class="easyui-textbox" type="text" id="machining_contract_no" name="machining_contract_no" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="i18n1" name="machiningcontractno"></td>
-                    <td><input class="easyui-textbox" type="text" name="machining_contract_no" value=""/></td>
+                    <td class="i18n1" name="customerspec"></td>
+                    <td><input class="easyui-textbox"  id="customer_spec" type="text" name="customer_spec" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="threadacceptancecriteriano"></td>
                     <td>
@@ -226,42 +240,37 @@
                 </tr>
                 <tr>
                     <td class="i18n1" name="od"></td>
-                    <td><input class="easyui-numberbox" type="text" data-options="precision:2" name="od" value=""/></td>
+                    <td><input class="easyui-numberbox" id="od" type="text" data-options="precision:2" name="od" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="wt"></td>
-                    <td><input class="easyui-numberbox" type="text" data-options="precision:2" name="wt" value=""/></td>
+                    <td><input class="easyui-numberbox" id="wt" type="text" data-options="precision:2" name="wt" value=""/></td>
                     <td></td>
                 </tr>
 
                 <tr>
                     <td class="i18n1" name="threadingtype"></td>
-                    <td><input class="easyui-textbox" type="text" name="threading_type" value=""/></td>
+                    <td><input class="easyui-textbox" id="threading_type" type="text" name="threading_type" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="couplingtype"></td>
-                    <td><input class="easyui-textbox" type="text" name="coupling_type" value=""/></td>
+                    <td><input class="easyui-textbox" id="coupling_type" type="text" name="coupling_type" value=""/></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td class="i18n1" name="customerspec"></td>
-                    <td><input class="easyui-textbox" type="text" name="customer_spec" value=""/></td>
-                    <td></td>
 
-                </tr>
 
                 <tr>
                     <td class="i18n1" name="pipeheatno"></td>
                     <td><input class="easyui-textbox" type="text" name="pipe_heat_no" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="pipelotno"></td>
-                    <td><input class="easyui-textbox" type="text" name="pipe_lot_no" value=""/></td>
+                    <td><input class="easyui-textbox" type="text" id="pipe_lot_no" name="pipe_lot_no" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td class="i18n1" name="pipesteelgrade"></td>
-                    <td><input class="easyui-textbox" type="text" name="pipe_steel_grade" value=""/></td>
+                    <td><input class="easyui-textbox" id="pipe_steel_grade" type="text" name="pipe_steel_grade" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="pipemeterial"></td>
-                    <td><input class="easyui-textbox" type="text" name="pipe_meterial" value=""/></td>
+                    <td><input class="easyui-textbox" id="pipe_meterial" type="text" name="pipe_meterial" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -310,6 +319,17 @@
         //alert("上传成功：" + e.serverData);
         var result = eval('('+e.serverData+')');
         if(result.success){
+            $("#contract_no").textbox('setValue',result.contract_no);
+            $("#customer_spec").textbox('setValue',result.customer_spec);
+            $("#machining_contract_no").textbox('setValue',result.machining_contract_no);
+            $("#od").numberbox('setValue',result.od);
+            $("#wt").numberbox('setValue',result.wt);
+            $("#pipe_lot_no").textbox('setValue',result.lot_no);
+            $("#pipe_meterial").textbox('setValue',result.material_no);
+            $("#pipe_steel_grade").textbox('setValue',result.steel_grade);
+            $("#threading_type").textbox('setValue',result.threading_type);
+            $("#coupling_type").textbox('setValue',result.coupling_type);
+
             alert("上传成功!");
         }
         this.setText("");
@@ -317,10 +337,15 @@
     function onUploadError(e) {
         alert("上传错误：" + e.serverData);
     }
-    function startUpload() {
 
+    function startUpload() {
+        var fileupload = mini.get("fileupload1");
         fileupload.setUploadUrl("/Contract/uploadContractList.action");
         fileupload.startUpload();
     }
+
+
+
+
     hlLanguage("../i18n/");
 </script>

@@ -2,6 +2,10 @@
   <library name="Maven: com.alibaba:fastjson:1.2.30">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.30/fastjson-1.2.30.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/jxl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/cos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/poi-3.7-20101029.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/poi-ooxml-3.7-20101029.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.30/fastjson-1.2.30-javadoc.jar!/" />
