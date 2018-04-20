@@ -36,6 +36,7 @@ public interface DynamicMeasurementItemDao {
     //添加时判断编号是否存在
     public List<DynamicMeasurementItem>getDynamicMeasurementItemByItemCodeOfAdd(@Param("measure_item_code") String measure_item_code,@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
 
-
+    //根据thread_inspection_record_code 得到ItemRecord 集合
+    public List<HashMap<String,Object>> getItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
 }
 

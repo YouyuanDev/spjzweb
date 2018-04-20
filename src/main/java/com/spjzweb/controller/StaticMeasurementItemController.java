@@ -138,5 +138,6 @@ public class StaticMeasurementItemController {
         }
         return null;
     }
+
 }
 

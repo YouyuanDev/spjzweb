@@ -16,6 +16,7 @@ public class ThreadInspectionRecord {
     private String production_crew;
     private String production_shift;
     private String video_no;
+
     private Date inspection_time;
     private String inspection_result;
 

@@ -1,4 +1,5 @@
 //------公共函数
+
 //弹出框函数
 function  hlAlertOne() {
     $.messager.alert('Warning','请选择要删除的行!');
@@ -120,6 +121,10 @@ function myformatter2(date){
 function myparser2(s){
     if (!s) return new Date();
     return new Date(Date.parse(s));
+}
+function dateParser(s){
+    var date=new Date(s);
+    return getDate1(date);
 }
 //加载钢管信息
 function loadPipeBaiscInfo(row) {

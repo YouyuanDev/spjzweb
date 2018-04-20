@@ -105,4 +105,14 @@
             </if>
         </where>
     </select>
+
+    <!--根据螺纹记录编号查询下拉测量项值-->
+    <select id="getAllDropdownItemRecordByInspectionNo" resultType="map">
+      select s.measure_item_code,s.measure_item_name from static_measurement_item s left join dynamic_measurement_item d on  s.measure_item_code=d.measure_item_code  where d.thread_acceptance_criteria_no=(
+        select a.thread_acceptance_criteria_no from thread_inspection_record r
+        inner join contract_info c on r.contract_no=c.contract_no
+        inner join threading_acceptance_criteria a on c.thread_acceptance_criteria_no=a.thread_acceptance_criteria_no
+        where r.thread_inspection_record_code=#{thread_inspection_record}
+        )
+    </select>
 </mapper>

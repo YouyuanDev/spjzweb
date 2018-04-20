@@ -26,7 +26,11 @@ public interface ItemRecordDao {
     //根据thread_inspection_record_code 得到ItemRecord 集合
     public List<ItemRecord> getItemRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
 
-
-
+    //根据thread_inspection_record_code 得到ItemRecord 集合
+//    public List<HashMap<String,Object>> getItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    //修改时判断编号是否存在
+    public List<ItemRecord>getItemRecordByItemCodeOfEdit(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code,@Param("id") int id);
+    //添加时判断编号是否存在
+    public List<ItemRecord>getItemRecordCodeOfAdd(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code);
 }
 

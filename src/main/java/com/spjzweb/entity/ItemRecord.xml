@@ -59,4 +59,31 @@
             #{item}
         </foreach>
     </delete>
+    <!--修改时判断编号是否存在-->
+    <select id="getItemRecordByItemCodeOfEdit" resultType="com.spjzweb.entity.ItemRecord">
+        select * from  item_record r
+        <where>
+            <if test="itemcode!=null and itemcode!=''">
+                AND r.itemcode=#{itemcode}
+            </if>
+            <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                AND r.thread_inspection_record_code=#{thread_inspection_record_code}
+            </if>
+        </where>
+        AND r.id!=#{id}
+    </select>
+    <!--添加时判断编号是否存在-->
+    <select id="getItemRecordByItemCodeOfAdd" resultType="com.spjzweb.entity.ItemRecord">
+        select * from  item_record r
+        <where>
+            <if test="itemcode!=null and itemcode!=''">
+                AND r.itemcode=#{itemcode}
+            </if>
+            <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                AND r.thread_inspection_record_code=#{thread_inspection_record_code}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

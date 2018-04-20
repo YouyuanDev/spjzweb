@@ -12,10 +12,10 @@ import java.util.List;
 public interface ThreadInspectionRecordDao {
 
     //模糊搜索带分页
-    public List<HashMap<String,Object>> getAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code, @Param("couping_no") String couping_no, @Param("operator_no")String operator_no, @Param("begin_time")Date begin_time, @Param("end_time")Date end_time, @Param("skip") int skip, @Param("take") int take);
+    public List<HashMap<String,Object>> getAllByLike(@Param("contract_no") String contract_no, @Param("couping_no") String couping_no, @Param("operator_no")String operator_no, @Param("begin_time")Date begin_time, @Param("end_time")Date end_time, @Param("skip") int skip, @Param("take") int take);
 
     //模糊搜索总数
-    public int getCountAllByLike(@Param("thread_inspection_record_code") String thread_inspection_record_code, @Param("couping_no") String couping_no,@Param("operator_no")String operator_no,@Param("begin_time")Date begin_time, @Param("end_time")Date end_time);
+    public int getCountAllByLike(@Param("contract_no") String contract_no, @Param("couping_no") String couping_no,@Param("operator_no")String operator_no,@Param("begin_time")Date begin_time, @Param("end_time")Date end_time);
 
     //修改ItemRecord
     public int updateThreadInspectionRecord(ThreadInspectionRecord threadInspectionRecord);

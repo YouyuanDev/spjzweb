@@ -75,4 +75,6 @@
     <select id="getAllDropdownStaticItem" resultType="map">
         select measure_item_code,measure_item_name from  static_measurement_item
     </select>
+
+
 </mapper>

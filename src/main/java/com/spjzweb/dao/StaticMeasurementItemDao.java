@@ -27,5 +27,7 @@ public interface StaticMeasurementItemDao {
     public List<StaticMeasurementItem> getStaticMeasurementItemByItemCodeOfAdd(@Param("measure_item_code") String measure_item_code);
     //获取下拉框所有的静态测量项
     public List<HashMap<String,Object>>getAllDropdownStaticItem();
+    //根据thread_inspection_record_code 得到ItemRecord 集合
+   // public List<HashMap<String,Object>> getItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
 }
 

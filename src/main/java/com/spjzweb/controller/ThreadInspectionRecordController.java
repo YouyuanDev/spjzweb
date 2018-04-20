@@ -28,7 +28,7 @@ public class ThreadInspectionRecordController {
     private ThreadInspectionRecordDao threadInspectionRecordDao;
     @RequestMapping(value = "/getThreadInspectionAllByLike")
     @ResponseBody
-    public String getThreadInspectionAllByLike(@RequestParam(value = "thread_inspection_record_code",required = false)String thread_inspection_record_code,@RequestParam(value = "couping_no",required = false)String couping_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
+    public String getThreadInspectionAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "couping_no",required = false)String couping_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null){
@@ -53,8 +53,8 @@ public class ThreadInspectionRecordController {
             e.printStackTrace();
         }
         int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-        List<HashMap<String,Object>>list=threadInspectionRecordDao.getAllByLike(thread_inspection_record_code,couping_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
-        int count=threadInspectionRecordDao.getCountAllByLike(thread_inspection_record_code,couping_no,operator_no,beginTime,endTime);
+        List<HashMap<String,Object>>list=threadInspectionRecordDao.getAllByLike(contract_no,couping_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
+        int count=threadInspectionRecordDao.getCountAllByLike(contract_no,couping_no,operator_no,beginTime,endTime);
         Map<String,Object> maps=new HashMap<String,Object>();
         maps.put("total",count);
         maps.put("rows",list);
@@ -66,8 +66,10 @@ public class ThreadInspectionRecordController {
     public String saveThreadingProcess(ThreadInspectionRecord threadingProcess, HttpServletRequest request, HttpServletResponse response){
         JSONObject json=new JSONObject();
         try{
-            String odbptime= request.getParameter("inspectiontime");
+            String odbptime= request.getParameter("instime");
             int resTotal=0;
+
+
             if(odbptime!=null&&odbptime!=""){
                 SimpleDateFormat simFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date new_odbptime = simFormat.parse(odbptime);
@@ -77,11 +79,13 @@ public class ThreadInspectionRecordController {
             }
             if(threadingProcess.getId()==0){
                 //添加
+                threadingProcess.setThread_inspection_record_code(String.valueOf(System.currentTimeMillis()));
                 resTotal=threadInspectionRecordDao.addThreadInspectionRecord(threadingProcess);
             }else{
                 //修改！
-                resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
-
+                if(threadingProcess.getThread_inspection_record_code()!=null&&!threadingProcess.getThread_inspection_record_code().equals("")){
+                    resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
+                }
             }
             if(resTotal>0){
                 json.put("promptkey","success");
@@ -92,9 +96,9 @@ public class ThreadInspectionRecordController {
             }
 
         }catch (Exception e){
-            e.printStackTrace();
             json.put("promptkey","fail");
             json.put("promptValue",e.getMessage());
+            e.printStackTrace();
 
         }finally {
             try {

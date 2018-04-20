@@ -19,11 +19,10 @@
     <script  src="../js/lrscroll.js" type="text/javascript"></script>
     <script src="../js/jquery.i18n.properties-1.0.9.js" type="text/javascript"></script>
     <script src="../js/language.js" type="text/javascript"></script>
-
-
-
     <script type="text/javascript">
         var url;
+        var thread_inspection_record_code;
+        var staticItem=[];
         $(function () {
             $('#addEditDialog').dialog({
                 onClose:function () {
@@ -31,7 +30,6 @@
                 }
             });
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
-            // hlLanguage("../i18n/");
         });
         function addFunction(){
             $('#hlcancelBtn').attr('operationtype','add');
@@ -69,37 +67,44 @@
                 $('#addEditDialog').dialog('open').dialog('setTitle','修改');
                 $('#addEditForm').form('load',row);
                 $("#serialNumber").text(row.id);
-                $("#inspectiontime").text(formatterdate(row.inspection_time));
+                $("#instime").datetimebox('setValue',getDate1(row.inspection_time));
+                //alert(getDate1(row.inspection_time));
                 url="/ThreadingOperation/saveThreadingProcess.action?id="+row.id;
+                thread_inspection_record_code=row.thread_inspection_record_code;
+                loadItemRecordByInspectionRecordCode(row.thread_inspection_record_code);
             }else{
                 hlAlertTwo();
             }
         }
         function searchFunction() {
             $('#contentDatagrids').datagrid('load',{
-                'contract_no': $('#searcharg1').val()
+                'contract_no': $('#searcharg1').val(),
+                'couping_no': $('#searcharg2').val(),
+                'operator_no': $('#searcharg3').val(),
+                'begin_time': $('#searcharg4').val(),
+                'end_time': $('#searcharg5').val(),
             });
         }
         function addEditFormSubmit() {
             $('#addEditForm').form('submit',{
                 url:url,
                 onSubmit:function (){
-                    if($("input[name='contract_no']").val()==""){
-                        hlAlertFour("合同编号");
+                    if($("input[name='instime']").val()==""){
+                        hlAlertFour("请输入操作时间");
                         return false;
                     }
+                    return $(this).form('validate');
                 },
                 success: function(result){
                     if (result.promptkey=="success"){
                         $('#addEditDialog').dialog('close');
                         $('#contentDatagrids').datagrid('reload');
-                    }else if(result.promptkey=="fail1"){
+                    }else{
                         hlAlertFour(result.promptValue);
                     }
                     hlAlertFour(result.promptValue);
                 },
                 error:function () {
-                    //clearFormLabel();
                     hlAlertThree();
                 }
             });
@@ -110,6 +115,170 @@
         function  clearFormLabel(){
             $('#addEditForm').form('clear');
             $('.hl-label').text('');
+        }
+        function loadItemRecordByInspectionRecordCode() {
+            $('#itemrecordDatagrids').datagrid({
+                title:'',
+                iconCls:'',
+                width:900,
+                height:250,
+                idField:'id',
+                singleSelect:true,
+                fitColumns:true,
+                toolbar:[
+                    { text: '增加', iconCls: 'icon-add', handler: function () {
+                            rowInsert();
+                        }
+                    },{ text: '保存', iconCls: 'icon-save', handler: function () {
+                            rowSave(thread_acceptance_criteria_no);
+                        }
+                    },{ text: '编辑', iconCls: 'icon-edit', handler: function () {
+                            rowEdit();
+                        }
+                    },{ text: '删除', iconCls: 'icon-remove', handler: function () {
+                            rowDelete(thread_acceptance_criteria_no);
+                        }
+                    },{ text: '撤销', iconCls: 'icon-undo', handler: function () {
+                            rowCancel();
+                        }
+                    }
+                ],
+                url:'/ItemRecordOperation/getItemRecordByInspectionNo.action?thread_inspection_record_code='+thread_inspection_record_code,
+                columns:[[
+                    {field:'id',title:'流水号',width:60},
+                    {field:'itemcode',title:'测量项编号',width:100,editor:'text',
+                        formatter:function(value){
+                            for(var i=0; i<staticItem.length; i++){
+                                if (staticItem.measure_item_code == value) return  staticItem.measure_item_name;
+                            }
+                            return value;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'measure_item_code',
+                                textField:'measure_item_name',
+                                data:staticItem,
+                                required:true
+                            }
+                        }
+                    },
+                    {field:'itemvalue',title:'检测项值',width:80},
+                    {field:'toolcode1',title:'量具编号1',width:80},
+                    {field:'toolcode2',title:'量具编号2',width:80},
+                    {field:'measure_sample1',title:'量具样块1编号',width:80},
+                    {field:'measure_sample2',title:'量具样块2编号',width:80},
+                ]]
+            });
+        }
+        function getRowIndex(target){
+            var tr = $(target).closest('tr.datagrid-row');
+            return parseInt(tr.attr('datagrid-row-index'));
+        }
+
+        function rowInsert(){
+            var row = $('#itemrecordDatagrids').datagrid('getSelected');
+            //var index;
+            if (row){
+                var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
+            } else {
+                index = 0;
+            }
+            $('#itemrecordDatagrids').datagrid('insertRow', {
+                index: index,
+                row:{
+                }
+            });
+            $('#itemrecordDatagrids').datagrid('selectRow',index);
+            $('#itemrecordDatagrids').datagrid('beginEdit',index);
+        }
+        function rowSave(thread_acceptance_criteria_no){
+            var row = $('#itemrecordDatagrids').datagrid('getSelected');
+            if (row){
+                var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
+                $('#itemrecordDatagrids').datagrid('endEdit',index);
+                $.ajax({
+                    url:'/ItemRecordOperation/saveItemRecord.action',
+                    dataType:'json',
+                    data:{id:row.id,thread_inspection_record_code:thread_inspection_record_code,itemcode:row.itemcode,itemvalue:row.itemvalue,toolcode1:row.toolcode1,toolcode2:row.toolcode2,
+                        measure_sample1:row.measure_sample1,measure_sample2:row.measure_sample2},
+                    success:function (data) {
+                        //如果是新增，则返回新增id,如果是修改，则返回执行结果
+                        if(data.promptkey=="success"){
+                            $("#dynamicDatagrids").datagrid("reload");
+                        }else if(data.promptkey="ishave"){
+                            hlAlertFour(data.promptValue);
+                            $('#itemrecordDatagrids').datagrid('beginEdit',index);
+                        }else{
+                            hlAlertFour(data.promptValue);
+                        }
+
+                    },error:function () {
+                        hlAlertFour("系统繁忙!");
+                    }
+                });
+            } else {
+                hlAlertFour("请选中要修改或添加的行!");
+            }
+        }
+        function rowEdit() {
+            var row = $('#itemrecordDatagrids').datagrid('getSelected');
+            if(row){
+                var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
+                $('#itemrecordDatagrids').datagrid('beginEdit',index);
+            }else {
+                hlAlertFour("请选中要修改或添加的行!");
+            }
+        }
+        function  rowDelete(thread_acceptance_criteria_no){
+
+            var row = $('#itemrecordDatagrids').datagrid('getSelected');
+            //var index;
+            if (row){
+                $.messager.confirm('Confirm','确定要删除吗?',function(r){
+                    if (r){
+                        var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
+                        $.ajax({
+                            url:'/ItemRecordOperation/delItemRecord.action',
+                            dataType:'json',
+                            data:{hlparam:row.id},
+                            success:function (data) {
+                                //如果是新增，则返回新增id,如果是修改，则返回执行结果
+                                if(data.promptkey=="success"){
+                                    $('#itemrecordDatagrids').datagrid('deleteRow',index);
+                                }else{
+                                    hlAlertFour("删除失败!");
+                                }
+                            },error:function () {
+                                hlAlertFour("系统繁忙!");
+                            }
+                        });
+                    }
+                });
+            } else {
+                hlAlertFour("请选中要修改或添加的行!");
+            }
+        }
+        function rowCancel() {
+            var row = $('#itemrecordDatagrids').datagrid('getSelected');
+            if (row){
+                var index= $('#itemrecordDatagrids').datagrid('getRowIndex',row);
+                $('#itemrecordDatagrids').datagrid('endEdit',index);
+            }
+        }
+        function getStataticItem() {
+            $.ajax({
+                url:'/DynamicMeasure/getAllDropdownStaticItemByInspectionNo.action?thread_inspection_record_code='+thread_inspection_record_code,
+                async:false,
+                dataType:'json',
+                success:function (data) {
+                    if(data.promptkey=="success"){
+                        staticItem= $.parseJSON(data.promptValue);
+                    }
+                },error:function () {
+                    alert("失败");
+                }
+            });
         }
     </script>
 
@@ -131,11 +300,11 @@
                 <th field="machine_no" align="center" width="100" class="i18n1" name="machineno"></th>
                 <th field="process_no" align="center" width="100" class="i18n1" name="processno"></th>
                 <th field="operator_no" align="center" width="100" class="i18n1" name="operatorno"></th>
-                <th field="production_crew" align="center" width="100" class="i18n1" name="productioncrew" hidden="true"></th>
-                <th field="production_shift" align="center" width="100" class="i18n1" name="productionshift" hidden="true"></th>
-                <th field="video_no" align="center" width="100" class="i18n1" name="videono" hidden="true"></th>
-                <th field="inspection_result" align="center" width="100" class="i18n1" name="inspectionresult" hidden="true"></th>
-                <th field="inspection_time" align="center" width="100" class="i18n1" name="inspectiontime" hidden="true"></th>
+                <th field="production_crew" align="center" width="100" class="i18n1" name="productioncrew"></th>
+                <th field="production_shift" align="center" width="100" class="i18n1" name="productionshift"></th>
+                <th field="video_no" align="center" width="100" class="i18n1" name="videono"></th>
+                <th field="inspection_result" align="center" width="100" class="i18n1" name="inspectionresult"></th>
+                <th field="inspection_time" align="center" width="100" class="i18n1" name="inspectiontime" data-options="formatter:formatterdate"></th>
             </tr>
             </thead>
         </table>
@@ -145,7 +314,15 @@
 <!--工具栏-->
 <div id="toolsTab" style="padding:10px;">
     <span class="i18n1" name="contractno">合同号</span>:
-    <input id="searcharg1" name="searcharg1" style="line-height:22px;border:1px solid #ccc">
+    <input id="searcharg1" name="searcharg1" type="text" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="coupingno">接箍编号</span>:
+    <input id="searcharg2" name="searcharg2" type="text" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="contractno">操作工号</span>:
+    <input id="searcharg3" name="searcharg3" type="text" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="begintime">开始时间</span>:
+    <input id="searcharg4" name="searcharg4" type="text" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="endtime">结束时间</span>:
+    <input id="searcharg5" name="searcharg5" type="text" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" style="line-height:22px;border:1px solid #ccc">
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
         <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
@@ -156,9 +333,11 @@
 <!--添加、修改框-->
 <div id="addEditDialog" class="easyui-dialog" data-options="title:'添加',modal:true"  closed="true" buttons="#dlg-buttons" style="display: none;padding:5px;width:950px;max-height:500px;overflow-y:auto;">
     <form id="addEditForm" method="post">
+        <input type="hidden" name="thread_inspection_record_code" value="">
         <fieldset style="width:900px;border:solid 1px #aaa;margin-top:8px;position:relative;">
             <legend>合同信息</legend>
             <table class="ht-table"  width="100%" border="0">
+
                 <tr>
                     <td class="i18n1" name="id">流水号</td>
                     <td>
@@ -166,31 +345,40 @@
                     </td>
                     <td></td>
                     <td class="i18n1" name="contractno"></td>
-                    <td><input class="easyui-textbox" type="text" name="contract_no" value=""/></td>
+                    <td>
+                        <%--<input id="millno" class="easyui-combobox" type="text" name="millno"  data-options=--%>
+                                <%--"url:'/millInfo/getAllMillsWithComboboxSelectAll.action',--%>
+					        <%--method:'get',--%>
+					        <%--valueField:'id',--%>
+					        <%--width: 150,--%>
+					        <%--editable:false,--%>
+					        <%--textField:'text'--%>
+					        <%--"/>--%>
+                        <input class="easyui-validatebox" data-options="required:true,validType:'nullandlength'" type="text" name="contract_no" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="i18n1" name="threadinspectionrecordcode"></td>
-                    <td><input class="easyui-textbox" type="text" name="thread_inspection_record_code" value=""/></td>
-                    <td></td>
                     <td class="i18n1" name="coupingno"></td>
-                    <td><input class="easyui-textbox" type="text" name="couping_no" value=""/></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="i18n1" name="productionline"></td>
-                    <td><input class="easyui-textbox" type="text" name="production_line" value=""/></td>
+                    <td><input class="easyui-validatebox" type="text" data-options="required:true,validType:'nullandlength'" name="couping_no" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="machineno"></td>
                     <td><input class="easyui-textbox" type="text" name="machine_no" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
+                    <td class="i18n1" name="productionline"></td>
+                    <td><input class="easyui-textbox" type="text" name="production_line" value=""/></td>
+                    <td></td>
                     <td class="i18n1" name="processno"></td>
                     <td><input class="easyui-textbox" type="text" name="process_no" value=""/></td>
                     <td></td>
+                </tr>
+                <tr>
                     <td class="i18n1" name="operatorno"></td>
                     <td><input class="easyui-textbox" type="text" name="operator_no" value=""/></td>
+                    <td></td>
+                    <td class="i18n1" name="videono"></td>
+                    <td><input class="easyui-textbox" type="text" name="video_no" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -202,9 +390,6 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="i18n1" name="videono"></td>
-                    <td><input class="easyui-textbox" type="text" name="video_no" value=""/></td>
-                    <td></td>
                     <td class="i18n1" name="inspectionresult"></td>
                     <td>
                         <%--<input class="easyui-textbox" type="text" name="inspection_result" value=""/>--%>
@@ -214,15 +399,15 @@
                             </select>
                     </td>
                     <td></td>
-                </tr>
-                <tr>
                     <td class="i18n1" name="inspectiontime"></td>
                     <td>
-                        <input class="easyui-datetimebox" type="text" id="inspectiontime" name="inspectiontime" value="" data-options="formatter:myformatter2,parser:myparser2"/>
-                    <%--<input class="easyui-textbox" type="text" name="inspection_time" value=""/>--%>
+                        <input class="easyui-datetimebox"  type="text" id="instime" name="instime" value="" data-options="formatter:myformatter2,parser:myparser2"/>
+                        <%--<input class="easyui-textbox" type="text" name="inspection_time" value=""/>--%>
                     </td>
                     <td></td>
                 </tr>
+            </table>
+            <table  id="itemrecordDatagrids">
             </table>
         </fieldset>
     </form>
@@ -233,14 +418,11 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="addEditFormSubmit()">Save</a>
     <a href="#" class="easyui-linkbutton" id="hlcancelBtn" operationtype="add" iconCls="icon-cancel" onclick="CancelSubmit()">Cancel</a>
 </div>
-
-
 <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/validate.js"></script>
 </body>
 </html>
 <script type="text/javascript">
     mini.parse();
-    var grid= mini.get("multiupload1");
-
     hlLanguage("../i18n/");
 </script>

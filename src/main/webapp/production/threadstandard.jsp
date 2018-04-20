@@ -172,9 +172,7 @@
             return parseInt(tr.attr('datagrid-row-index'));
         }
 
-        function deleterow(target){
 
-        }
         function rowInsert(){
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             //var index;

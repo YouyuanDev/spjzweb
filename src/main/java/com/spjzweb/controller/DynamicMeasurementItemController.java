@@ -191,4 +191,27 @@ public class DynamicMeasurementItemController {
         String map= JSONObject.toJSONString(colist);
         return map;
     }
+    //获取所有的静态测量项的编码和名字
+    @RequestMapping(value = "/getAllDropdownStaticItemByInspectionNo",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String getAllDropdownStaticItemByInspectionNo(HttpServletRequest request,HttpServletResponse response){
+        JSONObject json=new JSONObject();
+        try{
+            String thread_inspection_record_code=request.getParameter("thread_inspection_record_code");
+            List<HashMap<String,Object>>hsList=dynamicMeasurementItemDao.getItemRecordByInspectionNo(thread_inspection_record_code);
+            String mmp= JSONArray.toJSONString(hsList);
+            json.put("promptkey","success");
+            json.put("promptValue",mmp);
+        }catch (Exception e){
+            json.put("promptkey","error");
+            json.put("promptValue",e.getMessage());
+        }finally {
+            try{
+                ResponseUtil.write(response,json);
+            }catch (Exception e){
+
+            }
+        }
+        return null;
+    }
 }
