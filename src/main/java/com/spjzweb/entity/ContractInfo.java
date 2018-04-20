@@ -18,12 +18,15 @@ public class ContractInfo {
     private String thread_sample_graph_no;
     private String thread_acceptance_criteria_no;
     private String remark;
+    private String customer_spec;
+    private String threading_type;
+    private String coupling_type;
 
 
     public ContractInfo() {
     }
 
-    public ContractInfo(int id, String contract_no, String machining_contract_no, float od, float wt, String pipe_heat_no, String pipe_lot_no, String pipe_steel_grade, String pipe_meterial, String graph_no, String handbook_no, String seal_sample_graph_no, String thread_sample_graph_no, String thread_acceptance_criteria_no, String remark) {
+    public ContractInfo(int id, String contract_no, String machining_contract_no, float od, float wt, String pipe_heat_no, String pipe_lot_no, String pipe_steel_grade, String pipe_meterial, String graph_no, String handbook_no, String seal_sample_graph_no, String thread_sample_graph_no, String thread_acceptance_criteria_no, String remark, String customer_spec, String threading_type, String coupling_type) {
         this.id = id;
         this.contract_no = contract_no;
         this.machining_contract_no = machining_contract_no;
@@ -39,6 +42,9 @@ public class ContractInfo {
         this.thread_sample_graph_no = thread_sample_graph_no;
         this.thread_acceptance_criteria_no = thread_acceptance_criteria_no;
         this.remark = remark;
+        this.customer_spec = customer_spec;
+        this.threading_type = threading_type;
+        this.coupling_type = coupling_type;
     }
 
     public int getId() {
@@ -159,5 +165,29 @@ public class ContractInfo {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getCustomer_spec() {
+        return customer_spec;
+    }
+
+    public void setCustomer_spec(String customer_spec) {
+        this.customer_spec = customer_spec;
+    }
+
+    public String getThreading_type() {
+        return threading_type;
+    }
+
+    public void setThreading_type(String threading_type) {
+        this.threading_type = threading_type;
+    }
+
+    public String getCoupling_type() {
+        return coupling_type;
+    }
+
+    public void setCoupling_type(String coupling_type) {
+        this.coupling_type = coupling_type;
     }
 }

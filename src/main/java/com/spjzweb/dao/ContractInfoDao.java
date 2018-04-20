@@ -9,10 +9,10 @@ import java.util.List;
 public interface ContractInfoDao {
 
     //模糊搜索带分页
-    public List<HashMap<String,Object>> getAllByLike(@Param("contract_no") String contract_no, @Param("skip") int skip, @Param("take") int take);
+    public List<HashMap<String,Object>> getAllByLike(@Param("contract_no") String contract_no,@Param("customer_spec") String customer_spec,@Param("od") String od,@Param("wt") String wt,@Param("threading_type") String threading_type, @Param("skip") int skip, @Param("take") int take);
 
     //模糊搜索总数
-    public int getCountAllByLike(@Param("contract_no") String contract_no);
+    public int getCountAllByLike(@Param("contract_no") String contract_no,@Param("customer_spec") String customer_spec,@Param("od") String od,@Param("wt") String wt,@Param("threading_type") String threading_type);
 
     //修改ItemRecord
     public int updateContractInfo(ContractInfo contractInfo);
