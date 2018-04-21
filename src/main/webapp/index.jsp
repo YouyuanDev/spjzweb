@@ -25,13 +25,15 @@
     <script type="text/javascript">
         var url;
         $(function(){
-            var uriArr=["threadingprocess","toolmeasuringrecord",
-                "threadstandard","contractmanagement","staticmeasureitem","dynamicmeasureitem",
+            var uriArr=["threadingprocess",
+                "contractmanagement",
+                "threadstandard","staticmeasureitem",
                 "person","role","function"
                 ];
-            var oneArr=uriArr.slice(0,2);
-            var twoArr=uriArr.slice(2,6);
-            var threeArr=uriArr.slice(6,9);
+            var startArr=uriArr.slice(0,1);
+            var oneArr=uriArr.slice(1,2);
+            var twoArr=uriArr.slice(2,4);
+            var threeArr=uriArr.slice(4,7);
             var hsMapList="<%=session.getAttribute("userfunctionMap")%>";
             var funArr;
             if(hsMapList!=null&&hsMapList!=""&&hsMapList.length>0){
@@ -54,6 +56,10 @@
             });
 
             if(finalNameArr.length>0){
+
+                var startDiv='<div title=\"检验信息\" class=\"i18n\" name=\"inspectioninfo\"  style=\"padding:10px;\"><ul id=\"inspection-ul\">';
+                var startDivSon="";
+
                 var oneDiv='<div title=\"基础信息\" class=\"i18n\" name=\"basicinfo\"  style=\"padding:10px;\"><ul id=\"basic-ul\">';
                 var oneDivSon="";
                 var twoDiv='<div title=\"生产工艺\" class=\"i18n\" name=\"productionprocess\"  style=\"padding:10px;\"><ul id=\"process-ul\">';
@@ -62,9 +68,14 @@
                 var threeDivSon="";
 
                 var endDiv="</ul></div>";
-                //外喷砂
+
 
                 $.each(finalNameArr,function (index,element) {
+                    if($.inArray(element,startArr)!=-1){
+                        startDivSon+=MakeMenus(element);
+                        return true;
+                    }
+
                     if($.inArray(element,oneArr)!=-1){
                         oneDivSon+=MakeMenus(element);
                         return true;
@@ -79,6 +90,13 @@
                     }
 
                 });
+
+                if(startDivSon!=""&&startDivSon.length>0){
+                    startDiv+=startDivSon;
+                    startDiv+=endDiv;
+                    $('#aa').append(startDiv);
+                }
+
                 if(oneDivSon!=""&&oneDivSon.length>0){
                     oneDiv+=oneDivSon;
                     oneDiv+=endDiv;
@@ -97,7 +115,11 @@
             }
             hlLanguage("i18n/");
             //hlLanguage("i18n/");
-            $('#basic-ul').tree({
+
+
+
+            //检验信息
+            $('#inspection-ul').tree({
                 onClick:function(node){
                     var tab=$('#bgTab').tabs('getTab',node.text);
                     var xy=node.text;
@@ -109,14 +131,33 @@
                         if("螺纹检验"==xy||"Threading Inspection"==xy){
                             $('#bgTab').tabs('add',{
                                 title:node.text,
-                                content:"<iframe scrolling='auto' frameborder='0'  src='basicinfo/threadingprocess.jsp' style='width:100%;height:100%;'></iframe>",
+                                content:"<iframe scrolling='auto' frameborder='0'  src='inspection/threadingprocess.jsp' style='width:100%;height:100%;'></iframe>",
                                 closable:true
                             });
                             hlLanguage();
-                        }else if("工具测量使用记录"==xy||"Tool Measuring Record"==xy){
+                        }
+
+
+                    }
+                }
+            });
+
+
+
+
+            $('#basic-ul').tree({
+                onClick:function(node){
+                    var tab=$('#bgTab').tabs('getTab',node.text);
+                    var xy=node.text;
+                    if(tab){
+                        //切换
+                        $('#bgTab').tabs('select',node.text);
+                    }else{
+                        //添加新的选项卡
+                        if("合同管理"==xy||"Contract Management"==xy){
                             $('#bgTab').tabs('add',{
                                 title:node.text,
-                                content:"<iframe scrolling='auto' frameborder='0'  src='basicinfo/toolmeasuringrecord.jsp' style='width:100%;height:100%;'></iframe>",
+                                content:"<iframe scrolling='auto' frameborder='0'  src='basicinfo/contractmanagement.jsp' style='width:100%;height:100%;'></iframe>",
                                 closable:true
                             });
                             hlLanguage();
@@ -179,13 +220,6 @@
                                 closable:true
                             });
                             hlLanguage();
-                        }else  if("合同管理"==xy||"Contract Management"==xy){
-                            $('#bgTab').tabs('add',{
-                                title:node.text,
-                                content:"<iframe scrolling='auto' frameborder='0'  src='production/contractmanagement.jsp' style='width:100%;height:100%;'></iframe>",
-                                closable:true
-                            });
-                            hlLanguage();
                         }else  if("静态测量项"==xy||"Static Measure Item"==xy){
                             $('#bgTab').tabs('add',{
                                 title:node.text,
@@ -193,14 +227,15 @@
                                 closable:true
                             });
                             hlLanguage();
-                        }else  if("动态测量项"==xy||"Dynamic Measure Item"==xy){
-                            $('#bgTab').tabs('add',{
-                                title:node.text,
-                                content:"<iframe scrolling='auto' frameborder='0'  src='production/dynamicmeasureitem.jsp' style='width:100%;height:100%;'></iframe>",
-                                closable:true
-                            });
-                            hlLanguage();
                         }
+                        // else  if("动态测量项"==xy||"Dynamic Measure Item"==xy){
+                        //     $('#bgTab').tabs('add',{
+                        //         title:node.text,
+                        //         content:"<iframe scrolling='auto' frameborder='0'  src='production/dynamicmeasureitem.jsp' style='width:100%;height:100%;'></iframe>",
+                        //         closable:true
+                        //     });
+                        //     hlLanguage();
+                        // }
                     }
                 }
             });
