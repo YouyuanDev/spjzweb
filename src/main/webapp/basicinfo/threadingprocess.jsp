@@ -149,7 +149,7 @@
                 url:'/ItemRecordOperation/getItemRecordByInspectionNo.action?thread_inspection_record_code='+thread_inspection_record_code,
                 columns:[[
                     {field:'id',title:'流水号',width:60},
-                    {field:'itemcode',title:'测量项编号',width:100,
+                    {field:'itemcode',title:'测量项编号',width:150,
                         formatter:function(value){
                             for(var i=0; i<staticItem.length; i++){
                                 if (staticItem.measure_item_code == value)  return  staticItem.measure_item_name;
