@@ -67,7 +67,7 @@
     </delete>
 
     <select id="getAllDropdownStaticItem" resultType="map">
-        select measure_item_code,measure_item_name from  static_measurement_item
+        select measure_item_code,measure_item_name,concat( measure_item_code ,'(' , measure_item_name, ')' ) as code_and_name   from  static_measurement_item
     </select>
 
 

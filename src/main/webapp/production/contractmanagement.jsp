@@ -292,7 +292,7 @@
                 <tr>
                 <tr>
                     <td class="i18n1" name="remark"></td>
-                    <td colspan="5" ><input class="easyui-textbox" type="text" data-options="multiline:true" name="remark" value=""/></td>
+                    <td colspan="5" ><input class="easyui-textbox" type="text" data-options="multiline:true" name="remark" value="" style="width:400px;height:50px;"/></td>
                 </tr>
             </table>
         </fieldset>

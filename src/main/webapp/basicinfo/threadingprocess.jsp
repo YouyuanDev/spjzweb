@@ -23,6 +23,9 @@
         var url;
         var thread_inspection_record_code;
         var staticItem=[];
+
+
+
         $(function () {
             $('#addEditDialog').dialog({
                 onClose:function () {
@@ -161,9 +164,10 @@
                             options:{
                                 valueField:'measure_item_code',
                                 textField:'code_and_name',
-                                data:staticItem
+                                data:staticItem,
+                                required:true
                             },
-                            width:200
+                            width:250
                         }
                     },
                     {field:'measure_item_name',title:'检测项名称',width:150},
@@ -181,10 +185,14 @@
         }
 
         function rowInsert(){
+            if(!endEditing()){
+                return;
+            }
             $('#itemrecordDatagrids').datagrid('appendRow',{ });
-            var editIndex = $('#itemrecordDatagrids').datagrid('getRows').length-1;
-            $('#itemrecordDatagrids').datagrid('selectRow', editIndex)
-            $('#itemrecordDatagrids').datagrid('beginEdit', editIndex);
+            var insertIndex = $('#itemrecordDatagrids').datagrid('getRows').length-1;
+            $('#itemrecordDatagrids').datagrid('selectRow', insertIndex);
+            onClickRow(insertIndex);
+            //$('#itemrecordDatagrids').datagrid('beginEdit', insertIndex);
         }
         function rowSave(){
             var row = $('#itemrecordDatagrids').datagrid('getSelected');
@@ -223,19 +231,29 @@
             var row = $('#itemrecordDatagrids').datagrid('getSelected');
             if(row){
                 var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
-                $('#itemrecordDatagrids').datagrid('beginEdit',index);
+
                 //关闭其他row的edit模式
+                onClickRow(index);
+                //$('#itemrecordDatagrids').datagrid('beginEdit',index);
+
+
             }else {
                 hlAlertFour("请选中要修改或添加的行!");
             }
         }
         function  rowDelete(){
             var row = $('#itemrecordDatagrids').datagrid('getSelected');
-            //var index;
+
             if (row){
+                var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
+                if(row.id==null){
+                    //删除未保存的新增记录行
+                    $('#itemrecordDatagrids').datagrid('deleteRow',index);
+                    return;
+                }
+
                 $.messager.confirm('Confirm','确定要删除吗?',function(r){
                     if (r){
-                        var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
                         $.ajax({
                             url:'/ItemRecordOperation/delItemRecord.action',
                             dataType:'json',
@@ -278,6 +296,38 @@
                 }
             });
         }
+
+
+        var editIndex = undefined;
+        function endEditing()
+        {
+
+            if(editIndex == undefined)
+            {return true;}//如果为undefined的话，为真，说明可以编辑
+            if($('#itemrecordDatagrids').datagrid('validateRow',editIndex))
+            {
+                $('#itemrecordDatagrids').datagrid('endEdit',editIndex);//当前行编辑事件取消
+                editIndex = undefined;
+                return true;//重置编辑行索引对象，返回真，允许编辑
+            }else
+            {return false;}//否则，为假，返回假，不允许编辑
+        }
+
+        function onClickRow(index)//这是触发行事件
+        {
+            if(endEditing()){
+                $('#itemrecordDatagrids').datagrid('selectRow',index).datagrid('beginEdit',index)//其中beginEdit方法为datagrid的方法，具体可以参看api
+                editIndex = index;//给editIndex对象赋值，index为当前行的索引
+            }else {
+                $('#itemrecordDatagrids').datagrid('selectRow',editIndex);
+            }
+        }
+
+
+
+
+
+
     </script>
 
 </head>
@@ -436,4 +486,6 @@
 <script type="text/javascript">
     mini.parse();
     hlLanguage("../i18n/");
+
+
 </script>

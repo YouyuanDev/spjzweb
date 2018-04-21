@@ -6,7 +6,7 @@
 <mapper namespace="com.spjzweb.dao.DynamicMeasurementItemDao">
 
     <select id="getDynamicMeasureItemByAcceptanceNo" resultType="map">
-        SELECT s.measure_item_name,d.* from dynamic_measurement_item d
+        SELECT s.measure_item_name,d.*,concat(s.measure_item_code ,'(' ,s.measure_item_name, ')' ) as code_and_name  from dynamic_measurement_item d
         LEFT JOIN static_measurement_item s
         on d.measure_item_code=s.measure_item_code
         WHERE thread_acceptance_criteria_no=#{thread_acceptance_criteria_no}

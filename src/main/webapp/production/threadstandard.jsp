@@ -144,7 +144,7 @@
                 url:'/DynamicMeasure/getDynamicMeasureItemByAcceptanceNo.action?thread_acceptance_criteria_no='+thread_acceptance_criteria_no,
                 columns:[[
                     {field:'id',title:'流水号',width:60},
-                    {field:'measure_item_code',title:'测量项编号',width:100,
+                    {field:'measure_item_code',title:'测量项编号',width:150,
                         formatter:function(value){
                             for(var i=0; i<staticItem.length; i++){
                                 if (staticItem.measure_item_code == value) return  staticItem.measure_item_name;
@@ -155,10 +155,11 @@
                             type:'combobox',
                             options:{
                                 valueField:'measure_item_code',
-                                textField:'measure_item_name',
+                                textField:'code_and_name',
                                 data:staticItem,
                                 required:true
-                            }
+                            },
+                            width:250
                         }
                     },
                     {field:'measure_item_name',title:'测量项名称',width:100},
@@ -175,10 +176,16 @@
 
 
         function rowInsert(){
+            if(!endEditing()){
+                return;
+            }
+
             $('#dynamicDatagrids').datagrid('appendRow',{ });
-            var editIndex = $('#dynamicDatagrids').datagrid('getRows').length-1;
-            $('#dynamicDatagrids').datagrid('selectRow', editIndex)
-            $('#dynamicDatagrids').datagrid('beginEdit', editIndex);
+            var insertIndex = $('#dynamicDatagrids').datagrid('getRows').length-1;
+            $('#dynamicDatagrids').datagrid('selectRow', insertIndex);
+            onClickRow(insertIndex);
+
+            //$('#dynamicDatagrids').datagrid('beginEdit', insertIndex);
 
 
             // var row = $('#dynamicDatagrids').datagrid('getSelected');
@@ -245,7 +252,8 @@
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             if(row){
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-                $('#dynamicDatagrids').datagrid('beginEdit',index);
+                onClickRow(index);
+                //$('#dynamicDatagrids').datagrid('beginEdit',index);
             }else {
                 hlAlertFour("请选中要修改或添加的行!");
             }
@@ -255,6 +263,14 @@
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             //var index;
             if (row){
+                var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
+                if(row.id==null){
+                    //删除未保存的新增记录行
+                    $('#dynamicDatagrids').datagrid('deleteRow',index);
+                    return;
+                }
+
+
                 $.messager.confirm('Confirm','确定要删除吗?',function(r){
                     if (r){
                         var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
@@ -305,6 +321,34 @@
                 }
             });
         }
+
+
+        var editIndex = undefined;
+        function endEditing()
+        {
+
+            if(editIndex == undefined)
+            {return true;}//如果为undefined的话，为真，说明可以编辑
+            if($('#dynamicDatagrids').datagrid('validateRow',editIndex))
+            {
+                $('#dynamicDatagrids').datagrid('endEdit',editIndex);//当前行编辑事件取消
+                editIndex = undefined;
+                return true;//重置编辑行索引对象，返回真，允许编辑
+            }else
+            {return false;}//否则，为假，返回假，不允许编辑
+        }
+
+        function onClickRow(index)//这是触发行事件
+        {
+            if(endEditing()){
+                $('#dynamicDatagrids').datagrid('selectRow',index).datagrid('beginEdit',index)//其中beginEdit方法为datagrid的方法，具体可以参看api
+                editIndex = index;//给editIndex对象赋值，index为当前行的索引
+            }else {
+                $('#dynamicDatagrids').datagrid('selectRow',editIndex);
+            }
+        }
+
+
     </script>
 </head>
 
