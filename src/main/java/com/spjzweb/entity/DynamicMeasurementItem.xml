@@ -111,7 +111,7 @@
 
     <!--根据螺纹记录编号查询下拉测量项值-->
     <select id="getAllDropdownItemRecordByInspectionNo" resultType="map">
-SELECT s.measure_item_code,s.measure_item_name from dynamic_measurement_item  d INNER join static_measurement_item s  on s.measure_item_code=d.measure_item_code where d.thread_acceptance_criteria_no=(
+SELECT s.measure_item_code,s.measure_item_name,concat(s.measure_item_code ,'(' ,s.measure_item_name, ')' ) as code_and_name from dynamic_measurement_item  d INNER join static_measurement_item s  on s.measure_item_code=d.measure_item_code where d.thread_acceptance_criteria_no=(
   select c.thread_acceptance_criteria_no from contract_info c INNER join thread_inspection_record t
  on c.contract_no=t.contract_no where t.thread_inspection_record_code=#{thread_inspection_record_code}
 )

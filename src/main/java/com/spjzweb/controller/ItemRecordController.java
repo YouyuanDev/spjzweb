@@ -28,7 +28,7 @@ public class ItemRecordController {
     @ResponseBody
     public String getItemRecordByInspectionNo(HttpServletRequest request){
         String inspection_record_no=request.getParameter("thread_inspection_record_code");
-        List<ItemRecord> list=new ArrayList<>();
+        List<HashMap<String,Object>> list=new ArrayList<>();
         String mmp= "";
         if(inspection_record_no!=null&&!inspection_record_no.equals("")){
             list=itemRecordDao.getItemRecordByInspectionRecordCode(inspection_record_no);

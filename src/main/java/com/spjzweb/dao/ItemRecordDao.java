@@ -24,7 +24,7 @@ public interface ItemRecordDao {
     public int delItemRecord(String[] arrId);
 
     //根据thread_inspection_record_code 得到ItemRecord 集合
-    public List<ItemRecord> getItemRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    public List<HashMap<String,Object>> getItemRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
 
     //根据thread_inspection_record_code 得到ItemRecord 集合
 //    public List<HashMap<String,Object>> getItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);

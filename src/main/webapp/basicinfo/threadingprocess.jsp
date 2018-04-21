@@ -152,7 +152,7 @@
                     {field:'itemcode',title:'测量项编号',width:100,
                         formatter:function(value){
                             for(var i=0; i<staticItem.length; i++){
-                                if (staticItem.measure_item_code == value) return  staticItem.measure_item_name;
+                                if (staticItem.measure_item_code == value)  return  staticItem.measure_item_name;
                             }
                             return value;
                         },
@@ -160,11 +160,13 @@
                             type:'combobox',
                             options:{
                                 valueField:'measure_item_code',
-                                textField:'measure_item_name',
-                                data:staticItem,
-                            }
+                                textField:'code_and_name',
+                                data:staticItem
+                            },
+                            width:200
                         }
                     },
+                    {field:'measure_item_name',title:'检测项名称',width:150},
                     {field:'itemvalue',title:'检测项值',width:80,editor:'textbox'},
                     {field:'toolcode1',title:'量具编号1',width:80,editor:'textbox'},
                     {field:'toolcode2',title:'量具编号2',width:80,editor:'textbox'},
@@ -222,6 +224,7 @@
             if(row){
                 var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
                 $('#itemrecordDatagrids').datagrid('beginEdit',index);
+                //关闭其他row的edit模式
             }else {
                 hlAlertFour("请选中要修改或添加的行!");
             }
