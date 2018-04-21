@@ -149,16 +149,12 @@ public class ContractController {
             //FileRenameUtil util = new FileRenameUtil();
             System.out.println("saveDirectory="+saveDirectory);
             MultipartRequest multi = new MultipartRequest(request, saveDirectory, 100* 1024 * 1024, "UTF-8");
-            System.out.println("11111111111111");
             Enumeration files = multi.getFileNames();
-
-            System.out.println("2222222222");
             String newName = "";
             File file=null;
             HashMap retMap=null;
             if (files.hasMoreElements()) {
                 String name = (String) files.nextElement();
-                System.out.println("name="+name);
                 file = multi.getFile(name);
                 if (file != null) {
                     newName = file.getName();

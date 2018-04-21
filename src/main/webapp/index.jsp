@@ -28,12 +28,14 @@
             var uriArr=["threadingprocess",
                 "contractmanagement",
                 "threadstandard","staticmeasureitem",
-                "person","role","function"
+                "person","role","function",
+                "clientappupdate"
                 ];
             var startArr=uriArr.slice(0,1);
             var oneArr=uriArr.slice(1,2);
             var twoArr=uriArr.slice(2,4);
             var threeArr=uriArr.slice(4,7);
+            var fourArr=uriArr.slice(7,8);
             var hsMapList="<%=session.getAttribute("userfunctionMap")%>";
             var funArr;
             if(hsMapList!=null&&hsMapList!=""&&hsMapList.length>0){
@@ -67,6 +69,9 @@
                 var threeDiv='<div title=\"账户管理\" class=\"i18n\" name=\"accountmanagement\"  style=\"padding:10px;\"><ul id=\"account-ul\">';
                 var threeDivSon="";
 
+                var fourDiv='<div title=\"系统管理\" class=\"i18n\" name=\"system\"  style=\"padding:10px;\"><ul id=\"system-ul\">';
+                var fourDivSon="";
+
                 var endDiv="</ul></div>";
 
 
@@ -86,6 +91,10 @@
                     }
                     if($.inArray(element,threeArr)!=-1){
                         threeDivSon+=MakeMenus(element);
+                        return true;
+                    }
+                    if($.inArray(element,fourArr)!=-1){
+                        fourDivSon+=MakeMenus(element);
                         return true;
                     }
 
@@ -111,6 +120,11 @@
                     threeDiv+=threeDivSon;
                     threeDiv+=endDiv;
                     $('#aa').append(threeDiv);
+                }
+                if(fourDivSon!=""&&fourDivSon.length>0){
+                    fourDiv+=fourDivSon;
+                    fourDiv+=endDiv;
+                    $('#aa').append(fourDiv);
                 }
             }
             hlLanguage("i18n/");
@@ -144,7 +158,7 @@
 
 
 
-
+            //基础信息
             $('#basic-ul').tree({
                 onClick:function(node){
                     var tab=$('#bgTab').tabs('getTab',node.text);
@@ -204,6 +218,30 @@
                     }
                 }
             });
+            //系统管理
+            $('#system-ul').tree({
+                onClick:function(node){
+                    var tab=$('#bgTab').tabs('getTab',node.text);
+                    var xy=node.text;
+                    if(tab){
+                        //切换
+                        $('#bgTab').tabs('select',node.text);
+                    }else{
+                        //添加新的选项卡
+                        if("客户端程序更新"==xy||"Client App Update"==xy){
+                            $('#bgTab').tabs('add',{
+                                title:node.text,
+                                content:"<iframe scrolling='auto' frameborder='0'  src='system/clientappupdate.jsp' style='width:100%;height:100%;'></iframe>",
+                                closable:true
+                            });
+                            hlLanguage();
+                        }
+
+                    }
+                }
+            });
+
+
             $('#process-ul').tree({
                 onClick:function(node){
                     var tab=$('#bgTab').tabs('getTab',node.text);
