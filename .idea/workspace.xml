@@ -6,13 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="783b5446-4794-433d-a681-97d6d4515d56" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_30.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_30.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/spjzweb.iml" afterPath="$PROJECT_DIR$/spjzweb.iml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" />
-    </list>
+    <list default="true" id="783b5446-4794-433d-a681-97d6d4515d56" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -161,9 +155,11 @@
       <file leaf-file-name="ExcelUtil.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/ExcelUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-              <folding />
+            <state relative-caret-position="263">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -855,12 +851,12 @@
       <workItem from="1524149708547" duration="301000" />
       <workItem from="1524205010288" duration="8305000" />
       <workItem from="1524226472359" duration="8694000" />
-      <workItem from="1524273298622" duration="288000" />
+      <workItem from="1524273298622" duration="304000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90670000" />
+    <option name="totallyTimeSpent" value="90686000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="835" extended-state="6" />
@@ -1334,9 +1330,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/ExcelUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="263">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
