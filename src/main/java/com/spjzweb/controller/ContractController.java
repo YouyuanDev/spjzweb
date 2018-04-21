@@ -189,6 +189,7 @@ public class ContractController {
             System.out.println("file.length()="+file.length());
         } catch (Exception e) {
             System.err.println("Exception=" + e.getMessage().toString());
+            System.out.println("Exception=" + e.getMessage().toString());
             e.printStackTrace();
             JSONObject json = new JSONObject();
             json.put("success",false);

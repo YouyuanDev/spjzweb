@@ -311,8 +311,8 @@
 </html>
 <script type="text/javascript">
     mini.parse();
-    var grid= mini.get("multiupload1");
-    var fileupload = mini.get("fileupload1");
+    //var grid= mini.get("multiupload1");
+    //var fileupload = mini.get("fileupload1");
     function onFileSelect(e) {
     }
     function onUploadSuccess(e) {

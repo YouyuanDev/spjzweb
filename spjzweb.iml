@@ -21,7 +21,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/webapp/lib" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/lib" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -30,7 +30,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library name="Maven: com.oreilly:cos:unknown">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/cos.jar!/" />
@@ -66,7 +66,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/webapp/lib/jxl.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/jxl.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -75,7 +75,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/webapp/lib/cos.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/cos.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -84,7 +84,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/webapp/lib/poi-3.7-20101029.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/poi-3.7-20101029.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -93,7 +93,25 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/webapp/lib/poi-ooxml-3.7-20101029.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/poi-examples-3.7-20101029.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/poi-ooxml-3.7-20101029.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/poi-ooxml-schemas-3.7-20101029.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
