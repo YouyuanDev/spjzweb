@@ -324,7 +324,14 @@
         }
 
 
-
+        function openVideoPreview()
+        {
+            $('#bgTab').tabs('add',{
+                title:'video',
+                content:"<iframe scrolling='auto' frameborder='0'  src='../upload/video1.mp4' style='width:100%;height:100%;'></iframe>",
+                closable:true
+            });
+        }
 
 
 
@@ -426,8 +433,11 @@
                     <td><input class="easyui-textbox" type="text" name="operator_no" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="videono"></td>
-                    <td><input class="easyui-textbox" type="text" name="video_no" value=""/></td>
-                    <td></td>
+                    <td><input class="easyui-textbox" type="text" name="video_no" value=""/>
+                    </td>
+                    <td>
+                        <a href="../upload/video1.mp4" target="_blank" name="preview" class="easyui-linkbutton i18n1" data-options="iconCls:'icon-play',plain:true" onclick="openVideoPreview()">Preview</a>
+                    </td>
                 </tr>
                 <tr>
                     <td class="i18n1" name="productioncrew"></td>
