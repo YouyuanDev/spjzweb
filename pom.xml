@@ -26,7 +26,7 @@
   <name>spjzweb</name>
   <groupId>spjzweb</groupId>
   <artifactId>spjzweb</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.20180425_b</version>
 
   <build>
     <resources>
