@@ -72,8 +72,6 @@
 
 
 
-
-
 <div class="description">
     <h3><span class="i18n1" name="description">描述</span></h3>
     <p><span class="i18n1" name="upgradeinfo">更新信息</span></p>
