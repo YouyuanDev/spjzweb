@@ -436,7 +436,14 @@
                     <td><input class="easyui-textbox" type="text" name="video_no" value=""/>
                     </td>
                     <td>
-                        <a href="../upload/video1.mp4" target="_blank" name="preview" class="easyui-linkbutton i18n1" data-options="iconCls:'icon-play',plain:true" onclick="openVideoPreview()">Preview</a>
+
+                        <div style="text-align:center">
+                            <video id="video1" width="320" height="240" controls>
+                                <source src="../upload/video1.mp4" type="video/mp4">
+                                您的浏览器不支持 video 属性。
+                            </video>
+                        </div>
+
                     </td>
                 </tr>
                 <tr>
@@ -496,6 +503,8 @@
 <script type="text/javascript">
     mini.parse();
     hlLanguage("../i18n/");
+
+
 
 
 </script>

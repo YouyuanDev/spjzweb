@@ -7,12 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="783b5446-4794-433d-a681-97d6d4515d56" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh.properties" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -53,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/webapp/system/clientappupdate.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
-              <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+              <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -69,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="threadingprocess.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="threadingprocess.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="438" column="84" lean-forward="false" selection-start-line="438" selection-start-column="77" selection-end-line="438" selection-end-column="84" />
+            <state relative-caret-position="211">
+              <caret line="440" column="80" lean-forward="false" selection-start-line="440" selection-start-column="80" selection-end-line="440" selection-end-column="80" />
               <folding>
                 <element signature="n#style#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#b#0;n#h3#0;n#legend#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -87,21 +81,22 @@
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#td#5;n#tr#3;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#td#1;n#tr#4;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#td#4;n#tr#4;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#td#1;n#tr#5;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1524391432999" expanded="true" signature="14309:14332" ph="..." />
+                <marker date="1524393144640" expanded="true" signature="14309:14332" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings_zh-CN.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="strings_zh-CN.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="280">
-              <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -120,7 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>od_wt</find>
       <find>CONTRACT_NO_INDEX</find>
       <find>material_no</find>
       <find>uploadContractList</find>
@@ -150,6 +144,7 @@
       <find>不存在存在页面</find>
       <find>../easyui/jquery.easyui.min.js</find>
       <find>serialNumber</find>
+      <find>video1</find>
     </findStrings>
     <replaceStrings>
       <replace>threading_process</replace>
@@ -215,11 +210,11 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/upload/clientapp/ClientAPPAutoUpdater.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/system/clientappupdate.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" />
       </list>
     </option>
   </component>
@@ -344,15 +339,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="i18n" type="462c0819:PsiDirectoryNode" />
-              <item name="Resource Bundle 'strings'" type="a6c14932:ResourceBundleNode" />
-            </path>
-            <path>
-              <item name="spjzweb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="spjzweb" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="inspection" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -449,7 +435,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.index.jsp (1)">
+  <component name="RunManager" selected="Tomcat Server.index.jsp (4)">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -596,7 +582,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(1)_spjzweb_24" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(1)_spjzweb_25" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -635,7 +621,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(2)_spjzweb_23" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(2)_spjzweb_24" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -674,7 +660,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(3)_spjzweb_25" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(3)_spjzweb_26" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -703,7 +689,7 @@
         </option>
       </method>
     </configuration>
-    <configuration name="index.jsp (5)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="index.jsp (4)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
       <deployment>
         <artifact name="spjzweb:war exploded">
@@ -713,7 +699,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(5)_spjzweb_21" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(4)_spjzweb_24" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -752,7 +738,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_spjzweb_24" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_spjzweb_25" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -789,19 +775,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
-      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (5)" />
-      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
-      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
-      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
+      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
+      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
+      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
+      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
-        <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
-        <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (5)" />
+        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
+        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
+        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -847,16 +833,15 @@
       <workItem from="1524307440037" duration="1487000" />
       <workItem from="1524366176800" duration="6968000" />
       <workItem from="1524387097873" duration="254000" />
-      <workItem from="1524390342472" duration="1646000" />
+      <workItem from="1524390342472" duration="2896000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117364000" />
+    <option name="totallyTimeSpent" value="118614000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="835" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.62283736" sideWeight="0.27209798" order="7" side_tool="true" content_ui="tabs" />
@@ -879,7 +864,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28541666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28541666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1243,36 +1228,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="438" column="84" lean-forward="false" selection-start-line="438" selection-start-column="77" selection-end-line="438" selection-end-column="84" />
-          <folding>
-            <element signature="n#style#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#b#0;n#h3#0;n#legend#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#4;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#td#1;n#tr#4;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#td#4;n#tr#4;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#td#1;n#tr#5;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1524391432999" expanded="true" signature="14309:14332" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/system/clientappupdate.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+          <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1336,8 +1295,35 @@
     <entry file="file://$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
-          <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="440" column="80" lean-forward="false" selection-start-line="440" selection-start-column="80" selection-end-line="440" selection-end-column="80" />
+          <folding>
+            <element signature="n#style#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#b#0;n#h3#0;n#legend#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#fieldset#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#4;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#5;n#tr#3;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#td#1;n#tr#4;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#td#4;n#tr#4;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#td#1;n#tr#5;n#table#0;n#fieldset#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1524393144640" expanded="true" signature="14309:14332" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
