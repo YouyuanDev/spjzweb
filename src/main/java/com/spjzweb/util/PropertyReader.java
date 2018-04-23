@@ -36,10 +36,10 @@ public class PropertyReader {
         return ftpServerAddress;
     }
 
-    public static void main(String[] args) {
-
-        System.out.println("ftp:"+PropertyReader.getFtpServerAddress());
-    }
+//    public static void main(String[] args) {
+//
+//        System.out.println("ftp:"+PropertyReader.getFtpServerAddress());
+//    }
 
 }
 

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.spjzweb.dao.ThreadInspectionRecordDao;
 import com.spjzweb.entity.ThreadInspectionRecord;
+import com.spjzweb.util.PropertyReader;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -133,7 +134,14 @@ public class ThreadInspectionRecordController {
         ResponseUtil.write(response,json);
         return null;
     }
-
+    @RequestMapping("/getFtpAddress")
+    public String getFtpAddress(HttpServletResponse response)throws Exception{
+        JSONObject json=new JSONObject();
+        String ftpAddress= PropertyReader.getFtpServerAddress();
+        json.put("message",ftpAddress);
+        ResponseUtil.write(response,json);
+        return null;
+    }
 
 //    @RequestMapping(value = "/saveThreadingProcessByWinform")
 //    @ResponseBody
