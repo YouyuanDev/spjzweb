@@ -134,11 +134,11 @@ public class ThreadInspectionRecordController {
         ResponseUtil.write(response,json);
         return null;
     }
-    @RequestMapping("/getFtpAddress")
-    public String getFtpAddress(HttpServletResponse response)throws Exception{
+    @RequestMapping("/getVideoAddress")
+    public String getVideoAddress(HttpServletResponse response)throws Exception{
         JSONObject json=new JSONObject();
-        String ftpAddress= PropertyReader.getFtpServerAddress();
-        json.put("message",ftpAddress);
+        String videoAddress= PropertyReader.getVideoAddress();
+        json.put("message",videoAddress);
         ResponseUtil.write(response,json);
         return null;
     }

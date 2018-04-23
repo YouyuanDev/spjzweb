@@ -28,23 +28,32 @@
         var url;
         var thread_inspection_record_code;
         var staticItem=[];
-        var ftpAddress="";
+        var videoAddress="";
         $(function () {
             $('#addEditDialog').dialog({
                 onClose:function () {
                     clearFormLabel();
+                    $("#video1")[0].pause();
                 }
             });
+            $('#win').dialog({
+                onClose:function () {
+                    $("#video1")[0].pause();
+                }
+            });
+
+
+
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
-            getFtpAddress();
+            getVideoAddress();
             showVideoPlayer();
         });
-        function getFtpAddress() {
+        function getVideoAddress() {
             $.ajax({
-                url:'/ThreadingOperation/getFtpAddress.action',
+                url:'/ThreadingOperation/getVideoAddress.action',
                 dataType:'json',
                 success:function (data) {
-                    ftpAddress=data.message;
+                    videoAddress=data.message;
                 },
                 error:function () {
                     
@@ -135,9 +144,11 @@
                     hlAlertThree();
                 }
             });
+            $("#video1")[0].pause();
         }
         function CancelSubmit() {
             $('#addEditDialog').dialog('close');
+            $("#video1")[0].pause();
         }
         function  clearFormLabel(){
             $('#addEditForm').form('clear');
@@ -347,9 +358,9 @@
         function loadVideoDatagrid(videoNumber) {
              $('#videoDatagrid tbody').empty();
              var videoArr=videoNumber.split(';');
-             //var ftpServer="ftp://ftpadmin:123456@192.168.0.200/";
-             var ftpServer=ftpAddress;
-             alert(videoArr.length);
+
+             var videoAddress=videoAddress;
+             //alert(videoArr.length);
              var VideoTr="";
              for(var i=0;i<videoArr.length;i++){
                  if(videoArr[i]!=""){
@@ -363,17 +374,17 @@
         function showVideoPlayer() {
               $(document).on('click','.videoOfSpjz',function () {
                   var videoName=$(this).text().trim();
-                  var videoSrc=ftpAddress+videoName;
-                  alert(videoSrc);
+                  var videoSrc=videoAddress+videoName;
+                  //alert(videoSrc);
                   //var videoSource="<source src=\""+videoSrc+"\" type=\"video/mp4\">";
                   $('#video1').attr("src",videoSrc);
                   $("#video1")[0].play();
                   $('#win').window({
-                      width:600,
-                      height:400,
+                      width:710,
+                      height:520,
                       modal:true
                   });
-
+                  $('#win').window('open');
                   // var content="<video id=\"video1\" width=\"320\" height=\"240\"><source src=\""+videoSrc+"\" type=\"video/mp4\"></vido>";
                   // var win = $('#msgwindow').dialog({
                   //     content: content,
@@ -450,7 +461,7 @@
     </div>
 </div>
 <!--添加、修改框-->
-<div id="addEditDialog" class="easyui-dialog" data-options="title:'添加',modal:true"  closed="true" buttons="#dlg-buttons" style="display: none;padding:5px;width:950px;max-height:500px;overflow-y:auto;">
+<div id="addEditDialog" class="easyui-dialog" data-options="title:'添加',modal:true"  closed="true" buttons="#dlg-buttons" style="display: none;padding:5px;width:950px;max-height:600px;overflow-y:auto;">
     <form id="addEditForm" method="post">
         <input type="hidden" name="thread_inspection_record_code" value="">
         <fieldset style="width:900px;border:solid 1px #aaa;margin-top:8px;position:relative;">
@@ -552,8 +563,8 @@
             </table>
             <table id="videoDatagrid" data-options="fitColumns:true" style="width:100%;height:auto;margin-top:5px;">
                 <thead>
-                   <th width="50%">编号</th>
-                   <th width="50%">链接</th>
+                   <th width="50%">视频编号</th>
+                   <th width="50%">视频链接</th>
                 </thead>
                 <tbody>
 
@@ -562,9 +573,9 @@
         </fieldset>
     </form>
 </div>
-<div id="win" class="easyui-window" closed="true"  title="My Window" style="width:600px;height:400px;display: none;"
+<div id="win" class="easyui-window" closed="true"  title="视频播放" style="width:600px;height:400px;display: none;"
      data-options="iconCls:'icon-save',minimizable:false,collapsible:false,maximizable:false,modal:true">
-    <video id="video1" width="600px" height="400px" controls>
+    <video id="video1" width="680px" height="480px" controls>
         <source src="" type="video/mp4">
     </video>
 </div>

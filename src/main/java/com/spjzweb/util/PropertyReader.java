@@ -10,19 +10,19 @@ import java.util.Properties;
 
 
 public class PropertyReader {
-    static private String ftpServerAddress = null;
+    static private String videoAddress = null;
 
     static{
         loads();
     }
     synchronized static public void loads(){
-        if(ftpServerAddress == null)
+        if(videoAddress == null)
         {
             InputStream is = PropertyReader.class.getResourceAsStream("/db.properties");
             Properties dbProps = new Properties();
             try {
                 dbProps.load(is);
-                ftpServerAddress = dbProps.getProperty("ftpServerAddress");
+                videoAddress = dbProps.getProperty("videoAddress");
             }
             catch (Exception e) {
                 System.err.println("不能读取属性文件. " +
@@ -30,10 +30,10 @@ public class PropertyReader {
             }
         }
     }
-    public static String getFtpServerAddress() {
-        if(ftpServerAddress==null)
+    public static String getVideoAddress() {
+        if(videoAddress==null)
             loads();
-        return ftpServerAddress;
+        return videoAddress;
     }
 
 //    public static void main(String[] args) {
