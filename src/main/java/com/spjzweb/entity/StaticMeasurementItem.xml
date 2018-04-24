@@ -70,5 +70,8 @@
         select measure_item_code,measure_item_name,concat( measure_item_code ,'(' , measure_item_name, ')' ) as code_and_name   from  static_measurement_item
     </select>
 
-
+    <select id="getDynamicAndStaticDataByAcceptanceNo" resultType="map">
+        select s.*,d.* from static_measurement_item s inner join dynamic_measurement_item d
+        on s.measure_item_code=d.measure_item_code where d.thread_acceptance_criteria_no=#{thread_acceptance_criteria_no}
+    </select>
 </mapper>

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-    String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
+    String path = request.getContextPath();
+    String basePath= request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html>
 <head>
@@ -19,16 +20,11 @@
     <script src="../js/lrscroll.js" type="text/javascript"></script>
     <script src="../js/jquery.i18n.properties-1.0.9.js" type="text/javascript"></script>
     <script src="../js/language.js" type="text/javascript"></script>
-    <style type="text/css">
-        #videoDatagrid,#videoDatagrid tbody,#videoDatagrid tbody tr{
-           border: 1px solid #D4D4D4;
-        }
-    </style>
     <script type="text/javascript">
         var url;
         var thread_inspection_record_code;
         var staticItem=[];
-        var videoAddress="";
+        //var videoAddress="";
         $(function () {
             $('#addEditDialog').dialog({
                 onClose:function () {
@@ -41,25 +37,22 @@
                     $("#video1")[0].pause();
                 }
             });
-
-
-
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
-            getVideoAddress();
+            //getVideoAddress();
             showVideoPlayer();
         });
-        function getVideoAddress() {
-            $.ajax({
-                url:'/ThreadingOperation/getVideoAddress.action',
-                dataType:'json',
-                success:function (data) {
-                    videoAddress=data.message;
-                },
-                error:function () {
-                    
-                }
-            });
-        }
+        // function getVideoAddress() {
+        //     $.ajax({
+        //         url:'/ThreadingOperation/getVideoAddress.action',
+        //         dataType:'json',
+        //         success:function (data) {
+        //             videoAddress=data.message;
+        //         },
+        //         error:function () {
+        //
+        //         }
+        //     });
+        // }
         function addFunction(){
             $('#hlcancelBtn').attr('operationtype','add');
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
@@ -358,25 +351,18 @@
         function loadVideoDatagrid(videoNumber) {
              $('#videoDatagrid tbody').empty();
              var videoArr=videoNumber.split(';');
-
-             var videoAddress=videoAddress;
-             //alert(videoArr.length);
              var VideoTr="";
              for(var i=0;i<videoArr.length;i++){
                  if(videoArr[i]!=""){
                      VideoTr+="<tr><td>"+videoArr[i]+"</td><td><a class='videoOfSpjz' href='#'>"+videoArr[i]+"</a></td></tr>";
                  }
              }
-            //var baseImg="ftp://192.168.0.200/InitVideo.mp4";
-            //VideoTr+="<tr><td>"+videoArr[i]+"</td><td><a class='videoOfSpjz' href='#'>"+baseImg+"</a></td></tr>";
             $('#videoDatagrid tbody').append(VideoTr);
         }
         function showVideoPlayer() {
               $(document).on('click','.videoOfSpjz',function () {
                   var videoName=$(this).text().trim();
-                  var videoSrc=videoAddress+videoName;
-                  //alert(videoSrc);
-                  //var videoSource="<source src=\""+videoSrc+"\" type=\"video/mp4\">";
+                  var videoSrc="<%=basePath%>"+"upload/videos/"+videoName;
                   $('#video1').attr("src",videoSrc);
                   $("#video1")[0].play();
                   $('#win').window({
@@ -385,31 +371,9 @@
                       modal:true
                   });
                   $('#win').window('open');
-                  // var content="<video id=\"video1\" width=\"320\" height=\"240\"><source src=\""+videoSrc+"\" type=\"video/mp4\"></vido>";
-                  // var win = $('#msgwindow').dialog({
-                  //     content: content,
-                  //     width:300,
-                  //     height:200,
-                  //     modal: true,
-                  //     title: videoName,
-                  //     onClose: function () {
-                  //         $(this).dialog('destroy');//后面可以关闭后的事件
-                  //     }
-                  // });
-                  // win.dialog('open');
+
               });
         }
-        // function openVideoPreview()
-        // {
-        //     $('#bgTab').tabs('add',{
-        //         title:'video',
-        //         content:"<iframe scrolling='auto' frameborder='0'  src='../upload/video1.mp4' style='width:100%;height:100%;'></iframe>",
-        //         closable:true
-        //     });
-        // }
-
-
-
     </script>
 
 </head>
@@ -561,7 +525,7 @@
             </table>
             <table  id="itemrecordDatagrids">
             </table>
-            <table id="videoDatagrid" data-options="fitColumns:true" style="width:100%;height:auto;margin-top:5px;">
+            <table id="videoDatagrid"  data-options="fitColumns:true" style="width:100%;height:auto;margin-top:5px;">
                 <thead>
                    <th width="50%">视频编号</th>
                    <th width="50%">视频链接</th>
@@ -575,9 +539,9 @@
 </div>
 <div id="win" class="easyui-window" closed="true"  title="视频播放" style="width:600px;height:400px;display: none;"
      data-options="iconCls:'icon-save',minimizable:false,collapsible:false,maximizable:false,modal:true">
-    <video id="video1" width="680px" height="480px" controls>
-        <source src="" type="video/mp4">
-    </video>
+        <video id="video1" width="100%" height="100%" controls>
+            <source src="" type="video/mp4">
+        </video>
 </div>
 <div id="dlg-buttons" align="center" style="width:900px;">
     <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="addEditFormSubmit()">Save</a>

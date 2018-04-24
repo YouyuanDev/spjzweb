@@ -86,4 +86,12 @@
             #{item}
         </foreach>
     </delete>
+
+    <select id="getAllDropDownContractNoOfWinform" resultType="com.spjzweb.entity.ContractInfo">
+        SELECT * FROM contract_info ORDER BY id DESC
+    </select>
+
+    <select id="getContractInfoByNo" resultType="com.spjzweb.entity.ContractInfo">
+        SELECT * FROM contract_info WHERE contract_no=#{contract_no}
+    </select>
 </mapper>

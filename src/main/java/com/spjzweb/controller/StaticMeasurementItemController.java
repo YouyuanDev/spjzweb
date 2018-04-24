@@ -3,8 +3,11 @@ package com.spjzweb.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.spjzweb.dao.ContractInfoDao;
 import com.spjzweb.dao.StaticMeasurementItemDao;
+import com.spjzweb.entity.ContractInfo;
 import com.spjzweb.entity.StaticMeasurementItem;
+import com.spjzweb.util.ComboxItem;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +28,8 @@ import java.util.Map;
 public class StaticMeasurementItemController {
     @Autowired
     private StaticMeasurementItemDao staticMeasurementItemDao;
+    @Autowired
+    private ContractInfoDao contractInfoDao;
     //搜索
     @RequestMapping(value = "getStaticMeasureItemAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
@@ -137,6 +144,46 @@ public class StaticMeasurementItemController {
             }
         }
         return null;
+    }
+    //根据合同编号获取使用测量工具和标准等信息(Winform)
+    @RequestMapping("/getMeasureDataByContractNoOfWinform")
+    @ResponseBody
+    public String getMeasureDataByContractNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
+        StringBuilder sb=new StringBuilder();
+        JSONObject jsonReturn=new JSONObject();
+        try{
+            BufferedReader reader=request.getReader();
+            String input=null;
+            while ((input=reader.readLine())!=null){
+                sb.append(input);
+            }
+            JSONObject json=JSONObject.parseObject(sb.toString());
+            String contract_no=json.getString("contract_no");
+            if(contract_no!=null&&!contract_no.equals("")){
+                //根据合同编号获取合同信息
+                ContractInfo contractInfo=contractInfoDao.getContractInfoByNo(contract_no);
+                List<HashMap<String,Object>>dynamicAndStaticData=null;
+                //根据接收标准编号接收动态、静态信息
+                if(contractInfo!=null){
+                   String acceptance_no=contractInfo.getThread_acceptance_criteria_no();
+                   if(acceptance_no!=null&&!acceptance_no.equals("")){
+                       dynamicAndStaticData=staticMeasurementItemDao.getDynamicAndStaticDataByAcceptanceNo(acceptance_no);
+                   }
+                }
+                HashMap<String,Object>returenData=new HashMap<>();
+                returenData.put("contractInfo",contractInfo);
+                returenData.put("measureInfo",dynamicAndStaticData);
+                jsonReturn.put("rowsData",returenData);
+            }else{
+                jsonReturn.put("rowsData","fail");
+            }
+        }catch (Exception e){
+            jsonReturn.put("rowsData","fail");
+            e.printStackTrace();
+        }finally {
+            ResponseUtil.write(response,jsonReturn.toString());
+        }
+        return  null;
     }
 
 }

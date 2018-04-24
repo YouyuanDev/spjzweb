@@ -29,5 +29,7 @@ public interface StaticMeasurementItemDao {
     public List<HashMap<String,Object>>getAllDropdownStaticItem();
     //根据thread_inspection_record_code 得到ItemRecord 集合
    // public List<HashMap<String,Object>> getItemRecordByInspectionNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+
+    public List<HashMap<String,Object>>getDynamicAndStaticDataByAcceptanceNo(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
 }
 

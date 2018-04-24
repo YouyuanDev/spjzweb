@@ -105,3 +105,16 @@
 .hl-errorcolor{
   background-color:#F9A6A6;
 }
+
+#videoDatagrid{
+  border-collapse:collapse;
+}
+#videoDatagrid tr{
+  border-bottom: 1px solid #D4D4D4;
+}
+/*#videoDatagrid,#videoDatagrid tbody,#videoDatagrid tbody tr{*/
+  /*border: 1px solid #D4D4D4;*/
+/*}*/
+/*#videoDatagrid tr{*/
+  /*border-bottom: 1px solid #D4D4D4;*/
+/*}*/

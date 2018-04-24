@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -141,6 +144,75 @@ public class ThreadInspectionRecordController {
         json.put("message",videoAddress);
         ResponseUtil.write(response,json);
         return null;
+    }
+    @RequestMapping("/uploadVideoFile")
+    @ResponseBody
+    public String uploadVideoFile(HttpServletRequest request,HttpServletResponse response){
+        String flag="success";
+        try{
+            response.setContentType("text/html;charset=UTF-8");
+            // 读取请求Body
+            byte[] body = readBody(request);
+            // 取得所有Body内容的字符串表示
+            String textBody = new String(body, "ISO-8859-1");
+            // 取得上传的文件名称
+            String fileName = getFileName(textBody);
+            // 取得文件开始与结束位置
+            String contentType = request.getContentType();
+            String boundaryText = contentType.substring(contentType.lastIndexOf("=") + 1, contentType.length());
+            // 取得实际上传文件的气势与结束位置
+            int pos = textBody.indexOf("filename=\"");
+            pos = textBody.indexOf("\n", pos) + 1;
+            pos = textBody.indexOf("\n", pos) + 1;
+            pos = textBody.indexOf("\n", pos) + 1;
+            int boundaryLoc = textBody.indexOf(boundaryText, pos) - 4;
+            int begin = ((textBody.substring(0, pos)).getBytes("ISO-8859-1")).length;
+            int end = ((textBody.substring(0, boundaryLoc)).getBytes("ISO-8859-1")).length;
+            //保存到本地
+            writeToDir(request,fileName,body,begin,end);
+        }catch (Exception e){
+            flag="error";
+            e.printStackTrace();
+        }
+        try{
+            ResponseUtil.write(response,flag);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private byte[] readBody(HttpServletRequest request) throws Exception {
+        // 获取请求文本字节长度
+        int formDataLength = request.getContentLength();
+        // 取得ServletInputStream输入流对象
+        DataInputStream dataStream = new DataInputStream(request.getInputStream());
+        byte body[] = new byte[formDataLength];
+        int totalBytes = 0;
+        while (totalBytes < formDataLength) {
+            int bytes = dataStream.read(body, totalBytes, formDataLength);
+            totalBytes += bytes;
+        }
+        return body;
+    }
+
+    private String getFileName(String requestBody) {
+        String fileName = requestBody.substring(requestBody.indexOf("filename=\"") + 10);
+        fileName = fileName.substring(0, fileName.indexOf("\n"));
+        fileName = fileName.substring(fileName.indexOf("\n") + 1, fileName.indexOf("\""));
+        return fileName;
+    }
+
+    private void writeToDir(HttpServletRequest request,String fileName, byte[] body, int begin, int end) throws Exception {
+        String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/videos");
+        File uploadPath = new File(saveDirectory);
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        fileName=saveDirectory+"/"+fileName;
+        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+        fileOutputStream.write(body, begin, (end - begin));
+        fileOutputStream.flush();
+        fileOutputStream.close();
     }
 
 //    @RequestMapping(value = "/saveThreadingProcessByWinform")

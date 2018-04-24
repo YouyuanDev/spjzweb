@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.spjzweb.dao.ContractInfoDao;
 import com.spjzweb.entity.ContractInfo;
+import com.spjzweb.util.ComboxItem;
 import com.spjzweb.util.ExcelUtil;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -278,4 +279,32 @@ public class ContractController {
 
         return retMap;
     }
+
+
+    //获取所有下拉合同编号(windform)
+    @RequestMapping(value = "/getAllDropDownContractNoOfWinform")
+    @ResponseBody
+    public String getAllDropDownContractNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
+        List<ComboxItem> colist=new ArrayList<ComboxItem>();
+        JSONObject jsonReturn=new JSONObject();
+        try{
+            List<ContractInfo>list=contractInfoDao.getAllDropDownContractNoOfWinform();
+            for(int i=0;i<list.size();i++){
+                ComboxItem citem= new ComboxItem();
+                ContractInfo ps=((ContractInfo)list.get(i));
+                citem.id=ps.getContract_no();
+                citem.text=ps.getContract_no();
+                colist.add(citem);
+            }
+            jsonReturn.put("rowsData",colist);
+
+        }catch (Exception e){
+            jsonReturn.put("rowsData",colist);
+            e.printStackTrace();
+        }finally {
+            ResponseUtil.write(response,jsonReturn.toString());
+        }
+        return  null;
+    }
+
 }

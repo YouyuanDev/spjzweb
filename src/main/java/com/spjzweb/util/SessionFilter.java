@@ -42,8 +42,10 @@ public class SessionFilter extends OncePerRequestFilter{
             "getAllDropdownMeasureItemByInspectionNo",
             "getItemRecordByInspectionNo",
             "uploadContractList",
-            "getVideoAddress"
-
+            "getVideoAddress",
+            "uploadVideoFile",
+            "getAllDropDownContractNoOfWinform",
+            "getMeasureDataByContractNoOfWinform"
     }; // 不过滤的uri
 
     @Override
