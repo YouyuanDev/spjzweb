@@ -40,9 +40,9 @@
             $('#serialNumber').text('');
             $('#createNoBtn').css('display','block');
             addOrEdit=true;
-            getStataticItem();
-            loadDynamicByAcceptanceNo(null);
             clearFormLabel();
+            getStataticItem();
+            $('#dynamicDatagrids').datagrid('loadData',{total:0,rows:[]});
             url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
         }
         function delFunction() {
@@ -139,6 +139,7 @@
             if(addOrEdit){
                 thread_acceptance_criteria_no=$("#thread_acceptance_criteria_no").text().trim();
             }
+            alert(thread_acceptance_criteria_no);
             $('#dynamicDatagrids').datagrid({
                 title:'',
                 iconCls:'',
@@ -433,8 +434,8 @@
             <div style="width:100%;padding-bottom:5px;">
                 <%--<a href="#" class="easyui-linkbutton i18n1" name="add" onclick="insert()">添加</a>--%>
                 <label class="i18n1" name="threadacceptancecriteriano"></label>:
-                <label id="thread_acceptance_criteria_no"></label>
-                <a href="#" id="createNoBtn" class="easyui-linkbutton i18n1" name="createstandardno" onclick="addAcceptanceCriteriaFunction()">生成标准编号</a>
+                <label id="thread_acceptance_criteria_no" class="hl-label"></label>
+                <a href="#" id="createNoBtn" class="easyui-linkbutton i18n1" style="display:inline-block;float:right;right:30px;" name="createstandardno" onclick="addAcceptanceCriteriaFunction()">生成标准编号</a>
             </div>
             <table  id="dynamicDatagrids">
 

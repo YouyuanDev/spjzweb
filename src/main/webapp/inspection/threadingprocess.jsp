@@ -58,6 +58,8 @@
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');//流水号
             clearFormLabel();
+            $('#itemrecordDatagrids').datagrid('loadData',{total:0,rows:[]});
+            $('#videoDatagrid tbody').empty();
             url="/ThreadingOperation/saveThreadingProcess.action";
         }
         function delFunction() {
