@@ -99,6 +99,14 @@
                         hlAlertFour("请输入测量项英文名称!");
                         return false;
                     }
+
+
+                    var both_ends = $("#both_ends").combobox("getValue");
+                    //判断是否输入bothends
+                    if(both_ends==""){
+                        hlAlertFour("请输入检测端信息!");
+                        return false;
+                    }
                 },
                 success: function(result){
                     var result = eval('('+result+')');
@@ -148,6 +156,7 @@
                 <th field="measure_tool2" align="center" width="100" class="i18n1" name="measuretool2"></th>
                 <th field="measure_unit" align="center" width="100" class="i18n1" name="measureunit"></th>
                 <th field="item_frequency" align="center" width="100" class="i18n1" name="itemfrequency"></th>
+                <th field="both_ends" align="center" width="100" class="i18n1" name="bothends"></th>
             </tr>
             </thead>
         </table>
@@ -208,6 +217,17 @@
                     <td class="i18n1" name="itemfrequency"></td>
                     <td><input class="easyui-numberbox" data-options="precision:2" type="text" name="item_frequency" value=""/></td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td class="i18n1" name="bothends"></td>
+                    <td>
+                        <select class="easyui-combobox" id="both_ends" name="both_ends" data-options="editable:false" style="width:200px;">
+                            <option value="0">一端</option>
+                            <option value="1">AB两端</option>
+                        </select>
+                    </td>
+                    <td></td>
+
                 </tr>
 
             </table>

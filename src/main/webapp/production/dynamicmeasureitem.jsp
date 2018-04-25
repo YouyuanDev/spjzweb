@@ -144,6 +144,7 @@
                 <th field="item_min_value" align="center" width="100" class="i18n1" name="itemminvalue"></th>
                 <th field="item_frequency" align="center" width="100" class="i18n1" name="itemfrequency"></th>
                 <th field="thread_acceptance_criteria_no" align="center" width="100" class="i18n1" name="threadacceptancecriteriano"></th>
+                <th field="both_ends" align="center" width="100" class="i18n1" name="bothends"></th>
             </tr>
             </thead>
         </table>
@@ -211,6 +212,20 @@
                     <td><input class="easyui-numberbox" data-options="precision:2" type="text" name="item_min_value" value=""/></td>
                     <td></td>
                 </tr>
+
+                <tr>
+                    <td class="i18n1" name="bothends"></td>
+                    <td>
+                        <select class="easyui-combobox" name="both_ends" data-options="editable:false" style="width:200px;">
+                            <option value="0">一端</option>
+                            <option value="1">AB两端</option>
+                        </select>
+                    </td>
+                    <td></td>
+
+                </tr>
+
+
             </table>
         </fieldset>
     </form>

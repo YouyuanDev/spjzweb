@@ -165,7 +165,20 @@
                     {field:'measure_item_name',title:'测量项名称',width:100},
                     {field:'item_max_value',title:'接收最大值',width:60,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'item_min_value',title:'接收最小值',width:60,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'item_frequency',title:'检验频率',width:80,editor:{type:'numberbox',options:{precision:2}}}
+                    {field:'item_frequency',title:'检验频率',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'both_ends',title:'AB端检测',width:80,editor:{type:'combobox',editable:false,
+                            options: {
+                                required: true,
+                                data:
+                                    [
+                                        {'id': '0', 'text': '一端'},
+                                        {'id': '1', 'text': 'AB两端'}
+                                    ],
+
+                            valueField:'id',
+                            textField:'text'
+                            }
+                            }}
                 ]]
             });
         }
@@ -228,11 +241,12 @@
                     $.ajax({
                         url:'/DynamicMeasure/saveDynamicMeasureItem.action',
                         dataType:'json',
-                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:row.item_max_value,item_min_value:row.item_min_value,item_frequency:row.item_frequency},
+                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:row.item_max_value,item_min_value:row.item_min_value,item_frequency:row.item_frequency,both_ends:row.both_ends},
                         success:function (data) {
                             //如果是新增，则返回新增id,如果是修改，则返回执行结果
                             if(data.promptkey=="success"){
                                 $("#dynamicDatagrids").datagrid("reload");
+                                hlAlertFour("保存成功!");
                             }else if(data.promptkey="ishave"){
                                 hlAlertFour(data.promptValue);
                                 $('#dynamicDatagrids').datagrid('beginEdit',index);

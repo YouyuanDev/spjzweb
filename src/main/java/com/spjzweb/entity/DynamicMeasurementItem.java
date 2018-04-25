@@ -8,18 +8,20 @@ public class DynamicMeasurementItem {
     private float item_min_value;
     private float item_frequency;
     private String thread_acceptance_criteria_no;
+    private String both_ends;
 
 
     public DynamicMeasurementItem() {
     }
 
-    public DynamicMeasurementItem(int id, String measure_item_code, float item_max_value, float item_min_value, float item_frequency, String thread_acceptance_criteria_no) {
+    public DynamicMeasurementItem(int id, String measure_item_code, float item_max_value, float item_min_value, float item_frequency, String thread_acceptance_criteria_no, String both_ends) {
         this.id = id;
         this.measure_item_code = measure_item_code;
         this.item_max_value = item_max_value;
         this.item_min_value = item_min_value;
         this.item_frequency = item_frequency;
         this.thread_acceptance_criteria_no = thread_acceptance_criteria_no;
+        this.both_ends = both_ends;
     }
 
     public int getId() {
@@ -68,5 +70,13 @@ public class DynamicMeasurementItem {
 
     public void setThread_acceptance_criteria_no(String thread_acceptance_criteria_no) {
         this.thread_acceptance_criteria_no = thread_acceptance_criteria_no;
+    }
+
+    public String getBoth_ends() {
+        return both_ends;
+    }
+
+    public void setBoth_ends(String both_ends) {
+        this.both_ends = both_ends;
     }
 }

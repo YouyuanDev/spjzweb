@@ -75,6 +75,7 @@ public class DynamicMeasurementItemController {
             String item_max_value=request.getParameter("item_max_value");
             String item_min_value=request.getParameter("item_min_value");
             String item_frequency=request.getParameter("item_frequency");
+            String both_ends=request.getParameter("both_ends");
             System.out.println(id+":"+measure_item_code+":"+thread_acceptance_criteria_no+":"+item_max_value+":"+item_min_value+":"+item_frequency);
             if((measure_item_code!=null&&!measure_item_code.equals(""))&&(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals(""))){
                 DynamicMeasurementItem item=new DynamicMeasurementItem();
@@ -95,6 +96,7 @@ public class DynamicMeasurementItemController {
                             item.setItem_frequency(Float.valueOf(item_frequency));
                         item.setMeasure_item_code(measure_item_code);
                         item.setThread_acceptance_criteria_no(thread_acceptance_criteria_no);
+                        item.setBoth_ends(both_ends);
                         resTotal=dynamicMeasurementItemDao.updateDynamicMeasurementItem(item);
                         if(resTotal>0){
                             json.put("promptkey","success");

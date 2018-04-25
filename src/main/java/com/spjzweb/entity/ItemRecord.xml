@@ -35,7 +35,9 @@
 
 
     <select id="getItemRecordByInspectionRecordCode" resultType="map">
-        select r.*, stit.measure_item_name, concat(stit.measure_item_code ,'(' ,stit.measure_item_name, ')' ) as code_and_name  from  item_record r inner join static_measurement_item stit on stit.measure_item_code=r.itemcode
+        select r.*,d.item_frequency,d.item_max_value,d.item_min_value,d.both_ends,stit.measure_item_name, concat(stit.measure_item_code ,'(' ,stit.measure_item_name, ')' ) as code_and_name  from  item_record r inner join static_measurement_item stit on stit.measure_item_code=r.itemcode
+        inner join dynamic_measurement_item d on d.measure_item_code=r.itemcode
+
         <where>
             <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
                 AND r.thread_inspection_record_code =#{thread_inspection_record_code}
