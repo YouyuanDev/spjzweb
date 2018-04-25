@@ -8,20 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="783b5446-4794-433d-a681-97d6d4515d56" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/DynamicMeasurementItemController.java" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/DynamicMeasurementItemController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.xml" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ItemRecord.xml" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ItemRecord.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/StaticMeasurementItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/StaticMeasurementItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/StaticMeasurementItem.xml" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/StaticMeasurementItem.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh.properties" afterPath="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh.properties" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/production/dynamicmeasureitem.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/production/dynamicmeasureitem.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/production/staticmeasureitem.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/production/staticmeasureitem.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/production/threadstandard.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/production/threadstandard.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -37,26 +24,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DynamicMeasurementItem.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="66" column="44" lean-forward="false" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="44" />
-              <folding>
-                <marker date="1524641292412" expanded="true" signature="308:620" ph="SELECT s.mea... dynamic_measurement_item" />
-                <marker date="1524641292412" expanded="true" signature="1244:1769" ph="select * fro... dynamic_measurement_item" />
-                <marker date="1524641292412" expanded="true" signature="2966:3236" ph="INSERT INTO dynamic_measurement_item... " />
-                <marker date="1524641292412" expanded="true" signature="3365:3639" ph="UPDATE dynamic_measurement_item... " />
-                <marker date="1524641292412" expanded="true" signature="3968:4258" ph="select s.mea... static_measurement_item" />
-                <marker date="1524641292412" expanded="true" signature="4116:4248" ph="SELECT d.mea... dynamic_measurement_item" />
-                <marker date="1524641292412" expanded="true" signature="4420:4870" ph="select * fro... dynamic_measurement_item" />
-                <marker date="1524641292412" expanded="true" signature="5575:6057" ph="SELECT s.mea... dynamic_measurement_item" />
-                <marker date="1524641292412" expanded="true" signature="5855:6055" ph="select c.thr... contract_info" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ContractInfo.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ContractInfo.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -73,14 +40,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="threadstandard.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="threadstandard.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/production/threadstandard.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="120" column="26" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="136" column="25" lean-forward="false" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="threadingprocess.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="206" column="66" lean-forward="false" selection-start-line="206" selection-start-column="66" selection-end-line="206" selection-end-column="66" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -88,7 +63,7 @@
       <file leaf-file-name="staticmeasureitem.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/production/staticmeasureitem.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
+            <state relative-caret-position="3300">
               <caret line="220" column="20" lean-forward="false" selection-start-line="220" selection-start-column="20" selection-end-line="220" selection-end-column="20" />
               <folding />
             </state>
@@ -121,7 +96,7 @@
       <file leaf-file-name="dynamicmeasureitem.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/production/dynamicmeasureitem.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
+            <state relative-caret-position="2190">
               <caret line="146" column="16" lean-forward="false" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="100" />
               <folding />
             </state>
@@ -278,7 +253,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/production/dynamicmeasureitem.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/basicinfo/contractmanagement.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ItemRecord.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/DynamicMeasurementItemController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/production/threadstandard.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings_zh-CN.properties" />
@@ -286,6 +260,7 @@
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/i18n/strings_en.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/production/staticmeasureitem.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp" />
       </list>
     </option>
   </component>
@@ -322,9 +297,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -484,7 +458,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -531,7 +506,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.index.jsp (3)">
+  <component name="RunManager" selected="Tomcat Server.index.jsp (2)">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -573,6 +548,7 @@
       <envs />
       <patterns />
     </configuration>
+    <configuration name="index.action" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:8080/index.action" />
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -671,84 +647,6 @@
     <configuration name="index.jsp (1)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
       <deployment>
-        <artifact name="spjzweb:war">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(1)_spjzweb_30" />
-      </server-settings>
-      <predefined_log_file id="Tomcat" enabled="true" />
-      <predefined_log_file id="Tomcat Catalina" enabled="true" />
-      <predefined_log_file id="Tomcat Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="spjzweb:war" />
-        </option>
-      </method>
-    </configuration>
-    <configuration name="index.jsp (2)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
-      <deployment>
-        <artifact name="spjzweb:war">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(2)_spjzweb_30" />
-      </server-settings>
-      <predefined_log_file id="Tomcat" enabled="true" />
-      <predefined_log_file id="Tomcat Catalina" enabled="true" />
-      <predefined_log_file id="Tomcat Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="spjzweb:war" />
-        </option>
-      </method>
-    </configuration>
-    <configuration name="index.jsp (3)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
-      <deployment>
         <artifact name="spjzweb:war exploded">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
@@ -756,7 +654,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(3)_spjzweb_30" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(1)_spjzweb_31" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -785,7 +683,46 @@
         </option>
       </method>
     </configuration>
-    <configuration name="index.jsp (5)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="index.jsp (2)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
+      <deployment>
+        <artifact name="spjzweb:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(2)_spjzweb_31" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="spjzweb:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="index.jsp (4)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
       <deployment>
         <artifact name="spjzweb:war">
@@ -795,7 +732,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(5)_spjzweb_26" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(4)_spjzweb_29" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -834,7 +771,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_spjzweb_30" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_spjzweb_31" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -871,19 +808,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
-      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (5)" />
-      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
-      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.action" />
+      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
+      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
+      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
-        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
-        <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
-        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-        <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (5)" />
+        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
+        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.index.action" />
       </list>
     </recent_temporary>
   </component>
@@ -938,16 +875,17 @@
       <workItem from="1524579198574" duration="79000" />
       <workItem from="1524641075580" duration="364000" />
       <workItem from="1524641469361" duration="3197000" />
-      <workItem from="1524644870503" duration="433000" />
+      <workItem from="1524644870503" duration="2340000" />
+      <workItem from="1524651365515" duration="976000" />
+      <workItem from="1524657977321" duration="235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132946000" />
+    <option name="totallyTimeSpent" value="136064000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="835" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.62283736" sideWeight="0.27209798" order="7" side_tool="true" content_ui="tabs" />
@@ -970,7 +908,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28541666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28541666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1347,14 +1285,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3390">
-          <caret line="226" column="17" lean-forward="false" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
@@ -1438,7 +1368,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/production/staticmeasureitem.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
+        <state relative-caret-position="3300">
           <caret line="220" column="20" lean-forward="false" selection-start-line="220" selection-start-column="20" selection-end-line="220" selection-end-column="20" />
           <folding />
         </state>
@@ -1446,7 +1376,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/production/dynamicmeasureitem.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
+        <state relative-caret-position="2190">
           <caret line="146" column="16" lean-forward="false" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="100" />
           <folding />
         </state>
@@ -1454,11 +1384,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/production/threadstandard.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="120" column="26" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="15">
+          <caret line="136" column="25" lean-forward="false" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/inspection/threadingprocess.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="206" column="66" lean-forward="false" selection-start-line="206" selection-start-column="66" selection-end-line="206" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
