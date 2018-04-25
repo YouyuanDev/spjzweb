@@ -115,7 +115,7 @@
             $('.hl-label').text('');
         }
         function addAcceptanceCriteriaFunction() {
-            var timestamp=new Date().getTime();
+            var timestamp="BZ"+new Date().getTime();
             $.ajax({
                 url:'/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action',
                 dataType:'json',
@@ -139,7 +139,6 @@
             if(addOrEdit){
                 thread_acceptance_criteria_no=$("#thread_acceptance_criteria_no").text().trim();
             }
-            alert(thread_acceptance_criteria_no);
             $('#dynamicDatagrids').datagrid({
                 title:'',
                 iconCls:'',
