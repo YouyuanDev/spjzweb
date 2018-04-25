@@ -24,6 +24,7 @@
         var url;
         var staticItem=[];
         var editIndex = undefined;
+        var addOrEdit=true;
         $(function () {
             $('#addEditDialog').dialog({
                 onClose:function () {
@@ -37,6 +38,10 @@
             $('#hlcancelBtn').attr('operationtype','add');
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');
+            $('#createNoBtn').css('display','block');
+            addOrEdit=true;
+            getStataticItem();
+            loadDynamicByAcceptanceNo(null);
             clearFormLabel();
             url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
         }
@@ -64,6 +69,7 @@
         }
         function editFunction(){
             $('#hlcancelBtn').attr('operationtype','edit');
+            addOrEdit=false;
             var row = $('#contentDatagrids').datagrid('getSelected');
             if(row){
                 $('#addEditDialog').dialog('open').dialog('setTitle','修改');
@@ -109,12 +115,30 @@
             $('.hl-label').text('');
         }
         function addAcceptanceCriteriaFunction() {
-             var timestamp=new Date().getTime();
-            $("#thread_acceptance_criteria_no").textbox("setValue", timestamp);
+            var timestamp=new Date().getTime();
+            $.ajax({
+                url:'/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action',
+                dataType:'json',
+                data:{thread_acceptance_criteria_no:timestamp},
+                success:function (data) {
+                    //如果是新增，则返回新增id,如果是修改，则返回执行结果
+                    if(data.promptkey=="success"){
+                        $("#thread_acceptance_criteria_no").text(timestamp);
+                    }else{
+                        hlAlertFour("删除失败!");
+                    }
+                },error:function () {
+                    hlAlertFour("系统繁忙!");
+                }
+
+            });
             //$("＃standard_no").val(timestamp);
         }
         //根据接收标准编号加载动态测量项
         function loadDynamicByAcceptanceNo(thread_acceptance_criteria_no) {
+            if(addOrEdit){
+                thread_acceptance_criteria_no=$("#thread_acceptance_criteria_no").text().trim();
+            }
             $('#dynamicDatagrids').datagrid({
                 title:'',
                 iconCls:'',
@@ -230,6 +254,9 @@
             // $('#dynamicDatagrids').datagrid('beginEdit',index);
         }
         function rowSave(thread_acceptance_criteria_no) {
+            if(addOrEdit){
+                thread_acceptance_criteria_no=$("#thread_acceptance_criteria_no").text().trim();
+            }
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             if (row){
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);

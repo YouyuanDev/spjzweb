@@ -44,6 +44,7 @@ public class SessionFilter extends OncePerRequestFilter{
             "uploadContractList",
             "getVideoAddress",
             "uploadVideoFile",
+            "saveThreadAcceptanceCriteria",
             "getAllDropDownContractNoOfWinform",
             "getMeasureDataByContractNoOfWinform"
     }; // 不过滤的uri
