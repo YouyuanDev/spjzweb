@@ -4,6 +4,7 @@ package com.spjzweb.dao;
 import com.spjzweb.entity.ItemRecord;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,5 +33,11 @@ public interface ItemRecordDao {
     public List<ItemRecord>getItemRecordByItemCodeOfEdit(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code,@Param("id") int id);
     //添加时判断编号是否存在
     public List<ItemRecord>getItemRecordByItemCodeOfAdd(@Param("itemcode") String itemcode,@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    //客户端表单提交
+    public int addItemRecordByWinform(@Param("list")ArrayList<ItemRecord>itemRecordList);
+    //根据检验记录编号查询数据
+    public List<HashMap<String,Object>>getItemRecordByInspectionNoOfWinform(@Param("thread_inspection_record_code")String thread_inspection_record_code);
+    //客户端更新检验测量记录
+    public  int updataItemRecordByCode(@Param("itemRecordList")List itemRecordList);
 }
 

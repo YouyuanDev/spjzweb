@@ -76,4 +76,31 @@
             #{item}
         </foreach>
     </delete>
+    <select id="getThreadInspectionRecordOfWinform" resultType="com.spjzweb.entity.ThreadInspectionRecord">
+            select o.* from thread_inspection_record  o where o.contract_no in
+            (
+               select contract_no from contract_info  r
+               <where>
+                   <if test="od!=0">
+                       AND r.od =#{od}
+                   </if>
+                   <if test="wt!=0">
+                       AND r.wt =#{wt}
+                   </if>
+                   <if test="threading_type!=null and threading_type!=''">
+                       AND r.threading_type =#{threading_type}
+                   </if>
+                   <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                       AND r.thread_acceptance_criteria_no =#{thread_inspection_record_code}
+                   </if>
+               </where>
+            )
+            limit 10000
+    </select>
+    <select id="getThreadInspectionRecordByNo" resultType="com.spjzweb.entity.ThreadInspectionRecord">
+        SELECT * from thread_inspection_record where thread_inspection_record_code=#{thread_inspection_record_code}
+    </select>
+    <update id="updateThreadInspectionRecordByCode" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
+               UPDATE thread_inspection_record set couping_no=#{couping_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result} where thread_inspection_record_code=#{thread_inspection_record_code}
+    </update>
 </mapper>

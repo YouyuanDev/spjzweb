@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.util.HashMap;
 import java.util.List;
 
@@ -126,5 +127,41 @@ public class LoginController {
         return null;
     }
 
+
+    //客户端登录(winform)
+    @RequestMapping(value = "/userLoginOfWinform")
+    @ResponseBody
+    public String userLoginOfWinform(HttpServletRequest request,HttpServletResponse response){
+        JSONObject jsonReturn=new JSONObject();
+        try{
+            StringBuilder sb=new StringBuilder();
+            BufferedReader reader=request.getReader();
+            String input=null;
+            while ((input=reader.readLine())!=null){
+                sb.append(input);
+            }
+            JSONObject json=JSONObject.parseObject(sb.toString());
+            String employee_no=null;
+            String ppassword=null;
+            Person person=null;
+            if(json!=null){
+                employee_no=json.getString("employee_no");
+                ppassword=json.getString("ppassword");
+                if(employee_no!=null&&employee_no!=""&&ppassword!=null&&ppassword!=""){
+                     person=personDao.userLoginOfWinform(employee_no,ppassword);
+                }
+            }
+            jsonReturn.put("rowsData",person);
+            ResponseUtil.write(response,jsonReturn);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            ResponseUtil.write(response,jsonReturn);
+        }catch (Exception e){
+
+        }
+        return null;
+    }
 
 }

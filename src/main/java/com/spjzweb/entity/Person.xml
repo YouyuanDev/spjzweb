@@ -102,4 +102,8 @@
             #{item}
         </foreach>
     </delete>
+
+    <select id="userLoginOfWinform" resultType="com.spjzweb.entity.Person">
+        SELECT * from person WHERE  employee_no=#{employee_no} AND ppassword=#{ppassword}
+    </select>
 </mapper>

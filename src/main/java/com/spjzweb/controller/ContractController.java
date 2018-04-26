@@ -8,6 +8,7 @@ import com.spjzweb.entity.ContractInfo;
 import com.spjzweb.util.ComboxItem;
 import com.spjzweb.util.ExcelUtil;
 import com.spjzweb.util.ResponseUtil;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -306,5 +307,21 @@ public class ContractController {
         }
         return  null;
     }
-
+    //获取所有下拉合同信息用于客户端搜索(windform)
+    @RequestMapping(value = "/getAllContractNoOfWinform")
+    @ResponseBody
+    public String getAllContractNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
+        JSONObject jsonReturn=new JSONObject();
+        List<ContractInfo>list=new ArrayList<>();
+        try{
+            list=contractInfoDao.getAllDropDownContractNoOfWinform();
+            jsonReturn.put("rowsData",list);
+        }catch (Exception e){
+            jsonReturn.put("rowsData",list);
+            e.printStackTrace();
+        }finally {
+            ResponseUtil.write(response,jsonReturn.toString());
+        }
+        return  null;
+    }
 }
