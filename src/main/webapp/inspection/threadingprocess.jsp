@@ -204,10 +204,10 @@
                     {field:'toolcode2',title:'量具编号2',width:80,editor:'textbox'},
                     {field:'measure_sample1',title:'量具样块1编号',width:80,editor:'textbox'},
                     {field:'measure_sample2',title:'量具样块2编号',width:80,editor:'textbox'},
-                    {field:'item_max_value',title:'最大值',width:80,editor:'textbox'},
-                    {field:'item_min_value',title:'最小值',width:80,editor:'textbox'},
-                    {field:'item_frequency',title:'检测频率',width:80,editor:'textbox'},
-                    {field:'both_ends',title:'是否AB两端检测',width:80,editor:'textbox'}
+                    {field:'item_max_value',title:'最大值',width:80},
+                    {field:'item_min_value',title:'最小值',width:80},
+                    {field:'item_frequency',title:'检测频率',width:80},
+                    {field:'both_ends',title:'是否AB两端检测',width:80}
                 ]]
             });
         }
