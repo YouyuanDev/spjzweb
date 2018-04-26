@@ -87,5 +87,28 @@
         </where>
     </select>
 
+    <insert id="addItemRecordByWinform" parameterType="java.util.ArrayList">
+       INSERT INTO item_record (itemcode,itemvalue,toolcode1,toolcode2,measure_sample1,measure_sample2,thread_inspection_record_code)VALUES
+       <foreach collection="list" item="item" index="index" separator=",">
+           (#{item.itemcode},#{item.itemvalue},#{item.toolcode1},#{item.toolcode2},#{item.measure_sample1},#{item.measure_sample2},#{item.thread_inspection_record_code})
+       </foreach>
+    </insert>
 
+    <!--根据检验记录编号查询数据(winform)-->
+    <select id="getItemRecordByInspectionNoOfWinform" resultType="map">
+        select i.*,s.* from item_record i
+        inner join static_measurement_item s on i.itemcode=s.measure_item_code
+        <where>
+            <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                AND r.thread_inspection_record_code=#{thread_inspection_record_code}
+            </if>
+        </where>
+    </select>
+    <update id="updataItemRecordByCode" parameterType="java.util.ArrayList">
+        <foreach collection="itemRecordList" item="item" index="index">
+            update item_record
+                itemvalue=${item.itemvalue},toolcode1=#{item.toolcode1},toolcode2=#{item.toolcode2},measure_sample1=#{item.measure_sample1},measure_sample2=#{item.measure_sample2}
+            where itemcode = ${item.itemcode} AND thread_inspection_record_code=#{thread_inspection_record_code}
+        </foreach>
+    </update>
 </mapper>

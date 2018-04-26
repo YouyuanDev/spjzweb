@@ -34,6 +34,7 @@ public interface PersonDao {
    //删除person
    public int delPerson(String[] arrId);
 
-
+   //客户端登录
+   public Person userLoginOfWinform(@Param("employee_no") String employee_no, @Param("ppassword") String ppassword);
 
 }

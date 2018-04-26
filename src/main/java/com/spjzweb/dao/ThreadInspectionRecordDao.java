@@ -25,5 +25,11 @@ public interface ThreadInspectionRecordDao {
     public int delThreadInspectionRecord(String[] arrId);
     //根据 thread_inspection_record_code 得到 ThreadInspectionRecord 集合
     public List<HashMap<String,Object>> getThreadInspectionRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    //客户端获取数据(winform)
+    public List<ThreadInspectionRecord>getThreadInspectionRecordOfWinform(@Param("od")float od,@Param("wt")float wt,@Param("threading_type")String threading_type,@Param("thread_acceptance_criteria_no")String thread_acceptance_criteria_no);
+    //根据检验记录编号查询检验记录(winform)
+    public ThreadInspectionRecord getThreadInspectionRecordByNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
+    //修改检验记录(winform)
+    public int updateThreadInspectionRecordByCode(@Param("thread_inspection_record_code")String thread_inspection_record_code);
 
 }

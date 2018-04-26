@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -154,6 +155,36 @@ public class ItemRecordController {
             json.put("promptkey","fail");
         }
         ResponseUtil.write(response,json);
+        return null;
+    }
+    //根据检测记录编号查询测量项数据(winform)
+    @RequestMapping(value = "/getItemRecordByInspectionNoOfWinform")
+    @ResponseBody
+    public String getItemRecordByInspectionNoOfWinform(HttpServletRequest request,HttpServletResponse response){
+        JSONObject jsonReturn=new JSONObject();
+        try{
+            StringBuilder sb=new StringBuilder();
+            BufferedReader reader=request.getReader();
+            String input=null;
+            while ((input=reader.readLine())!=null){
+                sb.append(input);
+            }
+            JSONObject json=JSONObject.parseObject(sb.toString());
+            String thread_inspection_record_code=null;
+            if(json!=null){
+                thread_inspection_record_code=json.getString("thread_inspection_record_code");
+            }
+            List<HashMap<String,Object>>list=itemRecordDao.getItemRecordByInspectionNoOfWinform(thread_inspection_record_code);
+            jsonReturn.put("rowsData",list);
+            ResponseUtil.write(response,jsonReturn);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            ResponseUtil.write(response,jsonReturn);
+        }catch (Exception e){
+
+        }
         return null;
     }
 }
