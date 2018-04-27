@@ -38,6 +38,10 @@ public interface ItemRecordDao {
     //根据检验记录编号查询数据
     public List<HashMap<String,Object>>getItemRecordByInspectionNoOfWinform(@Param("thread_inspection_record_code")String thread_inspection_record_code);
     //客户端更新检验测量记录
-    public  int updataItemRecordByCode(@Param("itemRecordList")List itemRecordList);
+    public  int updataItemRecordByCode(@Param("list")ArrayList<ItemRecord> list);
+    //客户端更新检验测量记录
+    public  int updataItemRecordByCodeSingle(ItemRecord ItemRecord);
+    //根据检验记录编号查询检验数据
+    public List<HashMap<String,Object>>getInspectionRecordByInspectionNo(@Param("thread_inspection_record_code")String thread_inspection_record_code);
 }
 

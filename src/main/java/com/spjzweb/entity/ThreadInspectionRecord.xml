@@ -90,11 +90,12 @@
                    <if test="threading_type!=null and threading_type!=''">
                        AND r.threading_type =#{threading_type}
                    </if>
-                   <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
+                   <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
                        AND r.thread_acceptance_criteria_no =#{thread_inspection_record_code}
                    </if>
                </where>
             )
+            ORDER  by o.id DESC
             limit 10000
     </select>
     <select id="getThreadInspectionRecordByNo" resultType="com.spjzweb.entity.ThreadInspectionRecord">

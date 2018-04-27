@@ -4,9 +4,12 @@ package com.spjzweb.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.spjzweb.dao.ContractInfoDao;
+import com.spjzweb.dao.ItemRecordDao;
 import com.spjzweb.dao.StaticMeasurementItemDao;
+import com.spjzweb.dao.ThreadInspectionRecordDao;
 import com.spjzweb.entity.ContractInfo;
 import com.spjzweb.entity.StaticMeasurementItem;
+import com.spjzweb.entity.ThreadInspectionRecord;
 import com.spjzweb.util.ComboxItem;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,10 @@ public class StaticMeasurementItemController {
     private StaticMeasurementItemDao staticMeasurementItemDao;
     @Autowired
     private ContractInfoDao contractInfoDao;
+    @Autowired
+    private ThreadInspectionRecordDao threadInspectionRecordDao;
+    @Autowired
+    private ItemRecordDao itemRecordDao;
     //搜索
     @RequestMapping(value = "getStaticMeasureItemAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
@@ -185,6 +192,55 @@ public class StaticMeasurementItemController {
         }
         return  null;
     }
-
+    //根据接箍检验编号获取使用测量工具和标准等信息(Winform)
+    @RequestMapping("/getMeasureDataByInspectionNoOfWinform")
+    @ResponseBody
+    public String getMeasureDataByInspectionNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
+        StringBuilder sb=new StringBuilder();
+        JSONObject jsonReturn=new JSONObject();
+        try{
+            BufferedReader reader=request.getReader();
+            String input=null;
+            while ((input=reader.readLine())!=null){
+                sb.append(input);
+            }
+            JSONObject json=JSONObject.parseObject(sb.toString());
+            String thread_inspection_record_code=json.getString("thread_inspection_record_code");
+            if(thread_inspection_record_code!=null&&!thread_inspection_record_code.equals("")){
+                //根据接箍编号找到对应的合同编号
+                ThreadInspectionRecord entity=threadInspectionRecordDao.getThreadInspectionRecordByNo(thread_inspection_record_code);
+                String  contract_no=null;
+                if(entity!=null)
+                {
+                    contract_no=entity.getContract_no();
+                }
+                //根据合同编号获取合同信息
+                ContractInfo contractInfo=contractInfoDao.getContractInfoByNo(contract_no);
+                List<HashMap<String,Object>>dynamicAndStaticData=null;
+                //根据接收标准编号接收动态、静态信息
+                if(contractInfo!=null){
+                    String acceptance_no=contractInfo.getThread_acceptance_criteria_no();
+                    if(acceptance_no!=null&&!acceptance_no.equals("")){
+                        dynamicAndStaticData=staticMeasurementItemDao.getDynamicAndStaticDataByAcceptanceNo(acceptance_no);
+                    }
+                }
+                //查询检验数据
+                List<HashMap<String,Object>>inspectionData=itemRecordDao.getItemRecordByInspectionRecordCode(thread_inspection_record_code);
+                HashMap<String,Object>returenData=new HashMap<>();
+                returenData.put("contractInfo",contractInfo);
+                returenData.put("measureInfo",dynamicAndStaticData);
+                returenData.put("inspectionData",inspectionData);
+                jsonReturn.put("rowsData",returenData);
+            }else{
+                jsonReturn.put("rowsData","fail");
+            }
+        }catch (Exception e){
+            jsonReturn.put("rowsData","fail");
+            e.printStackTrace();
+        }finally {
+            ResponseUtil.write(response,jsonReturn.toString());
+        }
+        return  null;
+    }
 }
 

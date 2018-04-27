@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -222,13 +223,15 @@ public class ThreadInspectionRecordController {
         StringBuilder sb=new StringBuilder();
         JSONObject jsonReturn=new JSONObject();
         try{
+
             BufferedReader reader=request.getReader();
             String input=null;
             while ((input=reader.readLine())!=null){
                 sb.append(input);
             }
-            System.out.println(sb.toString());
-            JSONObject json=JSONObject.parseObject(sb.toString());
+            String requestData= URLDecoder.decode(sb.toString(),"UTF-8");
+            System.out.println(requestData);
+            JSONObject json=JSONObject.parseObject(requestData);
             //判断是修改还是添加
             String isAdd=json.getString("isAdd");
             String thread_inspection_record_code="";
@@ -268,9 +271,16 @@ public class ThreadInspectionRecordController {
                     measure_code=entry.getKey().replace("_B_Value","");
                     valueBList.put(measure_code,entry.getValue());
                 }
+                System.out.println("measure_code="+measure_code);
                 if(!itemCodeList.contains(measure_code)){
-                    itemCodeList.add(measure_code);
+                    if(measure_code!=null&&!measure_code.equals(""))
+                       itemCodeList.add(measure_code);
                 }
+            }
+            if(isAdd.equals("edit")){
+                thread_inspection_record_code=json.getString("thread_inspection_record_code");
+            }else{
+                thread_inspection_record_code=String.valueOf(System.currentTimeMillis());
             }
             for (int i=0;i<itemCodeList.size();i++){
                 String itemCode=itemCodeList.get(i);
@@ -284,8 +294,11 @@ public class ThreadInspectionRecordController {
                     itemRecord.setToolcode2(String.valueOf(tool2List.get(itemCode)));
                 }
                 if(valueAList.containsKey(itemCode)){
-                    if(String.valueOf(valueAList.get(itemCode))!=null&&String.valueOf(valueAList.get(itemCode))!="")
-                      itemRecord.setItemvalue(String.valueOf(valueAList.get(itemCode))+";");
+                    if(valueAList.get(itemCode)!=null){
+                         if(!String.valueOf(valueAList.get(itemCode)).equals("")){
+                             itemRecord.setItemvalue(String.valueOf(valueAList.get(itemCode))+";");
+                         }
+                    }
                 }
                 if(valueBList.containsKey(itemCode)){
                     itemRecord.setItemvalue(itemRecord.getItemvalue()+String.valueOf(valueBList.get(itemCode)));
@@ -300,12 +313,12 @@ public class ThreadInspectionRecordController {
             for (int i=0;i<itemCodeList.size();i++){
                 System.out.println(itemCodeList.get(i)+"------------------");
             }
-
-
             if(isAdd.equals("edit")){
-                thread_inspection_record_code=json.getString("thread_inspection_record_code");
+                System.out.println("-------------执行修改-----------------");
+                System.out.println("thread_inspection_record_code="+thread_inspection_record_code);
                 ThreadInspectionRecord entity=threadInspectionRecordDao.getThreadInspectionRecordByNo(thread_inspection_record_code);
                 if(entity!=null){
+                    System.out.println("LLlllllllllllllllll------------------");
                     entity.setCouping_no(couping_no);
                     entity.setContract_no(contract_no);
                     entity.setProduction_line(production_line);
@@ -317,18 +330,24 @@ public class ThreadInspectionRecordController {
                     entity.setInspection_result(inspection_result);
                     entity.setInspection_time(inspectionTime);
                 }
-                int result0=threadInspectionRecordDao.updateThreadInspectionRecordByCode(thread_inspection_record_code);
+                System.out.println("-------------执行修改1-----------------");
+                int result0=threadInspectionRecordDao.updateThreadInspectionRecordByCode(entity);
                 if(result0>0){
-                    int result1=itemRecordDao.updataItemRecordByCode(itemRecordList);
+                    int result1=0;
+                    for (int i=0;i<itemRecordList.size();i++){
+                        ItemRecord itemRecord=itemRecordList.get(i);
+                        result1=itemRecordDao.updataItemRecordByCodeSingle(itemRecord);
+                    }
                     if(result1>0){
                         jsonReturn.put("rowsData","success");
                     }else{
                         jsonReturn.put("rowsData","fail");
                     }
+                }else{
+                    jsonReturn.put("rowsData","fail");
                 }
-                jsonReturn.put("rowsData","fail");
             }else{
-                thread_inspection_record_code=String.valueOf(System.currentTimeMillis());
+
                 ThreadInspectionRecord threadInspectionRecord=new ThreadInspectionRecord();
                 threadInspectionRecord.setThread_inspection_record_code(thread_inspection_record_code);
                 threadInspectionRecord.setCouping_no(couping_no);
@@ -343,15 +362,7 @@ public class ThreadInspectionRecordController {
                 threadInspectionRecord.setInspection_time(inspectionTime);
                 int threadInspectionResult=threadInspectionRecordDao.addThreadInspectionRecord(threadInspectionRecord);
                 if(threadInspectionResult>0){
-                    //获取检验项数据
-                    for (int i=0;i<itemCodeList.size();i++){
-                        ItemRecord record=itemRecordList.get(i);
-                        System.out.println(record.getItemcode()+"~~~~~~~"+i);
-                        System.out.println(record.getItemvalue()+"~~~~~~~"+i);
-                        System.out.println(record.getToolcode1()+"~~~~~~~"+i);
-                        System.out.println(record.getToolcode2()+"~~~~~~~"+i);
-                        System.out.println(record.getMeasure_sample1()+"~~~~~~~"+i);
-                    }
+
                     int itemRecordResult=itemRecordDao.addItemRecordByWinform(itemRecordList);
                     if(itemRecordResult>0){
                         jsonReturn.put("rowsData","success");
@@ -393,12 +404,14 @@ public class ThreadInspectionRecordController {
             String acceptance_no=null;
             float odFloat=0,wtFloat=0;
             if(json!=null){
-                od=json.getString("od");
-                wt=json.getString("wt");
-                if(od!=null&&od!=""){
+                od=json.getString("od").trim();
+                wt=json.getString("wt").trim();
+                System.out.println("od="+od+",length="+od.length()+"--------------");
+                System.out.println("wt="+wt+",length="+wt.length()+"--------------");
+                if(od!=null&&od.length()>0){
                     odFloat=Float.valueOf(od);
                 }
-                if(wt!=null&&wt!=""){
+                if(wt!=null&&wt.length()>0){
                     wtFloat=Float.valueOf(wt);
                 }
                 thread_type= json.getString("thread_type");
@@ -414,6 +427,7 @@ public class ThreadInspectionRecordController {
 //                endTime=sdf.parse(end_time);
 //            }
             //int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
+            System.out.println(odFloat+":"+wtFloat);
             List<ThreadInspectionRecord>list=threadInspectionRecordDao.getThreadInspectionRecordOfWinform(odFloat,wtFloat,thread_type,acceptance_no);
             jsonReturn.put("rowsData",list);
             ResponseUtil.write(response,jsonReturn);

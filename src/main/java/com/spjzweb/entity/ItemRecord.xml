@@ -104,11 +104,22 @@
             </if>
         </where>
     </select>
-    <update id="updataItemRecordByCode" parameterType="java.util.ArrayList">
-        <foreach collection="itemRecordList" item="item" index="index">
+    <update id="updataItemRecordByCode" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=",">
             update item_record
-                itemvalue=${item.itemvalue},toolcode1=#{item.toolcode1},toolcode2=#{item.toolcode2},measure_sample1=#{item.measure_sample1},measure_sample2=#{item.measure_sample2}
-            where itemcode = ${item.itemcode} AND thread_inspection_record_code=#{thread_inspection_record_code}
+               SET itemvalue=#{item.itemvalue},
+                 toolcode1=#{item.toolcode1},
+                 toolcode2=#{item.toolcode2},
+                 measure_sample1=#{item.measure_sample1},
+                 measure_sample2=#{item.measure_sample2}
+               where itemcode = #{item.itemcode} AND thread_inspection_record_code=#{item.thread_inspection_record_code}
         </foreach>
     </update>
+    <update id="updataItemRecordByCodeSingle" parameterType="com.spjzweb.entity.ItemRecord">
+        UPDATE item_record set  itemvalue=#{itemvalue},toolcode1=#{toolcode1},toolcode2=#{toolcode2},measure_sample1=#{measure_sample1},measure_sample2=#{measure_sample2} where itemcode=#{itemcode} AND thread_inspection_record_code=#{thread_inspection_record_code}
+    </update>
+    <!--根据接箍检验编号查询检验记录-->
+    <select id="getInspectionRecordByInspectionNo" resultType="map">
+        SELECT * from item_record WHERE thread_inspection_record_code=#{thread_inspection_record_code}
+    </select>
 </mapper>

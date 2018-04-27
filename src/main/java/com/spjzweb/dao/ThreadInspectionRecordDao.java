@@ -30,6 +30,6 @@ public interface ThreadInspectionRecordDao {
     //根据检验记录编号查询检验记录(winform)
     public ThreadInspectionRecord getThreadInspectionRecordByNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
     //修改检验记录(winform)
-    public int updateThreadInspectionRecordByCode(@Param("thread_inspection_record_code")String thread_inspection_record_code);
+    public int updateThreadInspectionRecordByCode(ThreadInspectionRecord threadInspectionRecord);
 
 }
