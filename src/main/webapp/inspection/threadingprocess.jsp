@@ -208,8 +208,15 @@
                     {field:'item_min_value',title:'最小值',width:80},
                     {field:'item_frequency',title:'检测频率',width:80},
                     {field:'both_ends',title:'是否AB两端检测',width:80}
-                ]]
+                ]],
+                rowStyler:function(index,row){
+                    //验证测量值是否合格
+                    if (row.itemvalue>row.item_max_value&&row.item_max_value!=""||row.itemvalue<row.item_min_value&&row.item_min_value!=""){
+                        return 'background-color:pink;color:blue;font-weight:bold;';
+                    }
+                }
             });
+
         }
         function getRowIndex(target){
             var tr = $(target).closest('tr.datagrid-row');
@@ -230,10 +237,13 @@
             var row = $('#itemrecordDatagrids').datagrid('getSelected');
             if (row){
                 var index= $('#itemrecordDatagrids').datagrid('getRowIndex', row);
-                $('#itemrecordDatagrids').datagrid('endEdit',index);
-                if(row.itemcode==null||row.itemcode==""||row.itemcode==undefined){
+                var ed_itemcode = $('#itemrecordDatagrids').datagrid('getEditor', {index:index,field:'itemcode'});
+                var itemcode=$(ed_itemcode.target).combobox('getValue');
+                //alert(itemcode);
+                if(itemcode==null||itemcode==""||itemcode==undefined){
                     hlAlertFour("请选择测量编号!");
                 }else{
+                    $('#itemrecordDatagrids').datagrid('endEdit',index);
                     $.ajax({
                         url:'/ItemRecordOperation/saveItemRecord.action',
                         dataType:'json',

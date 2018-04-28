@@ -260,11 +260,43 @@
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             if (row){
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-                $('#dynamicDatagrids').datagrid('endEdit',index);
-                if(row.measure_item_code==null||row.measure_item_code==""){
+                var ed_measure_item_code = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'measure_item_code'});
+                var measure_item_code=$(ed_measure_item_code.target).textbox('getValue');
+                //alert("measure_item_code:"+measure_item_code);
+                var ed_item_max_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_max_value'});
+                var item_max_value=$(ed_item_max_value.target).textbox('getValue');
+                //alert("item_max_value:"+item_max_value);
+                var ed_item_min_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_min_value'});
+                var item_min_value=$(ed_item_min_value.target).textbox('getValue');
+                //alert("item_min_value:"+item_min_value);
+                var ed_item_frequency = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_frequency'});
+                var item_frequency=$(ed_item_frequency.target).textbox('getValue');
+                //alert("item_frequency:"+item_frequency);
+                var ed_both_ends = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'both_ends'});
+                var both_ends=$(ed_both_ends.target).combobox('getValue');
+                //alert("both_ends:"+both_ends);
+
+                if(measure_item_code==null||measure_item_code==""){
                     hlAlertFour("请选择测量项!");
                     return false;
-                }else{
+                }
+                else if(item_max_value!=null&&item_min_value!=null&&item_max_value!=""&&item_min_value!=""&&item_max_value<item_min_value){
+                    //alert("max:"+item_max_value);
+                    hlAlertFour("请确保【最大值】>=【最小值】!");
+                    return false;
+                }
+                else if(item_frequency!=null&&item_frequency!=""&&(item_frequency>1||item_frequency<=0)){
+                    hlAlertFour("请确保0<检验频率<1!");
+                    return false;
+                }
+
+                else if(both_ends==null||both_ends==""){
+                    hlAlertFour("请选择测量AB端项!");
+                    return false;
+                }
+
+                else{
+                    $('#dynamicDatagrids').datagrid('endEdit',index);
                     $.ajax({
                         url:'/DynamicMeasure/saveDynamicMeasureItem.action',
                         dataType:'json',
