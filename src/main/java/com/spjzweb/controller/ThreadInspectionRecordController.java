@@ -35,14 +35,9 @@ public class ThreadInspectionRecordController {
     private ItemRecordDao itemRecordDao;
     @RequestMapping(value = "/getThreadInspectionAllByLike")
     @ResponseBody
-    public String getThreadInspectionAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "couping_no",required = false)String couping_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
+    public String getThreadInspectionAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "coupling_no",required = false)String coupling_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
-        System.out.println("contract_no="+contract_no);
-        System.out.println("couping_no="+couping_no);
-        System.out.println("operator_no="+operator_no);
-        System.out.println("beginTime="+begin_time);
-        System.out.println("endTime="+end_time);
         if(page==null){
             page="1";
         }
@@ -65,8 +60,8 @@ public class ThreadInspectionRecordController {
             e.printStackTrace();
         }
         int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-        List<HashMap<String,Object>>list=threadInspectionRecordDao.getAllByLike(contract_no,couping_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
-        int count=threadInspectionRecordDao.getCountAllByLike(contract_no,couping_no,operator_no,beginTime,endTime);
+        List<HashMap<String,Object>>list=threadInspectionRecordDao.getAllByLike(contract_no,coupling_no,operator_no,beginTime,endTime,start,Integer.parseInt(rows));
+        int count=threadInspectionRecordDao.getCountAllByLike(contract_no,coupling_no,operator_no,beginTime,endTime);
         Map<String,Object> maps=new HashMap<String,Object>();
         maps.put("total",count);
         maps.put("rows",list);
@@ -93,11 +88,12 @@ public class ThreadInspectionRecordController {
                 resTotal=threadInspectionRecordDao.addThreadInspectionRecord(threadingProcess);
             }else{
                 //修改！
+                System.out.println("---------------"+threadingProcess.getCoupling_no());
                 if(threadingProcess.getThread_inspection_record_code()!=null&&!threadingProcess.getThread_inspection_record_code().equals("")){
                     resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
                 }
             }
-            System.out.println("-----"+resTotal);
+            //System.out.println("-----"+resTotal);
             if(resTotal>0){
                 json.put("promptkey","success");
                 json.put("promptValue","保存成功");
@@ -235,7 +231,7 @@ public class ThreadInspectionRecordController {
             //判断是修改还是添加
             String isAdd=json.getString("isAdd");
             String thread_inspection_record_code="";
-            String couping_no=json.getString("couping_no");
+            String coupling_no=json.getString("coupling_no");
             String contract_no=json.getString("contract_no");
             String production_line=json.getString("production_line");
             String machine_no=json.getString("machine_no");
@@ -245,6 +241,8 @@ public class ThreadInspectionRecordController {
             String video_no=json.getString("video_no");
             String inspection_result=json.getString("inspection_result");
             String inspection_time=json.getString("inspection_time");
+            String coupling_heat_no=json.getString("coupling_heat_no");
+            String coupling_lot_no=json.getString("coupling_lot_no");
             Date inspectionTime=new Date();
             String measure_code="";
             ArrayList<ItemRecord>itemRecordList=new ArrayList<>();
@@ -310,16 +308,12 @@ public class ThreadInspectionRecordController {
                 SimpleDateFormat simFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 inspectionTime = simFormat.parse(inspection_time);
             }
-            for (int i=0;i<itemCodeList.size();i++){
-                System.out.println(itemCodeList.get(i)+"------------------");
-            }
+
             if(isAdd.equals("edit")){
-                System.out.println("-------------执行修改-----------------");
                 System.out.println("thread_inspection_record_code="+thread_inspection_record_code);
                 ThreadInspectionRecord entity=threadInspectionRecordDao.getThreadInspectionRecordByNo(thread_inspection_record_code);
                 if(entity!=null){
-                    System.out.println("LLlllllllllllllllll------------------");
-                    entity.setCouping_no(couping_no);
+                    entity.setCoupling_no(coupling_no);
                     entity.setContract_no(contract_no);
                     entity.setProduction_line(production_line);
                     entity.setMachine_no(machine_no);
@@ -329,8 +323,9 @@ public class ThreadInspectionRecordController {
                     entity.setVideo_no(video_no);
                     entity.setInspection_result(inspection_result);
                     entity.setInspection_time(inspectionTime);
+                    entity.setCoupling_heat_no(coupling_heat_no);
+                    entity.setCoupling_lot_no(coupling_lot_no);
                 }
-                System.out.println("-------------执行修改1-----------------");
                 int result0=threadInspectionRecordDao.updateThreadInspectionRecordByCode(entity);
                 if(result0>0){
                     int result1=0;
@@ -350,7 +345,7 @@ public class ThreadInspectionRecordController {
 
                 ThreadInspectionRecord threadInspectionRecord=new ThreadInspectionRecord();
                 threadInspectionRecord.setThread_inspection_record_code(thread_inspection_record_code);
-                threadInspectionRecord.setCouping_no(couping_no);
+                threadInspectionRecord.setCoupling_no(coupling_no);
                 threadInspectionRecord.setContract_no(contract_no);
                 threadInspectionRecord.setProduction_line(production_line);
                 threadInspectionRecord.setMachine_no(machine_no);
@@ -360,6 +355,8 @@ public class ThreadInspectionRecordController {
                 threadInspectionRecord.setVideo_no(video_no);
                 threadInspectionRecord.setInspection_result(inspection_result);
                 threadInspectionRecord.setInspection_time(inspectionTime);
+                threadInspectionRecord.setCoupling_heat_no(coupling_heat_no);
+                threadInspectionRecord.setCoupling_lot_no(coupling_lot_no);
                 int threadInspectionResult=threadInspectionRecordDao.addThreadInspectionRecord(threadInspectionRecord);
                 if(threadInspectionResult>0){
 
@@ -427,7 +424,6 @@ public class ThreadInspectionRecordController {
 //                endTime=sdf.parse(end_time);
 //            }
             //int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-            System.out.println(odFloat+":"+wtFloat);
             List<ThreadInspectionRecord>list=threadInspectionRecordDao.getThreadInspectionRecordOfWinform(odFloat,wtFloat,thread_type,acceptance_no);
             jsonReturn.put("rowsData",list);
             ResponseUtil.write(response,jsonReturn);

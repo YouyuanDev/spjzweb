@@ -109,7 +109,7 @@
         function searchFunction() {
             $('#contentDatagrids').datagrid('load',{
                 'contract_no': $('#searcharg1').val(),
-                'couping_no': $('#searcharg2').val(),
+                'coupling_no': $('#searcharg2').val(),
                 'operator_no': $('#searcharg3').val(),
                 'begin_time': $('#searcharg4').val(),
                 'end_time': $('#searcharg5').val(),
@@ -404,7 +404,7 @@
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th field="id" align="center" width="100" class="i18n1" name="id"></th>
                 <th field="thread_inspection_record_code" align="center" width="100" class="i18n1" name="threadinspectionrecordcode"></th>
-                <th field="couping_no" align="center" width="100" class="i18n1" name="coupingno"></th>
+                <th field="coupling_no" align="center" width="100" class="i18n1" name="couplingno"></th>
                 <th field="contract_no" align="center" width="100" class="i18n1" name="contractno"></th>
                 <th field="production_line" align="center" width="100" class="i18n1" name="productionline"></th>
                 <th field="machine_no" align="center" width="100" class="i18n1" name="machineno"></th>
@@ -412,6 +412,8 @@
                 <th field="operator_no" align="center" width="100" class="i18n1" name="operatorno"></th>
                 <th field="production_crew" align="center" width="100" class="i18n1" name="productioncrew"></th>
                 <th field="production_shift" align="center" width="100" class="i18n1" name="productionshift"></th>
+                <th field="coupling_heat_no" align="center" width="100" class="i18n1" name="couplingheatno"></th>
+                <th field="coupling_lot_no" align="center" width="100" class="i18n1" name="couplinglotno"></th>
                 <th field="video_no" align="center" width="100" class="i18n1" name="videono"></th>
                 <th field="inspection_result" align="center" width="100" class="i18n1" name="inspectionresult"></th>
                 <th field="inspection_time" align="center" width="100" class="i18n1" name="inspectiontime" data-options="formatter:formatterdate"></th>
@@ -425,7 +427,7 @@
 <div id="toolsTab" style="padding:10px;">
     <span class="i18n1" name="contractno">合同号</span>:
     <input id="searcharg1" name="searcharg1" type="text" style="line-height:22px;border:1px solid #ccc">
-    <span class="i18n1" name="coupingno">接箍编号</span>:
+    <span class="i18n1" name="couplingno">接箍编号</span>:
     <input id="searcharg2" name="searcharg2" type="text" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="operatorno">操作工号</span>:
     <input id="searcharg3" name="searcharg3" type="text" style="line-height:22px;border:1px solid #ccc">
@@ -468,8 +470,8 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="i18n1" name="coupingno"></td>
-                    <td><input class="easyui-validatebox" type="text" data-options="required:true,validType:'nullandlength'" name="couping_no" value=""/></td>
+                    <td class="i18n1" name="couplingno"></td>
+                    <td><input class="easyui-validatebox" type="text" data-options="required:true,validType:'nullandlength'" name="coupling_no" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="machineno"></td>
                     <td><input class="easyui-textbox" type="text" name="machine_no" value=""/></td>
@@ -519,6 +521,14 @@
                         </select>
                         <%--<input class="easyui-textbox" type="text" name="production_shift" value=""/>--%>
                     </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="i18n1" name="couplingheatno"></td>
+                    <td><input class="easyui-textbox" type="text" name="coupling_heat_no" value=""/></td>
+                    <td></td>
+                    <td class="i18n1" name="couplinglotno"></td>
+                    <td><input class="easyui-textbox" type="text" name="coupling_lot_no" value=""/></td>
                     <td></td>
                 </tr>
                 <tr>

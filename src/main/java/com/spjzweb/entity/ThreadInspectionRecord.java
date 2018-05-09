@@ -7,7 +7,7 @@ public class ThreadInspectionRecord {
 
     private int id;
     private String thread_inspection_record_code;
-    private String couping_no;
+    private String coupling_no;
     private String contract_no;
     private String production_line;
     private String machine_no;
@@ -19,15 +19,16 @@ public class ThreadInspectionRecord {
 
     private Date inspection_time;
     private String inspection_result;
-
+    private String coupling_heat_no;
+    private String coupling_lot_no;
 
     public ThreadInspectionRecord() {
     }
 
-    public ThreadInspectionRecord(int id, String thread_inspection_record_code, String couping_no, String contract_no, String production_line, String machine_no, String process_no, String operator_no, String production_crew, String production_shift, String video_no, Date inspection_time, String inspection_result) {
+    public ThreadInspectionRecord(int id, String thread_inspection_record_code, String coupling_no, String contract_no, String production_line, String machine_no, String process_no, String operator_no, String production_crew, String production_shift, String video_no, Date inspection_time, String inspection_result, String coupling_heat_no, String coupling_lot_no) {
         this.id = id;
         this.thread_inspection_record_code = thread_inspection_record_code;
-        this.couping_no = couping_no;
+        this.coupling_no = coupling_no;
         this.contract_no = contract_no;
         this.production_line = production_line;
         this.machine_no = machine_no;
@@ -38,6 +39,8 @@ public class ThreadInspectionRecord {
         this.video_no = video_no;
         this.inspection_time = inspection_time;
         this.inspection_result = inspection_result;
+        this.coupling_heat_no = coupling_heat_no;
+        this.coupling_lot_no = coupling_lot_no;
     }
 
     public int getId() {
@@ -56,12 +59,12 @@ public class ThreadInspectionRecord {
         this.thread_inspection_record_code = thread_inspection_record_code;
     }
 
-    public String getCouping_no() {
-        return couping_no;
+    public String getCoupling_no() {
+        return coupling_no;
     }
 
-    public void setCouping_no(String couping_no) {
-        this.couping_no = couping_no;
+    public void setCoupling_no(String coupling_no) {
+        this.coupling_no = coupling_no;
     }
 
     public String getContract_no() {
@@ -142,5 +145,21 @@ public class ThreadInspectionRecord {
 
     public void setInspection_result(String inspection_result) {
         this.inspection_result = inspection_result;
+    }
+
+    public String getCoupling_heat_no() {
+        return coupling_heat_no;
+    }
+
+    public void setCoupling_heat_no(String coupling_heat_no) {
+        this.coupling_heat_no = coupling_heat_no;
+    }
+
+    public String getCoupling_lot_no() {
+        return coupling_lot_no;
+    }
+
+    public void setCoupling_lot_no(String coupling_lot_no) {
+        this.coupling_lot_no = coupling_lot_no;
     }
 }

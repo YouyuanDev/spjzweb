@@ -12,8 +12,8 @@
             <if test="contract_no!=null and contract_no!=''">
                 AND r.contract_no LIKE CONCAT('%',#{contract_no},'%')
             </if>
-            <if test="couping_no!=null and couping_no!=''">
-                AND r.couping_no LIKE CONCAT('%',#{couping_no},'%')
+            <if test="coupling_no!=null and coupling_no!=''">
+                AND r.coupling_no LIKE CONCAT('%',#{coupling_no},'%')
             </if>
             <if test="operator_no!=null and operator_no!=''">
                 AND r.operator_no LIKE CONCAT('%',#{operator_no},'%')
@@ -33,8 +33,8 @@
             <if test="contract_no!=null and contract_no!=''">
                 AND r.contract_no LIKE CONCAT('%',#{contract_no},'%')
             </if>
-            <if test="couping_no!=null and couping_no!=''">
-                AND r.couping_no LIKE CONCAT('%',#{couping_no},'%')
+            <if test="coupling_no!=null and coupling_no!=''">
+                AND r.coupling_no LIKE CONCAT('%',#{coupling_no},'%')
             </if>
             <if test="operator_no!=null and operator_no!=''">
                 AND r.operator_no LIKE CONCAT('%',#{operator_no},'%')
@@ -62,11 +62,11 @@
 
 
     <insert id="addThreadInspectionRecord" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
-        INSERT INTO thread_inspection_record(thread_inspection_record_code,couping_no,contract_no,production_line,machine_no,process_no,operator_no,production_crew,production_shift,video_no,inspection_time,inspection_result) VALUES (#{thread_inspection_record_code},#{couping_no},#{contract_no},#{production_line},#{machine_no},#{process_no},#{operator_no},#{production_crew},#{production_shift},#{video_no},#{inspection_time},#{inspection_result})
+        INSERT INTO thread_inspection_record(thread_inspection_record_code,coupling_no,contract_no,production_line,machine_no,process_no,operator_no,production_crew,production_shift,video_no,inspection_time,inspection_result,coupling_heat_no,coupling_lot_no) VALUES (#{thread_inspection_record_code},#{coupling_no},#{contract_no},#{production_line},#{machine_no},#{process_no},#{operator_no},#{production_crew},#{production_shift},#{video_no},#{inspection_time},#{inspection_result},#{coupling_heat_no},#{coupling_lot_no})
     </insert>
 
     <update id="updateThreadInspectionRecord" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
-        UPDATE thread_inspection_record set thread_inspection_record_code=#{thread_inspection_record_code},couping_no=#{couping_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result} where id=#{id}
+        UPDATE thread_inspection_record set thread_inspection_record_code=#{thread_inspection_record_code},coupling_no=#{coupling_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result},coupling_heat_no=#{coupling_heat_no},coupling_lot_no=#{coupling_lot_no} where id=#{id}
     </update>
 
 
@@ -102,6 +102,6 @@
         SELECT * from thread_inspection_record where thread_inspection_record_code=#{thread_inspection_record_code}
     </select>
     <update id="updateThreadInspectionRecordByCode" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
-               UPDATE thread_inspection_record set couping_no=#{couping_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result} where thread_inspection_record_code=#{thread_inspection_record_code}
+               UPDATE thread_inspection_record set coupling_no=#{coupling_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result} where thread_inspection_record_code=#{thread_inspection_record_code}
     </update>
 </mapper>
