@@ -91,7 +91,7 @@
                        AND r.threading_type =#{threading_type}
                    </if>
                    <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
-                       AND r.thread_acceptance_criteria_no =#{thread_inspection_record_code}
+                       AND r.thread_acceptance_criteria_no =#{thread_acceptance_criteria_no}
                    </if>
                </where>
             )
