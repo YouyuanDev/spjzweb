@@ -252,7 +252,7 @@ public class ThreadInspectionRecordController {
             HashMap<String,Object>valueAList=new HashMap<>();
             HashMap<String,Object>valueBList=new HashMap<>();
             for (Map.Entry<String, Object> entry : json.entrySet()) {
-                System.out.println(entry.getKey()+":"+entry.getValue()+"AAAAAAAAAAAAAAAAAA");
+                //System.out.println(entry.getKey()+":"+entry.getValue()+"AAAAAAAAAAAAAAAAAA");
                 if(entry.getKey().indexOf("_measure_tool1")!=-1){
                     measure_code=entry.getKey().replace("_measure_tool1","");
                     tool1List.put(measure_code,entry.getValue());
@@ -269,7 +269,7 @@ public class ThreadInspectionRecordController {
                     measure_code=entry.getKey().replace("_B_Value","");
                     valueBList.put(measure_code,entry.getValue());
                 }
-                System.out.println("measure_code="+measure_code);
+                //System.out.println("measure_code="+measure_code);
                 if(!itemCodeList.contains(measure_code)){
                     if(measure_code!=null&&!measure_code.equals(""))
                        itemCodeList.add(measure_code);
@@ -310,7 +310,7 @@ public class ThreadInspectionRecordController {
             }
 
             if(isAdd.equals("edit")){
-                System.out.println("thread_inspection_record_code="+thread_inspection_record_code);
+                //System.out.println("thread_inspection_record_code="+thread_inspection_record_code);
                 ThreadInspectionRecord entity=threadInspectionRecordDao.getThreadInspectionRecordByNo(thread_inspection_record_code);
                 if(entity!=null){
                     entity.setCoupling_no(coupling_no);
@@ -403,8 +403,8 @@ public class ThreadInspectionRecordController {
             if(json!=null){
                 od=json.getString("od").trim();
                 wt=json.getString("wt").trim();
-                System.out.println("od="+od+",length="+od.length()+"--------------");
-                System.out.println("wt="+wt+",length="+wt.length()+"--------------");
+                //System.out.println("od="+od+",length="+od.length()+"--------------");
+                //System.out.println("wt="+wt+",length="+wt.length()+"--------------");
                 if(od!=null&&od.length()>0){
                     odFloat=Float.valueOf(od);
                 }

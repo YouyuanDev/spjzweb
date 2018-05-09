@@ -102,6 +102,6 @@
         SELECT * from thread_inspection_record where thread_inspection_record_code=#{thread_inspection_record_code}
     </select>
     <update id="updateThreadInspectionRecordByCode" parameterType="com.spjzweb.entity.ThreadInspectionRecord">
-               UPDATE thread_inspection_record set coupling_no=#{coupling_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result} where thread_inspection_record_code=#{thread_inspection_record_code}
+               UPDATE thread_inspection_record set coupling_no=#{coupling_no},contract_no=#{contract_no},production_line=#{production_line},machine_no=#{machine_no},process_no=#{process_no},operator_no=#{operator_no},production_crew=#{production_crew},production_shift=#{production_shift},video_no=#{video_no},inspection_time=#{inspection_time},inspection_result=#{inspection_result},coupling_heat_no=#{coupling_heat_no},coupling_lot_no=#{coupling_lot_no} where thread_inspection_record_code=#{thread_inspection_record_code}
     </update>
 </mapper>
