@@ -25,7 +25,7 @@ public class ThreadAcceptanceCriteriaController {
 
     @RequestMapping("/getThreadAcceptanceCriteriaAllByLike")
     @ResponseBody
-    public String getThreadAcceptanceCriteriaAllByLike(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no, HttpServletRequest request){
+    public String getThreadAcceptanceCriteriaAllByLike(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,@RequestParam(value = "od",required = false)String od,@RequestParam(value = "wt",required = false)String wt,@RequestParam(value = "customer_spec",required = false)String customer_spec,@RequestParam(value = "coupling_type",required = false)String coupling_type,@RequestParam(value = "threading_type",required = false)String threading_type, HttpServletRequest request){
         String page= request.getParameter("page");
         String rows= request.getParameter("rows");
         if(page==null||page==""){
@@ -34,8 +34,8 @@ public class ThreadAcceptanceCriteriaController {
             rows="20";
         }
         int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-        List<ThreadingAcceptanceCriteria>list=threadingAcceptanceCriteriaDao.getAllByLike(thread_acceptance_criteria_no,start,Integer.parseInt(rows));
-        int count=threadingAcceptanceCriteriaDao.getCountAllByLike(thread_acceptance_criteria_no);
+        List<ThreadingAcceptanceCriteria>list=threadingAcceptanceCriteriaDao.getAllByLike(thread_acceptance_criteria_no,od,wt,customer_spec,coupling_type,threading_type,start,Integer.parseInt(rows));
+        int count=threadingAcceptanceCriteriaDao.getCountAllByLike(thread_acceptance_criteria_no,od,wt,customer_spec,coupling_type,threading_type);
         Map<String,Object> maps=new HashMap<String,Object>();
         maps.put("total",count);
         maps.put("rows",list);
@@ -62,9 +62,10 @@ public class ThreadAcceptanceCriteriaController {
             }
             if(resTotal>0){
                 json.put("success",true);
-                System.out.println("success!");
+                json.put("message","保存成功");
             }else{
                 json.put("success",false);
+                json.put("message","保存失败");
             }
 
 
@@ -72,6 +73,7 @@ public class ThreadAcceptanceCriteriaController {
         }catch (Exception e){
             e.printStackTrace();
             json.put("success",false);
+            json.put("message","保存失败:"+e.getMessage());
         }finally {
             try {
                 ResponseUtil.write(response, json);

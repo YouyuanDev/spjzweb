@@ -74,9 +74,10 @@
             if(row){
                 $('#addEditDialog').dialog('open').dialog('setTitle','修改');
                 $('#addEditForm').form('load',row);
+                $("#serialNumber").text(row.id);
                 //$('#thread_acceptance_criteria_no').text(row.thread_acceptance_criteria_no);
                 $('#createNoBtn').css('display','none');
-                //$('#tid').text(row.id);
+
                 url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id="+row.id;
                 getStataticItem();
                 loadDynamicByAcceptanceNo(row.thread_acceptance_criteria_no);
@@ -340,7 +341,14 @@
                     hlAlertFour("请选择测量项类型!");
                     return false;
                 }
-
+                else if(item_pos_deviation_value!=null&&item_pos_deviation_value!=""&&item_pos_deviation_value<0){
+                    hlAlertFour("请保证正偏差>=0!");
+                    return false;
+                }
+                else if(item_neg_deviation_value!=null&&item_neg_deviation_value!=""&&item_neg_deviation_value>0){
+                    hlAlertFour("请保证负偏差<=0!");
+                    return false;
+                }
 
 
                 else{
@@ -521,7 +529,7 @@
                 <th field="customer_spec" align="center" width="100" class="i18n1" name="customerspec"></th>
                 <th field="coupling_type" align="center" width="100" class="i18n1" name="couplingtype"></th>
                 <th field="threading_type" align="center" width="100" class="i18n1" name="threadingtype"></th>
-
+                <th field="remark" align="center" width="100" class="i18n1" name="remark"></th>
                 <th field="last_update_time" align="center" width="100" class="i18n1" name="lastupdatetime" data-options="formatter:formatterdate"></th>
             </tr>
             </thead>
@@ -538,7 +546,7 @@
     <span class="i18n1" name="wt">壁厚</span>:
     <input id="searchwt" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="customerspec">客户标准</span>:
-    <input id="searchcustomerspec" style="line-height:22px;border:1px solid #ccc">
+    <input id="searchcustomerspec" style="line-height:22px;border:1px solid #ccc"><br>
     <span class="i18n1" name="couplingtype">接箍类型</span>:
     <input id="searchcouplingtype" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="threadingtype">螺纹类型</span>:
@@ -570,8 +578,8 @@
                         <tr>
                             <td class="i18n1" name="id">流水号</td>
                             <td colspan="1">
+                                <label id="serialNumber" class="hl-label"></label>
                                 <%--<input class="easyui-textbox" id="tid" type="text" name="tid" readonly="true" value=""/>--%>
-                                <label id="sid" class="hl-label"></label>
                             </td>
                             <td></td>
                             <td class="i18n1" name="threadacceptancecriteriano"></td>
@@ -592,13 +600,17 @@
                         <td class="i18n1" name="customerspec"></td>
                         <td><input class="easyui-textbox"   type="text" name="customer_spec" value=""/></td>
                         <td></td>
-                        </tr>
-                        <tr>
                             <td class="i18n1" name="threadingtype"></td>
                             <td><input class="easyui-textbox"   type="text" name="threading_type" value=""/></td>
                             <td></td>
+                        </tr>
+                        <tr>
+
                             <td class="i18n1" name="couplingtype"></td>
                             <td><input class="easyui-textbox"   type="text" name="coupling_type" value=""/></td>
+                            <td></td>
+                            <td class="i18n1" name="remark"></td>
+                            <td><input class="easyui-textbox"   type="text" name="remark" value=""/></td>
                             <td></td>
                         </tr>
 

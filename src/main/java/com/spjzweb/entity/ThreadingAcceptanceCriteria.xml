@@ -12,6 +12,21 @@
             <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
                 AND r.thread_acceptance_criteria_no LIKE CONCAT('%',#{thread_acceptance_criteria_no},'%')
             </if>
+            <if test="od!=null and od!=''">
+                AND r.od LIKE CONCAT('%',#{od},'%')
+            </if>
+            <if test="wt!=null and wt!=''">
+                AND r.wt LIKE CONCAT('%',#{wt},'%')
+            </if>
+            <if test="customer_spec!=null and customer_spec!=''">
+                AND r.customer_spec LIKE CONCAT('%',#{customer_spec},'%')
+            </if>
+            <if test="coupling_type!=null and coupling_type!=''">
+                AND r.coupling_type LIKE CONCAT('%',#{coupling_type},'%')
+            </if>
+            <if test="threading_type!=null and threading_type!=''">
+                AND r.threading_type LIKE CONCAT('%',#{threading_type},'%')
+            </if>
         </where>
     </select>
 
@@ -20,6 +35,21 @@
         <where>
             <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
                 AND r.thread_acceptance_criteria_no LIKE CONCAT('%',#{thread_acceptance_criteria_no},'%')
+            </if>
+            <if test="od!=null and od!=''">
+                AND r.od LIKE CONCAT('%',#{od},'%')
+            </if>
+            <if test="wt!=null and wt!=''">
+                AND r.wt LIKE CONCAT('%',#{wt},'%')
+            </if>
+            <if test="customer_spec!=null and customer_spec!=''">
+                AND r.customer_spec LIKE CONCAT('%',#{customer_spec},'%')
+            </if>
+            <if test="coupling_type!=null and coupling_type!=''">
+                AND r.coupling_type LIKE CONCAT('%',#{coupling_type},'%')
+            </if>
+            <if test="threading_type!=null and threading_type!=''">
+                AND r.threading_type LIKE CONCAT('%',#{threading_type},'%')
             </if>
         </where>
         ORDER BY id DESC
@@ -44,12 +74,12 @@
 
 
     <insert id="addThreadingAcceptanceCriteria" parameterType="com.spjzweb.entity.ThreadingAcceptanceCriteria">
-        INSERT INTO threading_acceptance_criteria(thread_acceptance_criteria_no,last_update_time,od,wt,customer_spec,coupling_type,threading_type) VALUES (#{thread_acceptance_criteria_no},#{last_update_time},#{od},#{wt},#{customer_spec},#{coupling_type},#{threading_type})
+        INSERT INTO threading_acceptance_criteria(thread_acceptance_criteria_no,last_update_time,od,wt,customer_spec,coupling_type,threading_type,remark) VALUES (#{thread_acceptance_criteria_no},#{last_update_time},#{od},#{wt},#{customer_spec},#{coupling_type},#{threading_type},#{remark})
     </insert>
 
     <update id="updateThreadingAcceptanceCriteria" parameterType="com.spjzweb.entity.ThreadingAcceptanceCriteria">
-        UPDATE threading_acceptance_criteria set thread_acceptance_criteria_no={thread_acceptance_criteria_no},
-        last_update_time=#{last_update_time},od=#{od},wt=#{wt},customer_spec=#{customer_spec}, coupling_type=#{coupling_type},threading_type=#{threading_type}
+        UPDATE threading_acceptance_criteria set thread_acceptance_criteria_no=#{thread_acceptance_criteria_no},
+        last_update_time=#{last_update_time},od=#{od},wt=#{wt},customer_spec=#{customer_spec}, coupling_type=#{coupling_type},threading_type=#{threading_type},remark=#{remark}
         where id=#{id}
     </update>
 

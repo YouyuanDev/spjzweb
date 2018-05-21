@@ -13,11 +13,13 @@ public class ThreadingAcceptanceCriteria {
     private String customer_spec;
     private String coupling_type;
     private String threading_type;
+    private String remark;
+
 
     public ThreadingAcceptanceCriteria() {
     }
 
-    public ThreadingAcceptanceCriteria(int id, String thread_acceptance_criteria_no, Date last_update_time, String od, String wt, String customer_spec, String coupling_type, String threading_type) {
+    public ThreadingAcceptanceCriteria(int id, String thread_acceptance_criteria_no, Date last_update_time, String od, String wt, String customer_spec, String coupling_type, String threading_type, String remark) {
         this.id = id;
         this.thread_acceptance_criteria_no = thread_acceptance_criteria_no;
         this.last_update_time = last_update_time;
@@ -26,6 +28,7 @@ public class ThreadingAcceptanceCriteria {
         this.customer_spec = customer_spec;
         this.coupling_type = coupling_type;
         this.threading_type = threading_type;
+        this.remark = remark;
     }
 
     public int getId() {
@@ -90,5 +93,13 @@ public class ThreadingAcceptanceCriteria {
 
     public void setThreading_type(String threading_type) {
         this.threading_type = threading_type;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

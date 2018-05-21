@@ -10,10 +10,10 @@ public interface ThreadingAcceptanceCriteriaDao {
 
 
         //模糊搜索带分页
-        public List<ThreadingAcceptanceCriteria> getAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no, @Param("skip") int skip, @Param("take") int take);
+        public List<ThreadingAcceptanceCriteria> getAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no,@Param("od") String od,@Param("wt") String wt,@Param("customer_spec") String customer_spec,@Param("coupling_type") String coupling_type,@Param("threading_type") String threading_type, @Param("skip") int skip, @Param("take") int take);
 
         //模糊搜索总数
-        public int getCountAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no);
+        public int getCountAllByLike(@Param("thread_acceptance_criteria_no") String thread_acceptance_criteria_no,@Param("od") String od,@Param("wt") String wt,@Param("customer_spec") String customer_spec,@Param("coupling_type") String coupling_type,@Param("threading_type") String threading_type);
 
         //修改ItemRecord
         public int updateThreadingAcceptanceCriteria(ThreadingAcceptanceCriteria threadingAcceptanceCriteria);
