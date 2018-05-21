@@ -44,47 +44,35 @@ public class ThreadAcceptanceCriteriaController {
     }
     @RequestMapping("/saveThreadAcceptanceCriteria")
     @ResponseBody
-    public String saveThreadAcceptanceCriteria(HttpServletRequest request, HttpServletResponse response){
+    public String saveThreadAcceptanceCriteria(ThreadingAcceptanceCriteria  threadingAcceptanceCriteria, HttpServletRequest request, HttpServletResponse response){
         JSONObject json=new JSONObject();
         try{
-              String thread_acceptance_criteria_no=request.getParameter("thread_acceptance_criteria_no");
-              if(thread_acceptance_criteria_no!=null&&thread_acceptance_criteria_no!=""){
-                  ThreadingAcceptanceCriteria entity=new ThreadingAcceptanceCriteria();
-                  entity.setThread_acceptance_criteria_no(thread_acceptance_criteria_no);
-                  entity.setLast_update_time(new Date());
-                  int res=threadingAcceptanceCriteriaDao.addThreadingAcceptanceCriteria(entity);
-                  if(res>0){
-                      json.put("promptkey","success");
-                  }else{
-                      json.put("promptkey","fail");
-                  }
-              }else{
-                  json.put("promptkey","fail");
-              }
-//            int resTotal=0;
-//            threadAcceptanceCriteria.setLast_update_time(new Date());
-//            if(threadAcceptanceCriteria.getId()==0){
-//                //添加
-//                resTotal=threadingAcceptanceCriteriaDao.addThreadingAcceptanceCriteria(threadAcceptanceCriteria);
-//            }else{
-//                //修改！
-//                resTotal=threadingAcceptanceCriteriaDao.updateThreadingAcceptanceCriteria(threadAcceptanceCriteria);
-//            }
-//            if(resTotal>0){
-//                json.put("success",true);
-//                json.put("message","保存成功");
-//            }else{
-//                json.put("success",false);
-//                json.put("message","保存失败");
-//            }
+            int resTotal=0;
+            threadingAcceptanceCriteria.setLast_update_time(new Date());
+            if(threadingAcceptanceCriteria.getId()==0){
+                //添加
+                resTotal=threadingAcceptanceCriteriaDao.addThreadingAcceptanceCriteria(threadingAcceptanceCriteria);
+            }else{
+                //修改！
+                resTotal=threadingAcceptanceCriteriaDao.updateThreadingAcceptanceCriteria(threadingAcceptanceCriteria);
+            }
+            if(resTotal>0){
+                json.put("promptkey","success");
+            }else{
+                json.put("promptkey","fail");
+            }
+
+
+
         }catch (Exception e){
             e.printStackTrace();
-            json.put("success",false);
+            json.put("promptkey","fail");
         }finally {
             try {
                 ResponseUtil.write(response, json);
             }catch  (Exception e) {
                 e.printStackTrace();
+                json.put("promptkey","fail");
             }
         }
         return null;

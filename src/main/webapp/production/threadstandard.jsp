@@ -73,7 +73,8 @@
             var row = $('#contentDatagrids').datagrid('getSelected');
             if(row){
                 $('#addEditDialog').dialog('open').dialog('setTitle','修改');
-                $('#thread_acceptance_criteria_no').text(row.thread_acceptance_criteria_no);
+                $('#addEditForm').form('load',row);
+                //$('#thread_acceptance_criteria_no').text(row.thread_acceptance_criteria_no);
                 $('#createNoBtn').css('display','none');
                 getStataticItem();
                 loadDynamicByAcceptanceNo(row.thread_acceptance_criteria_no);
@@ -83,7 +84,12 @@
         }
         function searchFunction() {
             $('#contentDatagrids').datagrid('load',{
-                'thread_acceptance_criteria_no': $('#standardno').val()
+                'thread_acceptance_criteria_no': $('#standardno').val(),
+                'od': $('#searchod').val(),
+                'wt': $('#searchwt').val(),
+                'customer_spec': $('#searchcustomerspec').val(),
+                'coupling_type': $('#searchcouplingtype').val(),
+                'threading_type': $('#searchthreadingtype').val()
             });
         }
         function addEditFormSubmit() {
@@ -202,7 +208,28 @@
                             valueField:'id',
                             textField:'text'
                             }
-                            }}
+                            }},
+                    {field:'item_std_value',title:'目标值',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_pos_deviation_value',title:'正偏差',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_neg_deviation_value',title:'负偏差',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'reading_types',title:'读数类型',width:80,editor:{type:'checkbox',editable:false,
+                            options:{
+                                required: true,
+                                data:
+                                    [
+                                        {'id': '1', 'text': '单值'},
+                                        {'id': '2', 'text': '最大值'},
+                                        {'id': '3', 'text': '最小值'},
+                                        {'id': '4', 'text': '均值'},
+                                        {'id': '5', 'text': '椭圆度'}
+                                    ],
+                                valueField:'id',
+                                textField:'text'
+                            }
+
+
+                    }}
+
                 ]]
             });
         }
@@ -276,6 +303,19 @@
                 var both_ends=$(ed_both_ends.target).combobox('getValue');
                 //alert("both_ends:"+both_ends);
 
+                var ed_reading_types = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'reading_types'});
+                var reading_types=$(ed_reading_types.target).combobox('getValue');
+
+                var ed_item_std_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_std_value'});
+                var item_std_value=$(ed_item_std_value.target).combobox('getValue');
+
+                var ed_item_pos_deviation_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_pos_deviation_value'});
+                var item_pos_deviation_value=$(ed_item_pos_deviation_value.target).combobox('getValue');
+
+                var ed_item_neg_deviation_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_neg_deviation_value'});
+                var item_neg_deviation_value=$(ed_item_neg_deviation_value.target).combobox('getValue');
+
+
                 if(measure_item_code==null||measure_item_code==""){
                     hlAlertFour("请选择测量项!");
                     return false;
@@ -294,6 +334,12 @@
                     hlAlertFour("请选择测量AB端项!");
                     return false;
                 }
+                else if(reading_types==null||reading_types==""){
+                    hlAlertFour("请选择测量项类型!");
+                    return false;
+                }
+
+
 
                 else{
                     $('#dynamicDatagrids').datagrid('endEdit',index);
@@ -421,7 +467,40 @@
             }
         }
 
+        //readingTypes改变事件
+        function selectReadingTypes(){
 
+            var a='0';
+            var b='0';
+            var c='0';
+            var d='0';
+            var e='0';
+
+            if($('#is-singlevalue').is(":checked")){
+                $('#is-glass-sample').prop('checked', true);
+                a='1';
+            }
+            if($('#is-maxvalue').is(":checked")){
+                $('#is-maxvalue').prop('checked', true);
+                b='1';
+            }
+            if($('#is-minvalue').is(":checked")){
+                $('#is-minvalue').prop('checked', true);
+                c='1';
+            }
+            if($('#is-avgvalue').is(":checked")){
+                $('#is-avgvalue').prop('checked', true);
+                d='1';
+            }
+            if($('#is-ovalityvalue').is(":checked")){
+                $('#is-ovalityvalue').prop('checked', true);
+                e='1';
+            }
+            var readingTypes=a+b+c+d+e;
+
+            alert(readingTypes);
+
+        }
     </script>
 </head>
 
@@ -435,6 +514,12 @@
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th field="id" align="center" width="100" class="i18n1" name="id"></th>
                 <th field="thread_acceptance_criteria_no" align="center" width="100" class="i18n1" name="threadacceptancecriteriano"></th>
+                <th field="od" align="center" width="100" class="i18n1" name="od"></th>
+                <th field="wt" align="center" width="100" class="i18n1" name="wt"></th>
+                <th field="customer_spec" align="center" width="100" class="i18n1" name="customerspec"></th>
+                <th field="coupling_type" align="center" width="100" class="i18n1" name="couplingtype"></th>
+                <th field="threading_type" align="center" width="100" class="i18n1" name="threadingtype"></th>
+
                 <th field="last_update_time" align="center" width="100" class="i18n1" name="lastupdatetime" data-options="formatter:formatterdate"></th>
             </tr>
             </thead>
@@ -446,6 +531,18 @@
 <div id="toolsTab" style="padding:10px;">
     <span class="i18n1" name="threadacceptancecriteriano">检验标准编号</span>:
     <input id="standardno" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="od">外径</span>:
+    <input id="searchod" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="wt">壁厚</span>:
+    <input id="searchwt" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="customerspec">客户标准</span>:
+    <input id="searchcustomerspec" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="couplingtype">接箍类型</span>:
+    <input id="searchcouplingtype" style="line-height:22px;border:1px solid #ccc">
+    <span class="i18n1" name="threadingtype">螺纹类型</span>:
+    <input id="searchthreadingtype" style="line-height:22px;border:1px solid #ccc">
+
+
     <a href="#" class="easyui-linkbutton" plain="true" data-options="iconCls:'icon-search'" onclick="searchFunction()">Search</a>
     <div style="float:right">
         <a href="#" id="addObpLinkBtn" class="easyui-linkbutton i18n1" name="add" data-options="iconCls:'icon-add',plain:true" onclick="addFunction()">添加</a>
@@ -467,6 +564,36 @@
                 <label class="i18n1" name="threadacceptancecriteriano"></label>:
                 <label id="thread_acceptance_criteria_no" class="hl-label"></label>
                 <a href="#" id="createNoBtn" class="easyui-linkbutton i18n1" style="display:inline-block;float:right;right:30px;" name="createstandardno" onclick="addAcceptanceCriteriaFunction()">生成标准编号</a>
+                    <table class="ht-table"  width="100%" border="0">
+
+                    <tr>
+                        <td class="i18n1" name="od"></td>
+                        <td><input class="easyui-textbox"   type="text" name="od" value=""/></td>
+                        <td></td>
+                        <td class="i18n1" name="wt"></td>
+                        <td><input class="easyui-textbox"   type="text" name="wt" value=""/></td>
+                        <td></td>
+                    </tr>
+                        <tr>
+                            <td class="i18n1" name="customerspec"></td>
+                            <td><input class="easyui-textbox"   type="text" name="customer_spec" value=""/></td>
+                            <td></td>
+                            <td class="i18n1" name="couplingtype"></td>
+                            <td><input class="easyui-textbox"   type="text" name="coupling_type" value=""/></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="i18n1" name="threadingtype"></td>
+                            <td><input class="easyui-textbox"   type="text" name="threading_type" value=""/></td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+                    <div id="dlg-buttons" align="center" style="width:900px;">
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="addEditFormSubmit()">Save</a>
+                        <a href="#" class="easyui-linkbutton" id="hlcancelBtn" operationtype="add" iconCls="icon-cancel" onclick="CancelSubmit()">Cancel</a>
+                    </div>
+
             </div>
             <table  id="dynamicDatagrids">
 

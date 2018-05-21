@@ -122,6 +122,12 @@
             if($obj.val()==null||$obj.val()=="")
                 $obj.val(-9999);
         }
+
+
+
+
+
+
     </script>
 
 
@@ -145,6 +151,12 @@
                 <th field="item_frequency" align="center" width="100" class="i18n1" name="itemfrequency"></th>
                 <th field="thread_acceptance_criteria_no" align="center" width="100" class="i18n1" name="threadacceptancecriteriano"></th>
                 <th field="both_ends" align="center" width="100" class="i18n1" name="bothends"></th>
+                <th field="item_std_value" align="center" width="100" class="i18n1" name="itemstdvalue"></th>
+                <th field="item_pos_deviation_value" align="center" width="100" class="i18n1" name="itemposdeviationvalue"></th>
+                <th field="item_neg_deviation_value" align="center" width="100" class="i18n1" name="itemnegdeviationvalue"></th>
+                <th field="reading_types" align="center"  width="100" class="i18n1" name="readingtypes"></th>
+
+
             </tr>
             </thead>
         </table>
@@ -224,7 +236,43 @@
                     <td></td>
 
                 </tr>
+                <tr>
+                    <td width="16%" class="i18n1" name="singlevalue">单值</td>
+                    <td colspan="1">
+                        <input type="checkbox" id="is-singlevalue" value="0" checked="false" onchange="selectReadingTypes()"/>
+                        <input type="hidden" name="is_singlevalue" value="0">
+                    </td>
+                    <td></td>
+                    <td width="16%" class="i18n1" name="maxvalue">最大值</td>
+                    <td colspan="1">
+                        <input type="checkbox" id="is-maxvalue" value="0" checked="false" onchange="selectReadingTypes()"/>
+                        <input type="hidden" name="is_maxvalue" value="0">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td width="16%" class="i18n1" name="minvalue">最小值</td>
+                    <td colspan="1">
+                        <input type="checkbox" id="is-minvalue" value="0" checked="false" onchange="selectReadingTypes()"/>
+                        <input type="hidden" name="is_minvalue" value="0">
+                    </td>
+                    <td></td>
+                    <td width="16%" class="i18n1" name="avgvalue">均值</td>
+                    <td colspan="1">
+                        <input type="checkbox" id="is-avgvalue" value="0" checked="false" onchange="selectReadingTypes()"/>
+                        <input type="hidden" name="is_avgvalue" value="0">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td width="16%" class="i18n1" name="ovalityvalue">椭圆度</td>
+                    <td colspan="1">
+                        <input type="checkbox" id="is-ovalityvalue" value="0" checked="false" onchange="selectReadingTypes()"/>
+                        <input type="hidden" name="is_ovalityvalue" value="0">
+                    </td>
+                    <td></td>
 
+                </tr>
 
             </table>
         </fieldset>
