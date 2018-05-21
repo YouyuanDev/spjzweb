@@ -76,6 +76,8 @@
                 $('#addEditForm').form('load',row);
                 //$('#thread_acceptance_criteria_no').text(row.thread_acceptance_criteria_no);
                 $('#createNoBtn').css('display','none');
+                //$('#tid').text(row.id);
+                url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id="+row.id;
                 getStataticItem();
                 loadDynamicByAcceptanceNo(row.thread_acceptance_criteria_no);
             }else{
@@ -120,26 +122,26 @@
             $('#addEditForm').form('clear');
             $('.hl-label').text('');
         }
-        function addAcceptanceCriteriaFunction() {
-            var timestamp="BZ"+new Date().getTime();
-            $.ajax({
-                url:'/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action',
-                dataType:'json',
-                data:{thread_acceptance_criteria_no:timestamp},
-                success:function (data) {
-                    //如果是新增，则返回新增id,如果是修改，则返回执行结果
-                    if(data.promptkey=="success"){
-                        $("#thread_acceptance_criteria_no").text(timestamp);
-                    }else{
-                        hlAlertFour("删除失败!");
-                    }
-                },error:function () {
-                    hlAlertFour("系统繁忙!");
-                }
-
-            });
-            //$("＃standard_no").val(timestamp);
-        }
+        // function addAcceptanceCriteriaFunction() {
+        //     var timestamp="BZ"+new Date().getTime();
+        //     $.ajax({
+        //         url:'/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action',
+        //         dataType:'json',
+        //         data:{thread_acceptance_criteria_no:timestamp},
+        //         success:function (data) {
+        //             //如果是新增，则返回新增id,如果是修改，则返回执行结果
+        //             if(data.promptkey=="success"){
+        //                 $("#thread_acceptance_criteria_no").text(timestamp);
+        //             }else{
+        //                 hlAlertFour("删除失败!");
+        //             }
+        //         },error:function () {
+        //             hlAlertFour("系统繁忙!");
+        //         }
+        //
+        //     });
+        //     //$("＃standard_no").val(timestamp);
+        // }
         //根据接收标准编号加载动态测量项
         function loadDynamicByAcceptanceNo(thread_acceptance_criteria_no) {
             if(addOrEdit){
@@ -561,11 +563,22 @@
             <%--<legend>标准信息</legend>--%>
             <div style="width:100%;padding-bottom:5px;">
                 <%--<a href="#" class="easyui-linkbutton i18n1" name="add" onclick="insert()">添加</a>--%>
-                <label class="i18n1" name="threadacceptancecriteriano"></label>:
-                <label id="thread_acceptance_criteria_no" class="hl-label"></label>
-                <a href="#" id="createNoBtn" class="easyui-linkbutton i18n1" style="display:inline-block;float:right;right:30px;" name="createstandardno" onclick="addAcceptanceCriteriaFunction()">生成标准编号</a>
+                <%--<label class="i18n1" name="threadacceptancecriteriano"></label>:--%>
+                <%--<label id="thread_acceptance_criteria_no" class="hl-label"></label>--%>
+                <%--<a href="#" id="createNoBtn" class="easyui-linkbutton i18n1" style="display:inline-block;float:right;right:30px;" name="createstandardno" onclick="addAcceptanceCriteriaFunction()">生成标准编号</a>--%>
                     <table class="ht-table"  width="100%" border="0">
+                        <tr>
+                            <td class="i18n1" name="id">流水号</td>
+                            <td colspan="1">
+                                <%--<input class="easyui-textbox" id="tid" type="text" name="tid" readonly="true" value=""/>--%>
+                                <label id="sid" class="hl-label"></label>
+                            </td>
+                            <td></td>
+                            <td class="i18n1" name="threadacceptancecriteriano"></td>
+                            <td><input class="easyui-textbox"   type="text" name="thread_acceptance_criteria_no" readonly="true" value=""/></td>
+                            <td></td>
 
+                        </tr>
                     <tr>
                         <td class="i18n1" name="od"></td>
                         <td><input class="easyui-textbox"   type="text" name="od" value=""/></td>
@@ -574,19 +587,21 @@
                         <td><input class="easyui-textbox"   type="text" name="wt" value=""/></td>
                         <td></td>
                     </tr>
+
                         <tr>
-                            <td class="i18n1" name="customerspec"></td>
-                            <td><input class="easyui-textbox"   type="text" name="customer_spec" value=""/></td>
-                            <td></td>
-                            <td class="i18n1" name="couplingtype"></td>
-                            <td><input class="easyui-textbox"   type="text" name="coupling_type" value=""/></td>
-                            <td></td>
+                        <td class="i18n1" name="customerspec"></td>
+                        <td><input class="easyui-textbox"   type="text" name="customer_spec" value=""/></td>
+                        <td></td>
                         </tr>
                         <tr>
                             <td class="i18n1" name="threadingtype"></td>
                             <td><input class="easyui-textbox"   type="text" name="threading_type" value=""/></td>
                             <td></td>
+                            <td class="i18n1" name="couplingtype"></td>
+                            <td><input class="easyui-textbox"   type="text" name="coupling_type" value=""/></td>
+                            <td></td>
                         </tr>
+
 
                     </table>
                     <div id="dlg-buttons" align="center" style="width:900px;">

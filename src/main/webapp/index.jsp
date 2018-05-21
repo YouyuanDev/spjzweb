@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <title>螺纹车丝检验监造系统</title>
     <link rel="stylesheet" type="text/css" href="easyui/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
     <script type="text/javascript" src="easyui/jquery.min.js"></script>

@@ -44,35 +44,39 @@ public class ThreadAcceptanceCriteriaController {
     }
     @RequestMapping("/saveThreadAcceptanceCriteria")
     @ResponseBody
-    public String saveThreadAcceptanceCriteria(ThreadingAcceptanceCriteria  threadingAcceptanceCriteria, HttpServletRequest request, HttpServletResponse response){
+    public String saveThreadAcceptanceCriteria(ThreadingAcceptanceCriteria threadingAcceptanceCriteria, HttpServletRequest request, HttpServletResponse response){
         JSONObject json=new JSONObject();
         try{
             int resTotal=0;
             threadingAcceptanceCriteria.setLast_update_time(new Date());
+            System.out.println("threadingAcceptanceCriteria.getId()="+threadingAcceptanceCriteria.getId());
             if(threadingAcceptanceCriteria.getId()==0){
                 //添加
+
+                threadingAcceptanceCriteria.setThread_acceptance_criteria_no(String.valueOf(System.currentTimeMillis()));
                 resTotal=threadingAcceptanceCriteriaDao.addThreadingAcceptanceCriteria(threadingAcceptanceCriteria);
             }else{
                 //修改！
+
                 resTotal=threadingAcceptanceCriteriaDao.updateThreadingAcceptanceCriteria(threadingAcceptanceCriteria);
             }
             if(resTotal>0){
-                json.put("promptkey","success");
+                json.put("success",true);
+                System.out.println("success!");
             }else{
-                json.put("promptkey","fail");
+                json.put("success",false);
             }
 
 
 
         }catch (Exception e){
             e.printStackTrace();
-            json.put("promptkey","fail");
+            json.put("success",false);
         }finally {
             try {
                 ResponseUtil.write(response, json);
             }catch  (Exception e) {
                 e.printStackTrace();
-                json.put("promptkey","fail");
             }
         }
         return null;
