@@ -196,8 +196,8 @@
                         }
                     },
                     {field:'measure_item_name',title:'测量项名称',width:100},
-                    {field:'item_max_value',title:'接收最大值',width:60,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'item_min_value',title:'接收最小值',width:60,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_max_value',title:'接收最大值',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_min_value',title:'接收最小值',width:80,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'item_frequency',title:'检验频率',width:80,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'both_ends',title:'AB端检测',width:80,editor:{type:'combobox',editable:false,
                             options: {
@@ -215,9 +215,10 @@
                     {field:'item_std_value',title:'目标值',width:80,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'item_pos_deviation_value',title:'正偏差',width:80,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'item_neg_deviation_value',title:'负偏差',width:80,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'reading_types',title:'读数类型',width:80,editor:{type:'checkbox',editable:false,
+                    {field:'reading_types',title:'读数类型',width:100,editor:{type:'combobox',editable:false,
                             options:{
                                 required: true,
+                                multiple:true,
                                 data:
                                     [
                                         {'id': '1', 'text': '单值'},
@@ -231,8 +232,8 @@
                             }
 
 
-                    }}
-
+                    }},
+                    {field:'ovality_max',title:'椭圆度最大值',width:80,editor:{type:'numberbox',options:{precision:2}}}
                 ]]
             });
         }
@@ -292,33 +293,24 @@
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
                 var ed_measure_item_code = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'measure_item_code'});
                 var measure_item_code=$(ed_measure_item_code.target).textbox('getValue');
-                //alert("measure_item_code:"+measure_item_code);
                 var ed_item_max_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_max_value'});
                 var item_max_value=$(ed_item_max_value.target).textbox('getValue');
-                //alert("item_max_value:"+item_max_value);
                 var ed_item_min_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_min_value'});
                 var item_min_value=$(ed_item_min_value.target).textbox('getValue');
-                //alert("item_min_value:"+item_min_value);
                 var ed_item_frequency = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_frequency'});
                 var item_frequency=$(ed_item_frequency.target).textbox('getValue');
-                //alert("item_frequency:"+item_frequency);
                 var ed_both_ends = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'both_ends'});
                 var both_ends=$(ed_both_ends.target).combobox('getValue');
-                //alert("both_ends:"+both_ends);
-
-                var ed_reading_types = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'reading_types'});
-                var reading_types=$(ed_reading_types.target).combobox('getValue');
-
                 var ed_item_std_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_std_value'});
-                var item_std_value=$(ed_item_std_value.target).combobox('getValue');
-
+                var item_std_value=$(ed_item_std_value.target).textbox('getValue');
                 var ed_item_pos_deviation_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_pos_deviation_value'});
-                var item_pos_deviation_value=$(ed_item_pos_deviation_value.target).combobox('getValue');
-
+                var item_pos_deviation_value=$(ed_item_pos_deviation_value.target).textbox('getValue');
                 var ed_item_neg_deviation_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_neg_deviation_value'});
-                var item_neg_deviation_value=$(ed_item_neg_deviation_value.target).combobox('getValue');
-
-
+                var item_neg_deviation_value=$(ed_item_neg_deviation_value.target).textbox('getValue');
+                var ed_reading_types = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'reading_types'});
+                var reading_types=$(ed_reading_types.target).combobox('getValues');
+                var ed_ovality_max=$('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'ovality_max'});
+                var ovality_max=$(ed_ovality_max.target).textbox('getValue');
                 if(measure_item_code==null||measure_item_code==""){
                     hlAlertFour("请选择测量项!");
                     return false;
@@ -348,15 +340,18 @@
                 else if(item_neg_deviation_value!=null&&item_neg_deviation_value!=""&&item_neg_deviation_value>0){
                     hlAlertFour("请保证负偏差<=0!");
                     return false;
+                }else if(ovality_max!=null&&ovality_max!=""&&ovality_max<0){
+                    hlAlertFour("请保证椭圆度>=0!");
+                    return false;
                 }
-
-
                 else{
                     $('#dynamicDatagrids').datagrid('endEdit',index);
+                    item_max_value=parseFloat(item_std_value)+parseFloat(item_pos_deviation_value);
+                    item_min_value=parseFloat(item_std_value)+parseFloat(item_neg_deviation_value);
                     $.ajax({
                         url:'/DynamicMeasure/saveDynamicMeasureItem.action',
                         dataType:'json',
-                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:row.item_max_value,item_min_value:row.item_min_value,item_frequency:row.item_frequency,both_ends:row.both_ends},
+                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:item_max_value,item_min_value:item_min_value,item_frequency:row.item_frequency,both_ends: row.both_ends,reading_types:row.reading_types,item_std_value:row.item_std_value,item_pos_deviation_value:row.item_pos_deviation_value,item_neg_deviation_value:row.item_neg_deviation_value,ovality_max:ovality_max},
                         success:function (data) {
                             //如果是新增，则返回新增id,如果是修改，则返回执行结果
                             if(data.promptkey=="success"){
@@ -547,6 +542,7 @@
     <input id="searchwt" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="customerspec">客户标准</span>:
     <input id="searchcustomerspec" style="line-height:22px;border:1px solid #ccc"><br>
+    <div style="margin-top:10px;"></div>
     <span class="i18n1" name="couplingtype">接箍类型</span>:
     <input id="searchcouplingtype" style="line-height:22px;border:1px solid #ccc">
     <span class="i18n1" name="threadingtype">螺纹类型</span>:

@@ -58,7 +58,8 @@
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');//流水号
             clearFormLabel();
-            $('#itemrecordDatagrids').datagrid('loadData',{total:0,rows:[]});
+            //$('#itemrecordDatagrids').datagrid('loadData',{total:0,rows:[]});
+            loadItemRecordByInspectionRecordCode();
             $('#videoDatagrid tbody').empty();
             url="/ThreadingOperation/saveThreadingProcess.action";
         }
@@ -99,8 +100,8 @@
                 //alert(getDate1(row.inspection_time));
                 url="/ThreadingOperation/saveThreadingProcess.action?id="+row.id;
                 thread_inspection_record_code=row.thread_inspection_record_code;
-                getStataticItem(row.thread_inspection_record_code);
-                loadItemRecordByInspectionRecordCode(row.thread_inspection_record_code);
+                getStataticItem(thread_inspection_record_code);
+                loadItemRecordByInspectionRecordCode(thread_inspection_record_code);
                 loadVideoDatagrid(row.video_no);
             }else{
                 hlAlertTwo();
@@ -126,7 +127,7 @@
                     return $(this).form('validate');
                 },
                 success: function(result){
-                     var datajson=JSON.parse(result);
+                    var datajson=eval('(' + result + ')');
                     if (datajson.promptkey=="success"){
                         $('#addEditDialog').dialog('close');
                         $('#contentDatagrids').datagrid('reload');
@@ -200,14 +201,16 @@
                     },
                     {field:'measure_item_name',title:'检测项名称',width:150},
                     {field:'itemvalue',title:'检测项值',width:80,editor:'textbox'},
+                    {field:'reading_max',title:'最大值',width:80,editor:'textbox'},
+                    {field:'reading_min',title:'最小值',width:80,editor:'textbox'},
+                    {field:'reading_avg',title:'均值',width:80,editor:'textbox'},
+                    {field:'reading_ovality',title:'椭圆度',width:80,editor:'textbox'},
+                    {field:'item_frequency',title:'检测频率',width:80},
                     {field:'toolcode1',title:'量具编号1',width:80,editor:'textbox'},
                     {field:'toolcode2',title:'量具编号2',width:80,editor:'textbox'},
                     {field:'measure_sample1',title:'量具样块1编号',width:80,editor:'textbox'},
                     {field:'measure_sample2',title:'量具样块2编号',width:80,editor:'textbox'},
-                    {field:'item_max_value',title:'最大值',width:80},
-                    {field:'item_min_value',title:'最小值',width:80},
-                    {field:'item_frequency',title:'检测频率',width:80},
-                    {field:'both_ends',title:'是否AB两端检测',width:80}
+                    {field:'both_ends',hidden:true,title:'是否AB两端检测',width:80}
                 ]],
                 rowStyler:function(index,row){
                     //验证测量值是否合格
@@ -248,11 +251,11 @@
                         url:'/ItemRecordOperation/saveItemRecord.action',
                         dataType:'json',
                         data:{id:row.id,thread_inspection_record_code:thread_inspection_record_code,itemcode:row.itemcode,itemvalue:row.itemvalue,toolcode1:row.toolcode1,toolcode2:row.toolcode2,
-                            measure_sample1:row.measure_sample1,measure_sample2:row.measure_sample2},
+                            measure_sample1:row.measure_sample1,measure_sample2:row.measure_sample2,reading_max:row.reading_max,reading_min:row.reading_min,reading_avg:row.reading_avg,reading_ovality:row.reading_ovality},
                         success:function (data) {
-                            //如果是新增，则返回新增id,如果是修改，则返回执行结果
                             if(data.promptkey=="success"){
-                                $("#itemrecordDatagrids").datagrid("reload");
+                                //$("#itemrecordDatagrids").datagrid("reload");
+                                loadItemRecordByInspectionRecordCode(thread_inspection_record_code);
                             }else if(data.promptkey="ishave"){
                                 hlAlertFour(data.promptValue);
                                 $('#itemrecordDatagrids').datagrid('beginEdit',index);

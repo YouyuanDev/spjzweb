@@ -76,7 +76,13 @@ public class DynamicMeasurementItemController {
             String item_min_value=request.getParameter("item_min_value");
             String item_frequency=request.getParameter("item_frequency");
             String both_ends=request.getParameter("both_ends");
-            System.out.println(id+":"+measure_item_code+":"+thread_acceptance_criteria_no+":"+item_max_value+":"+item_min_value+":"+item_frequency);
+            String item_std_value=request.getParameter("item_std_value");
+            String item_pos_deviation_value=request.getParameter("item_pos_deviation_value");
+            String item_neg_deviation_value=request.getParameter("item_neg_deviation_value");
+            String reading_types=request.getParameter("reading_types");
+            String ovality_max=request.getParameter("ovality_max");
+            System.out.println("-----------------------");
+            System.out.println(reading_types);
             if((measure_item_code!=null&&!measure_item_code.equals(""))&&(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals(""))){
                 DynamicMeasurementItem item=new DynamicMeasurementItem();
                 if(id!=null&&!id.equals("")){
@@ -94,9 +100,20 @@ public class DynamicMeasurementItemController {
                             item.setItem_min_value(Float.valueOf(item_min_value));
                         if(item_frequency!=null&&!item_frequency.equals(""))
                             item.setItem_frequency(Float.valueOf(item_frequency));
+                        if(item_std_value!=null&&!item_std_value.equals(""))
+                            item.setItem_std_value(Float.valueOf(item_std_value));
+                        if(item_pos_deviation_value!=null&&!item_pos_deviation_value.equals(""))
+                            item.setItem_pos_deviation_value(Float.valueOf(item_pos_deviation_value));
+                        if(item_neg_deviation_value!=null&&!item_neg_deviation_value.equals(""))
+                            item.setItem_neg_deviation_value(Float.valueOf(item_neg_deviation_value));
+                        if(ovality_max!=null&&!ovality_max.equals(""))
+                            item.setOvality_max(Float.valueOf(ovality_max));
                         item.setMeasure_item_code(measure_item_code);
                         item.setThread_acceptance_criteria_no(thread_acceptance_criteria_no);
-                        item.setBoth_ends(both_ends);
+                        if(both_ends!=null&&!both_ends.equals(""))
+                          item.setBoth_ends(both_ends);
+                        if(reading_types!=null&&!reading_types.equals(""))
+                          item.setReading_types(reading_types);
                         resTotal=dynamicMeasurementItemDao.updateDynamicMeasurementItem(item);
                         if(resTotal>0){
                             json.put("promptkey","success");
@@ -119,8 +136,20 @@ public class DynamicMeasurementItemController {
                             item.setItem_min_value(Float.valueOf(item_min_value));
                         if(item_frequency!=null&&!item_frequency.equals(""))
                             item.setItem_frequency(Float.valueOf(item_frequency));
+                        if(item_std_value!=null&&!item_std_value.equals(""))
+                            item.setItem_std_value(Float.valueOf(item_std_value));
+                        if(item_pos_deviation_value!=null&&!item_pos_deviation_value.equals(""))
+                            item.setItem_pos_deviation_value(Float.valueOf(item_pos_deviation_value));
+                        if(item_neg_deviation_value!=null&&!item_neg_deviation_value.equals(""))
+                            item.setItem_neg_deviation_value(Float.valueOf(item_neg_deviation_value));
+                        if(ovality_max!=null&&!ovality_max.equals(""))
+                            item.setOvality_max(Float.valueOf(ovality_max));
                         item.setMeasure_item_code(measure_item_code);
                         item.setThread_acceptance_criteria_no(thread_acceptance_criteria_no);
+                        if(both_ends!=null&&!both_ends.equals(""))
+                            item.setBoth_ends(both_ends);
+                        if(reading_types!=null&&!reading_types.equals(""))
+                            item.setReading_types(reading_types);
                         resTotal=dynamicMeasurementItemDao.addDynamicMeasurementItem(item);
                         //接收id的值
                         if(resTotal>0){

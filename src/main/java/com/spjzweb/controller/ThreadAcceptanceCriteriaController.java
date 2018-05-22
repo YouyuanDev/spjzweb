@@ -117,7 +117,8 @@ public class ThreadAcceptanceCriteriaController {
             ComboxItem citem= new ComboxItem();
             ThreadingAcceptanceCriteria ps=((ThreadingAcceptanceCriteria)list.get(i));
             citem.id=ps.getThread_acceptance_criteria_no();
-            citem.text=ps.getThread_acceptance_criteria_no();
+            //接收标准编号显示由(外径、壁厚、螺纹类型、客户标准、接箍类型组成)
+            citem.text=ps.getThread_acceptance_criteria_no()+"("+ps.getOd()+"*"+ps.getWt()+"/"+ps.getThreading_type()+"/"+ps.getCustomer_spec()+"/"+ps.getCoupling_type()+")";
             colist.add(citem);
         }
         String map= JSONObject.toJSONString(colist);

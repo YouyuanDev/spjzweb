@@ -88,7 +88,6 @@ public class ThreadInspectionRecordController {
                 resTotal=threadInspectionRecordDao.addThreadInspectionRecord(threadingProcess);
             }else{
                 //修改！
-                System.out.println("---------------"+threadingProcess.getCoupling_no());
                 if(threadingProcess.getThread_inspection_record_code()!=null&&!threadingProcess.getThread_inspection_record_code().equals("")){
                     resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
                 }
@@ -104,8 +103,6 @@ public class ThreadInspectionRecordController {
         }catch (Exception e){
             json.put("promptkey","fail");
             json.put("promptValue",e.getMessage());
-            e.printStackTrace();
-
         }finally {
             try {
                 ResponseUtil.write(response, json);
@@ -395,36 +392,32 @@ public class ThreadInspectionRecordController {
                     sb.append(input);
             }
             JSONObject json=JSONObject.parseObject(sb.toString());
-            String od=null;
-            String wt=null;
-            String thread_type=null;
-            String acceptance_no=null;
-            float odFloat=0,wtFloat=0;
+            String operator_no=null,production_crew=null,production_shift=null,contract_no=null,threading_type=null,od=null,wt=null,pipe_heat_no=null,pipe_lot_no=null,beginTimeStr=null,endTimeStr=null;
+            Date beginTime=null;
+            Date endTime=null;
+           // float odFloat=0,wtFloat=0;
             if(json!=null){
+                //工号、班次、班别、合同号、螺纹类型、外径、壁厚、炉号、批号、开始时间、结束时间
+                operator_no=json.getString("operator_no").trim();
+                production_crew=json.getString("production_crew").trim();
+                production_shift=json.getString("production_shift").trim();
+                contract_no=json.getString("contract_no").trim();
+                threading_type=json.getString("threading_type").trim();
                 od=json.getString("od").trim();
                 wt=json.getString("wt").trim();
-                //System.out.println("od="+od+",length="+od.length()+"--------------");
-                //System.out.println("wt="+wt+",length="+wt.length()+"--------------");
-                if(od!=null&&od.length()>0){
-                    odFloat=Float.valueOf(od);
+                pipe_heat_no=json.getString("pipe_heat_no").trim();
+                pipe_lot_no=json.getString("pipe_lot_no").trim();
+                beginTimeStr=json.getString("beginTime").trim();
+                endTimeStr=json.getString("endTime").trim();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                if(beginTimeStr!=null&&beginTimeStr!=""){
+                    beginTime=sdf.parse(beginTimeStr);
                 }
-                if(wt!=null&&wt.length()>0){
-                    wtFloat=Float.valueOf(wt);
+                if(endTimeStr!=null&&endTimeStr!=""){
+                    endTime=sdf.parse(endTimeStr);
                 }
-                thread_type= json.getString("thread_type");
-                acceptance_no= json.getString("acceptance_no");
             }
-//            Simpl eDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            Date beginTime=null;
-//            Date endTime=null;
-//            if(begin_time!=null&&begin_time!=""){
-//                beginTime=sdf.parse(begin_time);
-//            }
-//            if(end_time!=null&&end_time!=""){
-//                endTime=sdf.parse(end_time);
-//            }
-            //int start=(Integer.parseInt(page)-1)*Integer.parseInt(rows);
-            List<ThreadInspectionRecord>list=threadInspectionRecordDao.getThreadInspectionRecordOfWinform(odFloat,wtFloat,thread_type,acceptance_no);
+            List<ThreadInspectionRecord>list=threadInspectionRecordDao.getThreadInspectionRecordOfWinform(operator_no,production_crew,production_shift,contract_no,threading_type,od,wt,pipe_heat_no,pipe_lot_no,beginTime,endTime);
             jsonReturn.put("rowsData",list);
             ResponseUtil.write(response,jsonReturn);
         }catch (Exception e){

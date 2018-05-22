@@ -16,14 +16,13 @@ public class DynamicMeasurementItem {
     private float item_neg_deviation_value;
     private String reading_types;
 
-
+    private float ovality_max;
 
 
     public DynamicMeasurementItem() {
     }
 
-
-    public DynamicMeasurementItem(int id, String measure_item_code, float item_max_value, float item_min_value, float item_frequency, String thread_acceptance_criteria_no, String both_ends, float item_std_value, float item_pos_deviation_value, float item_neg_deviation_value, String reading_types) {
+    public DynamicMeasurementItem(int id, String measure_item_code, float item_max_value, float item_min_value, float item_frequency, String thread_acceptance_criteria_no, String both_ends, float item_std_value, float item_pos_deviation_value, float item_neg_deviation_value, String reading_types, float ovality_max) {
         this.id = id;
         this.measure_item_code = measure_item_code;
         this.item_max_value = item_max_value;
@@ -35,6 +34,7 @@ public class DynamicMeasurementItem {
         this.item_pos_deviation_value = item_pos_deviation_value;
         this.item_neg_deviation_value = item_neg_deviation_value;
         this.reading_types = reading_types;
+        this.ovality_max = ovality_max;
     }
 
     public int getId() {
@@ -123,5 +123,13 @@ public class DynamicMeasurementItem {
 
     public void setReading_types(String reading_types) {
         this.reading_types = reading_types;
+    }
+
+    public float getOvality_max() {
+        return ovality_max;
+    }
+
+    public void setOvality_max(float ovality_max) {
+        this.ovality_max = ovality_max;
     }
 }

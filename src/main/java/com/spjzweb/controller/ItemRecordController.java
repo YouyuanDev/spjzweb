@@ -54,6 +54,10 @@ public class ItemRecordController {
             String toolcode2=request.getParameter("toolcode2");
             String measure_sample1=request.getParameter("measure_sample1");
             String measure_sample2=request.getParameter("measure_sample2");
+            String reading_max=request.getParameter("reading_max");
+            String reading_min=request.getParameter("reading_min");
+            String reading_avg=request.getParameter("reading_avg");
+            String reading_ovality=request.getParameter("reading_ovality");
             if((itemcode!=null&&!itemcode.equals(""))&&(thread_inspection_record_code!=null&&!thread_inspection_record_code.equals(""))){
                 ItemRecord item=new ItemRecord();
                 if(id!=null&&!id.equals("")){
@@ -78,6 +82,14 @@ public class ItemRecordController {
                             item.setMeasure_sample1(measure_sample1);
                         if(measure_sample2!=null&&!measure_sample2.equals(""))
                             item.setMeasure_sample2(measure_sample2);
+                        if(reading_max!=null&&!reading_max.equals(""))
+                            item.setReading_max(reading_max);
+                        if(reading_min!=null&&!reading_min.equals(""))
+                            item.setReading_min(reading_min);
+                        if(reading_avg!=null&&!reading_avg.equals(""))
+                            item.setReading_avg(reading_avg);
+                        if(reading_ovality!=null&&!reading_ovality.equals(""))
+                            item.setReading_ovality(reading_ovality);
                         resTotal=itemRecordDao.updateItemRecord(item);
                         if(resTotal>0){
                             json.put("promptkey","success");
@@ -106,6 +118,14 @@ public class ItemRecordController {
                             item.setMeasure_sample1(measure_sample1);
                         if(measure_sample2!=null&&!measure_sample2.equals(""))
                             item.setMeasure_sample2(measure_sample2);
+                        if(reading_max!=null&&!reading_max.equals(""))
+                            item.setReading_max(reading_max);
+                        if(reading_min!=null&&!reading_min.equals(""))
+                            item.setReading_min(reading_min);
+                        if(reading_avg!=null&&!reading_avg.equals(""))
+                            item.setReading_avg(reading_avg);
+                        if(reading_ovality!=null&&!reading_ovality.equals(""))
+                            item.setReading_ovality(reading_ovality);
                         resTotal=itemRecordDao.addItemRecord(item);
                         //接收id的值
                         if(resTotal>0){

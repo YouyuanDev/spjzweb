@@ -44,6 +44,7 @@
             $('#serialNumber').text('');//流水号
             clearFormLabel();
             url="/Contract/saveContract.action";
+            $('#thread_acceptance_criteria_no').combobox('reload');
         }
         function delFunction() {
             var row = $('#contentDatagrids').datagrid('getSelections');
@@ -77,6 +78,7 @@
                 var lasttime=formatterdate(row.last_update_time);
                 $("#lastupdatetime").text(lasttime);
                 url="/Contract/saveContract.action?id="+row.id;
+                $('#thread_acceptance_criteria_no').combobox('reload');
             }else{
                 hlAlertTwo();
             }
@@ -226,17 +228,18 @@
                     <td><input class="easyui-textbox"  id="customer_spec" type="text" name="customer_spec" value=""/></td>
                     <td></td>
                     <td class="i18n1" name="threadacceptancecriteriano"></td>
-                    <td>
-                        <input id="millno" class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
+                    <td colspan="2">
+                        <input id="thread_acceptance_criteria_no" class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
                                 "url:'/AcceptanceCriteriaOperation/getAllDropDownAcceptanceCriteria.action',
 					        method:'get',
 					        valueField:'id',
-					        width: 185,
+					        width:285,
 					        editable:false,
-					        textField:'text'"/>
+					        textField:'text'
+                         "/>
                         <%--<input class="easyui-textbox" type="text" name="thread_acceptance_criteria_no" value=""/>--%>
                     </td>
-                    <td></td>
+                    <%--<td></td>--%>
                 </tr>
                 <tr>
                     <td class="i18n1" name="od"></td>
@@ -329,8 +332,8 @@
             $("#pipe_steel_grade").textbox('setValue',result.steel_grade);
             $("#threading_type").textbox('setValue',result.threading_type);
             $("#coupling_type").textbox('setValue',result.coupling_type);
-
             alert("上传成功!");
+            $('#thread_acceptance_criteria_no').combobox('reload');
         }
         this.setText("");
     }

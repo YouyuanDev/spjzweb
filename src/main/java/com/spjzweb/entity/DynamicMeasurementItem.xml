@@ -60,11 +60,11 @@
 
 
     <insert id="addDynamicMeasurementItem" parameterType="com.spjzweb.entity.DynamicMeasurementItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO dynamic_measurement_item(measure_item_code,item_max_value,item_min_value,item_frequency,thread_acceptance_criteria_no,both_ends,item_std_value,item_pos_deviation_value,item_neg_deviation_value,reading_types) VALUES (#{measure_item_code},#{item_max_value},#{item_min_value},#{item_frequency},#{thread_acceptance_criteria_no},#{both_ends}, #{item_std_value},#{item_pos_deviation_value},#{item_neg_deviation_value},#{reading_types})
+        INSERT INTO dynamic_measurement_item(measure_item_code,item_max_value,item_min_value,item_frequency,thread_acceptance_criteria_no,both_ends,item_std_value,item_pos_deviation_value,item_neg_deviation_value,reading_types,ovality_max) VALUES (#{measure_item_code},#{item_max_value},#{item_min_value},#{item_frequency},#{thread_acceptance_criteria_no},#{both_ends}, #{item_std_value},#{item_pos_deviation_value},#{item_neg_deviation_value},#{reading_types},#{ovality_max})
     </insert>
 
     <update id="updateDynamicMeasurementItem" parameterType="com.spjzweb.entity.DynamicMeasurementItem">
-        UPDATE dynamic_measurement_item set measure_item_code=#{measure_item_code},item_max_value=#{item_max_value},item_min_value=#{item_min_value},item_frequency=#{item_frequency},thread_acceptance_criteria_no=#{thread_acceptance_criteria_no},both_ends=#{both_ends},item_std_value=#{item_std_value},item_pos_deviation_value=#{item_pos_deviation_value},item_neg_deviation_value=#{item_neg_deviation_value},reading_types=#{reading_types} where id=#{id}
+        UPDATE dynamic_measurement_item set measure_item_code=#{measure_item_code},item_max_value=#{item_max_value},item_min_value=#{item_min_value},item_frequency=#{item_frequency},thread_acceptance_criteria_no=#{thread_acceptance_criteria_no},both_ends=#{both_ends},item_std_value=#{item_std_value},item_pos_deviation_value=#{item_pos_deviation_value},item_neg_deviation_value=#{item_neg_deviation_value},reading_types=#{reading_types},ovality_max=#{ovality_max} where id=#{id}
     </update>
 
 

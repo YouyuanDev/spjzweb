@@ -26,7 +26,7 @@ public interface ThreadInspectionRecordDao {
     //根据 thread_inspection_record_code 得到 ThreadInspectionRecord 集合
     public List<HashMap<String,Object>> getThreadInspectionRecordByInspectionRecordCode(@Param("thread_inspection_record_code") String thread_inspection_record_code);
     //客户端获取数据(winform)
-    public List<ThreadInspectionRecord>getThreadInspectionRecordOfWinform(@Param("od")float od,@Param("wt")float wt,@Param("threading_type")String threading_type,@Param("thread_acceptance_criteria_no")String thread_acceptance_criteria_no);
+    public List<ThreadInspectionRecord>getThreadInspectionRecordOfWinform(@Param("operator_no")String operator_no,@Param("production_crew")String production_crew,@Param("production_shift")String production_shift,@Param("contract_no")String contract_no,@Param("threading_type")String threading_type,@Param("od")String od,@Param("wt")String wt,@Param("pipe_heat_no")String pipe_heat_no,@Param("pipe_lot_no")String pipe_lot_no,@Param("beginTime")Date beginTime,@Param("endTime")Date endTime);
     //根据检验记录编号查询检验记录(winform)
     public ThreadInspectionRecord getThreadInspectionRecordByNo(@Param("thread_inspection_record_code") String thread_inspection_record_code);
     //修改检验记录(winform)

@@ -81,18 +81,40 @@
             (
                select contract_no from contract_info  r
                <where>
-                   <if test="od!=0">
-                       AND r.od =#{od}
+                   <if test="operator_no!=null and operator_no!=''">
+                       AND  o.operator_no=#{operator_no}
                    </if>
-                   <if test="wt!=0">
-                       AND r.wt =#{wt}
+                   <if test="production_crew!=null and production_crew!=''">
+                       AND  o.production_crew=#{production_crew}
+                   </if>
+                   <if test="production_shift!=null and production_shift!=''">
+                       AND o.production_shift=#{production_shift}
+                   </if>
+                   <if test="contract_no!=null and contract_no!=''">
+                       AND o.contract_no=#{contract_no}
                    </if>
                    <if test="threading_type!=null and threading_type!=''">
-                       AND r.threading_type =#{threading_type}
+                       AND r.threading_type=#{threading_type}
                    </if>
-                   <if test="thread_acceptance_criteria_no!=null and thread_acceptance_criteria_no!=''">
-                       AND r.thread_acceptance_criteria_no =#{thread_acceptance_criteria_no}
+                   <if test="od!=null and od!=''">
+                       AND format(r.od,3)=format(#{od},3)
                    </if>
+                   <if test="wt!=null and wt!=''">
+                       AND format(r.wt,3)=format(#{wt},3)
+                   </if>
+                   <if test="pipe_heat_no!=null and pipe_heat_no!=''">
+                       AND r.threading_type=#{pipe_heat_no}
+                   </if>
+                   <if test="pipe_lot_no!=null and pipe_lot_no!=''">
+                       AND r.threading_type=#{pipe_lot_no}
+                   </if>
+                   <if test="beginTime!=null">
+                       <![CDATA[ AND DATE_FORMAT(o.inspection_time,'%Y-%m-%d')>=DATE_FORMAT(#{beginTime},'%Y-%m-%d')]]>
+                   </if>
+                   <if test="endTime!=null">
+                       <![CDATA[ AND DATE_FORMAT(o.inspection_time,'%Y-%m-%d')<=DATE_FORMAT(#{endTime},'%Y-%m-%d')]]>
+                   </if>
+
                </where>
             )
             ORDER  by o.id DESC
