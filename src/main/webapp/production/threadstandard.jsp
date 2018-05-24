@@ -198,8 +198,8 @@
                         }
                     },
                     {field:'measure_item_name',title:'测量项名称',width:100},
-                    {field:'item_max_value',title:'接收最大值',width:80,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'item_min_value',title:'接收最小值',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_max_value',title:'接收最大值',width:80},
+                    {field:'item_min_value',title:'接收最小值',width:80},
                     {field:'item_frequency',title:'检验频率',width:80,editor:{type:'numberbox',options:{precision:2}}},
                     {field:'both_ends',title:'AB端检测',width:80,editor:{type:'combobox',editable:false,
                             options: {
@@ -295,10 +295,10 @@
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
                 var ed_measure_item_code = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'measure_item_code'});
                 var measure_item_code=$(ed_measure_item_code.target).textbox('getValue');
-                var ed_item_max_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_max_value'});
-                var item_max_value=$(ed_item_max_value.target).textbox('getValue');
-                var ed_item_min_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_min_value'});
-                var item_min_value=$(ed_item_min_value.target).textbox('getValue');
+                // var ed_item_max_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_max_value'});
+                // var item_max_value=$(ed_item_max_value.target).textbox('getValue');
+                // var ed_item_min_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_min_value'});
+                // var item_min_value=$(ed_item_min_value.target).textbox('getValue');
                 var ed_item_frequency = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_frequency'});
                 var item_frequency=$(ed_item_frequency.target).textbox('getValue');
                 var ed_both_ends = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'both_ends'});
@@ -317,11 +317,11 @@
                     hlAlertFour("请选择测量项!");
                     return false;
                 }
-                else if(item_max_value!=null&&item_min_value!=null&&item_max_value!=""&&item_min_value!=""&&item_max_value<item_min_value){
-                    //alert("max:"+item_max_value);
-                    hlAlertFour("请确保【最大值】>=【最小值】!");
-                    return false;
-                }
+                // else if(item_max_value!=null&&item_min_value!=null&&item_max_value!=""&&item_min_value!=""&&item_max_value<item_min_value){
+                //     //alert("max:"+item_max_value);
+                //     hlAlertFour("请确保【最大值】>=【最小值】!");
+                //     return false;
+                // }
                 else if(item_frequency!=null&&item_frequency!=""&&(item_frequency>1||item_frequency<=0)){
                     hlAlertFour("请确保0<检验频率<1!");
                     return false;
@@ -467,7 +467,7 @@
         function onClickRow(index)//这是触发行事件
         {
             if(endEditing()){
-                $('#dynamicDatagrids').datagrid('selectRow',index).datagrid('beginEdit',index)//其中beginEdit方法为datagrid的方法，具体可以参看api
+                $('#dynamicDatagrids').datagrid('selectRow',index).datagrid('beginEdit',index);//其中beginEdit方法为datagrid的方法，具体可以参看api
                 editIndex = index;//给editIndex对象赋值，index为当前行的索引
             }else {
                 $('#dynamicDatagrids').datagrid('selectRow',editIndex);
