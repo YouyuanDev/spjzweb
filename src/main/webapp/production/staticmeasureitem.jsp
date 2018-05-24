@@ -25,6 +25,7 @@
     <script type="text/javascript">
         var url;
         $(function () {
+            $('#addEditDialog').css('top','30px');
             $('#addEditDialog').dialog({
                 onClose:function () {
                     clearFormLabel();
@@ -221,7 +222,7 @@
                 <tr>
                     <td class="i18n1" name="bothends"></td>
                     <td>
-                        <select class="easyui-combobox" id="both_ends" name="both_ends" data-options="editable:false" style="width:200px;">
+                        <select class="easyui-combobox" id="both_ends" name="both_ends" data-options="editable:false" style="width:185px;">
                             <option value="0">一端</option>
                             <option value="1">AB两端</option>
                         </select>

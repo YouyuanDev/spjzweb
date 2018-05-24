@@ -26,6 +26,7 @@
         var staticItem=[];
         //var videoAddress="";
         $(function () {
+            $('#addEditDialog').css('top','30px');
             $('#addEditDialog').dialog({
                 onClose:function () {
                     clearFormLabel();
@@ -38,29 +39,18 @@
                 }
             });
             $('.mini-buttonedit .mini-buttonedit-input').css('width','150px');
-            //getVideoAddress();
             showVideoPlayer();
         });
-        // function getVideoAddress() {
-        //     $.ajax({
-        //         url:'/ThreadingOperation/getVideoAddress.action',
-        //         dataType:'json',
-        //         success:function (data) {
-        //             videoAddress=data.message;
-        //         },
-        //         error:function () {
-        //
-        //         }
-        //     });
-        // }
+
         function addFunction(){
             $('#hlcancelBtn').attr('operationtype','add');
             $('#addEditDialog').dialog('open').dialog('setTitle','新增');
             $('#serialNumber').text('');//流水号
             clearFormLabel();
-            //$('#itemrecordDatagrids').datagrid('loadData',{total:0,rows:[]});
-            loadItemRecordByInspectionRecordCode();
             $('#videoDatagrid tbody').empty();
+            thread_inspection_record_code="";
+            loadItemRecordByInspectionRecordCode();
+            $('#itemrecordDatagrids').datagrid('loadData', { total: 0, rows: [] });
             url="/ThreadingOperation/saveThreadingProcess.action";
         }
         function delFunction() {
@@ -93,11 +83,6 @@
                 $('#addEditForm').form('load',row);
                 $("#serialNumber").text(row.id);
                 $("#instime").datetimebox('setValue',getDate1(row.inspection_time));
-
-                // var videoSource="<source src=\"ftp://ftpadmin:123456@192.168.0.200/InitVideo.mp4\" type=\"video/mp4\">";
-                // $('#video1').append(videoSource);
-                // $("#video1")[0].play();
-                //alert(getDate1(row.inspection_time));
                 url="/ThreadingOperation/saveThreadingProcess.action?id="+row.id;
                 thread_inspection_record_code=row.thread_inspection_record_code;
                 getStataticItem(thread_inspection_record_code);
@@ -450,7 +435,7 @@
     <form id="addEditForm" method="post">
         <input type="hidden" name="thread_inspection_record_code" value="">
         <fieldset style="width:900px;border:solid 1px #aaa;margin-top:8px;position:relative;">
-            <legend>合同信息</legend>
+            <legend>检验记录</legend>
             <table class="ht-table"  width="100%" border="0">
 
                 <tr>
@@ -461,15 +446,15 @@
                     <td></td>
                     <td class="i18n1" name="contractno"></td>
                     <td>
-                        <%--<input id="millno" class="easyui-combobox" type="text" name="millno"  data-options=--%>
-                                <%--"url:'/millInfo/getAllMillsWithComboboxSelectAll.action',--%>
-					        <%--method:'get',--%>
-					        <%--valueField:'id',--%>
-					        <%--width: 150,--%>
-					        <%--editable:false,--%>
-					        <%--textField:'text'--%>
-					        <%--"/>--%>
-                        <input class="easyui-validatebox" data-options="required:true,validType:'nullandlength'" type="text" name="contract_no" value=""/></td>
+                        <input style="width:185px;" id="contract_no" class="easyui-combobox" type="text" name="contract_no"  data-options=
+                                "url:'/Contract/getAllDropDownContractInfo.action',
+					        method:'get',
+					        valueField:'id',
+					        width:285,
+					        editable:false,
+					        textField:'text'
+                         "/>
+                        <%--<input class="easyui-validatebox" data-options="required:true,validType:'nullandlength'" type="text" name="contract_no" value=""/></td>--%>
                     <td></td>
                 </tr>
                 <tr>
@@ -507,7 +492,7 @@
                 <tr>
                     <td class="i18n1" name="productioncrew"></td>
                     <td>
-                        <select id="pc" class="easyui-combobox" data-options="editable:false" name="production_crew"   style="width:200px;">
+                        <select id="pc" class="easyui-combobox" data-options="editable:false" name="production_crew"   style="width:185px;">
                             <option value="甲" selected="selected">甲</option>
                             <option value="乙">乙</option>
                             <option value="丙">丙</option>
@@ -518,7 +503,7 @@
                     <td></td>
                     <td class="i18n1" name="productionshift"></td>
                     <td>
-                        <select id="ps" class="easyui-combobox" data-options="editable:false" name="production_shift"   style="width:200px;">
+                        <select id="ps" class="easyui-combobox" data-options="editable:false" name="production_shift"   style="width:185px;">
                             <option value="白班" selected="selected">白班</option>
                             <option value="夜班">夜班</option>
                         </select>
@@ -538,7 +523,7 @@
                     <td class="i18n1" name="inspectionresult"></td>
                     <td>
                         <%--<input class="easyui-textbox" type="text" name="inspection_result" value=""/>--%>
-                            <select id="bfs" class="easyui-combobox" data-options="editable:false" name="inspection_result"   style="width:200px;">
+                            <select id="bfs" class="easyui-combobox" data-options="editable:false" name="inspection_result"   style="width:185px;">
                                 <option value="合格" selected="selected">合格</option>
                                 <option value="不合格">不合格</option>
                             </select>
@@ -552,17 +537,21 @@
                     <td></td>
                 </tr>
             </table>
-            <table  id="itemrecordDatagrids">
-            </table>
             <table id="videoDatagrid"  data-options="fitColumns:true" style="width:100%;height:auto;margin-top:5px;">
                 <thead>
-                   <th width="50%">视频编号</th>
-                   <th width="50%">视频链接</th>
+                <th width="50%">视频编号</th>
+                <th width="50%">视频链接</th>
                 </thead>
                 <tbody>
 
                 </tbody>
             </table>
+           </fieldset>
+            <fieldset style="width:900px;border:solid 1px #aaa;margin-top:8px;position:relative;">
+                <legend>检测项记录</legend>
+            <table  id="itemrecordDatagrids">
+            </table>
+
         </fieldset>
     </form>
 </div>
@@ -583,5 +572,4 @@
 <script type="text/javascript">
     mini.parse();
     hlLanguage("../i18n/");
-
 </script>

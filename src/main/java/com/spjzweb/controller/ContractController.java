@@ -280,7 +280,22 @@ public class ContractController {
 
         return retMap;
     }
-
+    //获取所有下拉接收标准
+    @RequestMapping("/getAllDropDownContractInfo")
+    @ResponseBody
+    public String getAllDropDownContractInfo(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
+        List<ContractInfo>list=contractInfoDao.getAllDropDownContractNoOfWinform();
+        List<ComboxItem> colist=new ArrayList<ComboxItem>();
+        for(int i=0;i<list.size();i++){
+            ComboxItem citem= new ComboxItem();
+            ContractInfo ps=((ContractInfo)list.get(i));
+            citem.id=ps.getContract_no();
+            citem.text=ps.getContract_no();
+            colist.add(citem);
+        }
+        String map= JSONObject.toJSONString(colist);
+        return map;
+    }
 
     //获取所有下拉合同编号(windform)
     @RequestMapping(value = "/getAllDropDownContractNoOfWinform")

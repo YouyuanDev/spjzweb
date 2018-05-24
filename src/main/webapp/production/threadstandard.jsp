@@ -26,6 +26,7 @@
         var editIndex = undefined;
         var addOrEdit=true;
         $(function () {
+            $('#addEditDialog').css('top','30px');
             $('#addEditDialog').dialog({
                 onClose:function () {
                     clearFormLabel();
@@ -42,6 +43,7 @@
             addOrEdit=true;
             clearFormLabel();
             getStataticItem();
+            loadDynamicByAcceptanceNo(null);
             $('#dynamicDatagrids').datagrid('loadData',{total:0,rows:[]});
             url="/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
         }
@@ -563,8 +565,8 @@
 <!--添加、修改框-->
 <div id="addEditDialog" class="easyui-dialog" data-options="title:'添加',modal:true" closed="true" buttons="#dlg-buttons" style="display: none;padding:5px;width:950px;max-height:500px;overflow-y:auto;">
     <form id="addEditForm" method="post">
-        <%--<fieldset style="width:900px;border:solid 1px #aaa;position:relative;">--%>
-            <%--<legend>标准信息</legend>--%>
+        <fieldset style="width:900px;border:solid 1px #aaa;position:relative;">
+            <legend>标准信息</legend>
             <div style="width:100%;padding-bottom:5px;">
                 <%--<a href="#" class="easyui-linkbutton i18n1" name="add" onclick="insert()">添加</a>--%>
                 <%--<label class="i18n1" name="threadacceptancecriteriano"></label>:--%>
@@ -618,6 +620,9 @@
                     </div>
 
             </div>
+        </fieldset>
+        <fieldset style="width:900px;border:solid 1px #aaa;position:relative;">
+            <legend>测量项信息</legend>
             <table  id="dynamicDatagrids">
 
             </table>
@@ -633,7 +638,7 @@
                 <%--</tr>--%>
                 <%--</thead>--%>
             <%--</table>--%>
-        <%--</fieldset>--%>
+        </fieldset>
 
     </form>
 </div>

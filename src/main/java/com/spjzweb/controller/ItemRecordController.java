@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,12 +92,7 @@ public class ItemRecordController {
                         if(reading_ovality!=null&&!reading_ovality.equals(""))
                             item.setReading_ovality(reading_ovality);
                         resTotal=itemRecordDao.updateItemRecord(item);
-                        if(resTotal>0){
-                            json.put("promptkey","success");
-                        }else{
-                            json.put("promptkey","fail2");
-                            json.put("promptValue","保存失败");
-                        }
+
                     }
                 }else{
                     //新增
@@ -128,15 +124,18 @@ public class ItemRecordController {
                             item.setReading_ovality(reading_ovality);
                         resTotal=itemRecordDao.addItemRecord(item);
                         //接收id的值
-                        if(resTotal>0){
-                            json.put("promptkey","success");
-                            json.put("promptValue",item.getId());
-                        }else{
-                            json.put("promptkey","fail2");
-                            json.put("promptValue","保存失败");
-                        }
+
                     }
                 }
+            }
+            if(resTotal>0){
+                //判断检测项是否符合标准,
+
+                json.put("promptkey","success");
+                json.put("promptValue","legal");
+            }else{
+                json.put("promptkey","fail2");
+                json.put("promptValue","保存失败");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -145,6 +144,7 @@ public class ItemRecordController {
 
         }finally {
             try {
+
                 ResponseUtil.write(response, json);
             }catch  (Exception e) {
                 e.printStackTrace();

@@ -229,7 +229,7 @@
                     <td></td>
                     <td class="i18n1" name="threadacceptancecriteriano"></td>
                     <td colspan="2">
-                        <input id="thread_acceptance_criteria_no" class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
+                        <input style="width:100%;" id="thread_acceptance_criteria_no" class="easyui-combobox" type="text" name="thread_acceptance_criteria_no"  data-options=
                                 "url:'/AcceptanceCriteriaOperation/getAllDropDownAcceptanceCriteria.action',
 					        method:'get',
 					        valueField:'id',

@@ -42,6 +42,7 @@ public class SessionFilter extends OncePerRequestFilter{
             "getAllDropdownMeasureItemByInspectionNo",
             "getItemRecordByInspectionNo",
             "uploadContractList",
+            "getAllDropDownContractInfo",
             "getVideoAddress",
             "uploadVideoFile",
             "saveThreadAcceptanceCriteria",
