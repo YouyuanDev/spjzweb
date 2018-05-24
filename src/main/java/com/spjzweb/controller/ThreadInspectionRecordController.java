@@ -240,74 +240,39 @@ public class ThreadInspectionRecordController {
             String inspection_time=json.getString("inspection_time");
             String coupling_heat_no=json.getString("coupling_heat_no");
             String coupling_lot_no=json.getString("coupling_lot_no");
+            String item_record=json.getString("item_record");//json数组
             Date inspectionTime=new Date();
             String measure_code="";
-            ArrayList<ItemRecord>itemRecordList=new ArrayList<>();
-            List<String>itemCodeList=new ArrayList<>();
-            HashMap<String,Object>tool1List=new HashMap<>();
-            HashMap<String,Object>tool2List=new HashMap<>();
-            HashMap<String,Object>valueAList=new HashMap<>();
-            HashMap<String,Object>valueBList=new HashMap<>();
-            for (Map.Entry<String, Object> entry : json.entrySet()) {
-                //System.out.println(entry.getKey()+":"+entry.getValue()+"AAAAAAAAAAAAAAAAAA");
-                if(entry.getKey().indexOf("_measure_tool1")!=-1){
-                    measure_code=entry.getKey().replace("_measure_tool1","");
-                    tool1List.put(measure_code,entry.getValue());
-                }
-                if(entry.getKey().indexOf("_measure_tool2")!=-1){
-                    measure_code=entry.getKey().replace("_measure_tool2","");
-                    tool2List.put(measure_code,entry.getValue());
-                }
-                if(entry.getKey().indexOf("_A_Value")!=-1){
-                    measure_code=entry.getKey().replace("_A_Value","");
-                    valueAList.put(measure_code,entry.getValue());
-                }
-                if(entry.getKey().indexOf("_B_Value")!=-1){
-                    measure_code=entry.getKey().replace("_B_Value","");
-                    valueBList.put(measure_code,entry.getValue());
-                }
-                //System.out.println("measure_code="+measure_code);
-                if(!itemCodeList.contains(measure_code)){
-                    if(measure_code!=null&&!measure_code.equals(""))
-                       itemCodeList.add(measure_code);
-                }
-            }
             if(isAdd.equals("edit")){
                 thread_inspection_record_code=json.getString("thread_inspection_record_code");
             }else{
                 thread_inspection_record_code=String.valueOf(System.currentTimeMillis());
             }
-            for (int i=0;i<itemCodeList.size();i++){
-                String itemCode=itemCodeList.get(i);
-                ItemRecord itemRecord=new ItemRecord();
-                itemRecord.setItemcode(itemCodeList.get(i));
-                itemRecord.setThread_inspection_record_code(thread_inspection_record_code);
-                if(tool1List.containsKey(itemCode)){
-                    itemRecord.setToolcode1(String.valueOf(tool1List.get(itemCode)));
+            ArrayList<ItemRecord>itemRecordList=new ArrayList<>();
+            if(item_record!=null){
+                JSONArray itemRecordArr=JSONArray.parseArray(item_record);
+                for(int i=0;i<itemRecordArr.size();i++){
+                    JSONObject jsonRecord= itemRecordArr.getJSONObject(i);
+                    ItemRecord itemRecord=new ItemRecord();
+                    itemRecord.setThread_inspection_record_code(thread_inspection_record_code);
+                    itemRecord.setItemcode(jsonRecord.getString("itemcode"));
+                    itemRecord.setReading_max(jsonRecord.getString("reading_max"));
+                    itemRecord.setReading_min(jsonRecord.getString("reading_min"));
+                    itemRecord.setReading_avg(jsonRecord.getString("reading_avg"));
+                    itemRecord.setReading_ovality(jsonRecord.getString("reading_ovality"));
+                    itemRecord.setToolcode1(jsonRecord.getString("toolcode1"));
+                    itemRecord.setToolcode2(jsonRecord.getString("toolcode2"));
+                    itemRecord.setMeasure_sample1(jsonRecord.getString("measure_sample1"));
+                    itemRecord.setMeasure_sample2(jsonRecord.getString("measure_sample2"));
+                    itemRecordList.add(itemRecord);
                 }
-                if(tool2List.containsKey(itemCode)){
-                    itemRecord.setToolcode2(String.valueOf(tool2List.get(itemCode)));
-                }
-                if(valueAList.containsKey(itemCode)){
-                    if(valueAList.get(itemCode)!=null){
-                         if(!String.valueOf(valueAList.get(itemCode)).equals("")){
-                             itemRecord.setItemvalue(String.valueOf(valueAList.get(itemCode))+";");
-                         }
-                    }
-                }
-                if(valueBList.containsKey(itemCode)){
-                    itemRecord.setItemvalue(itemRecord.getItemvalue()+String.valueOf(valueBList.get(itemCode)));
-                }
-                itemRecord.setThread_inspection_record_code(thread_inspection_record_code);
-                itemRecordList.add(itemRecord);
             }
-            if(inspection_time!=null&&inspection_time!=""){
+             if(inspection_time!=null&&inspection_time!=""){
                 SimpleDateFormat simFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 inspectionTime = simFormat.parse(inspection_time);
             }
 
             if(isAdd.equals("edit")){
-                //System.out.println("thread_inspection_record_code="+thread_inspection_record_code);
                 ThreadInspectionRecord entity=threadInspectionRecordDao.getThreadInspectionRecordByNo(thread_inspection_record_code);
                 if(entity!=null){
                     entity.setCoupling_no(coupling_no);

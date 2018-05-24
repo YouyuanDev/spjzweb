@@ -17,4 +17,4 @@ basepath=$(dirname $basepath)
 basepath=$(dirname $basepath)
 echo $basepath
 
-scp -r $basepath/target/spjzweb.war root@192.168.0.200:/usr/share/tomcat/apache-tomcat-8.5.28/webapps1/
+scp -r $basepath/spjzweb/target/spjzweb.war root@192.168.0.200:/usr/share/tomcat/apache-tomcat-8.5.28/webapps1/

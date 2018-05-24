@@ -190,18 +190,85 @@
                     {field:'reading_min',title:'最小值',width:80,editor:'textbox'},
                     {field:'reading_avg',title:'均值',width:80,editor:'textbox'},
                     {field:'reading_ovality',title:'椭圆度',width:80,editor:'textbox'},
-                    {field:'item_frequency',title:'检测频率',width:80},
+                    // {field:'item_frequency',title:'检测频率',width:80},
                     {field:'toolcode1',title:'量具编号1',width:80,editor:'textbox'},
                     {field:'toolcode2',title:'量具编号2',width:80,editor:'textbox'},
                     {field:'measure_sample1',title:'量具样块1编号',width:80,editor:'textbox'},
                     {field:'measure_sample2',title:'量具样块2编号',width:80,editor:'textbox'},
-                    {field:'both_ends',hidden:true,title:'是否AB两端检测',width:80}
+                    {field:'both_ends',hidden:true,title:'是否AB两端检测',width:80},
+                    {field:'thread_acceptance_criteria_no',title:'标准编号',width:100},
+                    {field:'item_std_value',title:'检测项值',width:80,editor:'textbox'},
+                    {field:'item_max_value',title:'最大值',width:80,editor:'textbox'},
+                    {field:'item_min_value',title:'最小值',width:80,editor:'textbox'},
+                    {field:'ovality_max',title:'椭圆度最大值',width:80,editor:'textbox'}
                 ]],
                 rowStyler:function(index,row){
                     //验证测量值是否合格
-                    if (row.itemvalue>row.item_max_value&&row.item_max_value!=""||row.itemvalue<row.item_min_value&&row.item_min_value!=""){
-                        return 'background-color:pink;color:blue;font-weight:bold;';
+                    var flag=false;
+                    var rItemValue=row.itemvalue;
+                    var rMaxValue=row.reading_max;
+                    var rMinValue=row.reading_min;
+                    var rAvgValue=row.reading_avg;
+                    var rOvalityValue=row.reading_ovality;
+                    //var stdItemValue=row.item_std_value;
+                    var stdMaxValue=row.item_max_value;
+                    var stdMinValue=row.item_min_value;
+                    var stdOvality=row.ovality_max;
+                    //判断是不是单值
+                    if(rItemValue!=null&&rItemValue.length>0){
+                        var itemValueArr=rItemValue.split(',');
+                        for(var i=0;i<itemValueArr.length;i++){
+                            if(!isNaN(itemValueArr[i])){
+                                if(parseFloat(itemValueArr[i])>stdMaxValue||parseFloat(itemValueArr[i])<stdMinValue){
+                                    flag=true;
+                                }
+                            }
+                        }
                     }
+                    //判断是否有最大值、最小值、均值、椭圆度
+                    if(rMaxValue!=null&&rMaxValue.length>0){
+                        var rMaxValueArr=rMaxValue.split(',');
+                        for(var i=0;i<rMaxValueArr.length;i++){
+                            if(!isNaN(rMaxValueArr[i])){
+                                if(parseFloat(rMaxValueArr[i])>stdMaxValue||parseFloat(rMaxValueArr[i])<stdMinValue){
+                                    flag=true;
+                                }
+                            }
+                        }
+                    }
+                    if(rMinValue!=null&&rMinValue.length>0){
+                        var rMinValueArr=rMinValue.split(',');
+                        for(var i=0;i<rMinValueArr.length;i++){
+                            if(!isNaN(rMinValueArr[i])){
+                                if(parseFloat(rMinValueArr[i])>stdMaxValue||parseFloat(rMinValueArr[i])<stdMinValue){
+                                    flag=true;
+                                }
+                            }
+                        }
+                    }
+                    if(rAvgValue!=null&&rAvgValue.length>0){
+                        var rAvgValueArr=rAvgValue.split(',');
+                        for(var i=0;i<rAvgValueArr.length;i++){
+                            if(!isNaN(rAvgValueArr[i])){
+                                if(parseFloat(rAvgValueArr[i])>stdMaxValue||parseFloat(rAvgValueArr[i])<stdMinValue){
+                                    flag=true;
+                                }
+                            }
+                        }
+                    }
+                    if(rOvalityValue!=null&&rOvalityValue.length>0){
+                        var rOvalityValueArr=rOvalityValue.split(',');
+                        for(var i=0;i<rOvalityValueArr.length;i++){
+                            if(!isNaN(rOvalityValueArr[i])){
+                                if(parseFloat(rOvalityValueArr[i])<0||parseFloat(rOvalityValueArr[i])>stdOvality){
+                                    flag=true;
+                                }
+                            }
+                        }
+                    }
+                    if(flag)
+                        return 'background-color:pink;color:blue;font-weight:bold;';
+                    flag=false;
                 }
             });
 

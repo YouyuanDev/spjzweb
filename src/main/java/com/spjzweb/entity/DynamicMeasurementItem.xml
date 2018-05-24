@@ -115,4 +115,5 @@ SELECT s.measure_item_code,s.measure_item_name,concat(s.measure_item_code ,'(' ,
  on c.contract_no=t.contract_no where t.thread_inspection_record_code=#{thread_inspection_record_code}
 )
     </select>
+    <!--根据-->
 </mapper>

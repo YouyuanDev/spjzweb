@@ -35,7 +35,12 @@
 
 
     <select id="getItemRecordByInspectionRecordCode" resultType="map">
-        select  r.*,s.measure_item_name from item_record r LEFT JOIN static_measurement_item s ON r.itemcode=s.measure_item_code
+        select  r.*,s.measure_item_name,d.*
+        from item_record r
+        INNER JOIN static_measurement_item s ON r.itemcode=s.measure_item_code
+        INNER JOIN thread_inspection_record t ON r.thread_inspection_record_code=t.thread_inspection_record_code
+        INNER JOIN contract_info c ON t.contract_no=c.contract_no
+        INNER JOIN dynamic_measurement_item d on c.thread_acceptance_criteria_no=d.thread_acceptance_criteria_no and r.itemcode=d.measure_item_code
         <where>
             <if test="thread_inspection_record_code!=null and thread_inspection_record_code!=''">
                 AND r.thread_inspection_record_code =#{thread_inspection_record_code}
