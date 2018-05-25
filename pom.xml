@@ -163,7 +163,13 @@
       <artifactId>javase</artifactId>
       <version>3.3.2</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>codec</artifactId>
+      <version>1.1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/commons-codec-1.1.jar</systemPath>
+    </dependency>
   </dependencies>
 
 </project>

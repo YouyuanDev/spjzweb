@@ -1,12 +1,15 @@
 package com.spjzweb.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.spjzweb.dao.ClientAuthDao;
 import com.spjzweb.dao.FunctionDao;
 import com.spjzweb.dao.PersonDao;
 import com.spjzweb.dao.RoleDao;
+import com.spjzweb.entity.ClientAuth;
 import com.spjzweb.entity.Function;
 import com.spjzweb.entity.Person;
 import com.spjzweb.entity.Role;
+import com.spjzweb.util.AESUtil;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,6 +44,8 @@ public class LoginController {
 
     @Autowired
     private FunctionDao functionDao;
+    @Autowired
+    private ClientAuthDao clientAuthDao;
 
 
 //    public static String md5(String pass){
@@ -56,7 +65,10 @@ public class LoginController {
         JSONObject json=new JSONObject();
         String employee_no= request.getParameter("employee_no");
         String ppassword= request.getParameter("ppassword");
+        String verificationCode= request.getParameter("verification_code");
+
         try{
+
             int resTotal=0;
             resTotal= personDao.confirmPersonByEmployeeNoPassword(employee_no,ppassword);
             if(resTotal>0){
@@ -134,6 +146,55 @@ public class LoginController {
     public String userLoginOfWinform(HttpServletRequest request,HttpServletResponse response){
         JSONObject jsonReturn=new JSONObject();
         try{
+            JSONObject jsonValid=new JSONObject();
+
+            boolean illegal=true;
+
+            Format fo = new SimpleDateFormat("yyyyMMdd");
+            Date today = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(today);
+            c.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天
+
+            Date tomorrow = c.getTime();
+            String key=fo.format(tomorrow)+"00000000";
+            System.out.println("明天是:" + key);
+            String key2="SPJZWEB000000000";
+
+            //更新验证码
+            List<ClientAuth> res=clientAuthDao.getAllByLike(null,null);
+            for(int i=0;i<res.size();i++){
+                String code1=  res.get(i).getEncrypt_code();
+                String code2= res.get(i).getEncrypt_code2();
+                System.out.println("code1="+code1);
+                System.out.println("code2="+code2);
+                if(code2!=null&&!code2.equals("")){
+
+                    String keyforc1 = AESUtil.aesDecrypt(code2,key2);
+                    System.out.println("keyforc1"+keyforc1);
+                    //code1=AESUtil.decrypt(keyforc1, code1);
+                    String orgcode1=AESUtil.aesDecrypt(code1,keyforc1 );
+                    String newCode1inDatabase= AESUtil.aesEncrypt(orgcode1,key );
+                    //String newCode1inDatabase=AESUtil.encrypt(key, a);
+                    String newCode2inDatabase=AESUtil.aesEncrypt(key,key2 );
+                    //更新
+                    ClientAuth ca=new ClientAuth();
+                    ca.setId(res.get(i).getId());
+                    ca.setEncrypt_code(newCode1inDatabase);
+                    ca.setEncrypt_code2(newCode2inDatabase);
+                    System.out.println("update code1="+newCode1inDatabase);
+                    System.out.println("update code2="+newCode2inDatabase);
+                    clientAuthDao.updateClientAuth(ca);
+
+                }
+
+
+            }
+
+
+
+
+            //验证登录
             StringBuilder sb=new StringBuilder();
             BufferedReader reader=request.getReader();
             String input=null;
@@ -144,14 +205,59 @@ public class LoginController {
             String employee_no=null;
             String ppassword=null;
             Person person=null;
-            if(json!=null){
+            String verificationCode= null;
+            if(json!=null) {
                 employee_no=json.getString("employee_no");
                 ppassword=json.getString("ppassword");
+                verificationCode=json.getString("verification_code");
+            }
+
+            System.out.println("verificationCode="+verificationCode);
+            if(verificationCode!=null){
+                System.out.println("111111111="+verificationCode);
+                String encryptData = verificationCode;
+                String encryptData2 = AESUtil.aesEncrypt(key,key2 );
+                List<ClientAuth> lt=clientAuthDao.getAllByLike(encryptData,encryptData2);
+                if(lt.size()>0) {
+
+                    System.out.println("Client verified!" + encryptData+encryptData2);
+
+                    String ed2=(String)lt.get(0).getEncrypt_code2();
+                    String k=AESUtil.aesDecrypt(ed2,key2 );
+                    String decryptData = AESUtil.aesDecrypt(encryptData,k);
+                    System.out.println("decryptData=" + decryptData);
+                    illegal=false;
+                }
+            }
+
+
+            if(illegal) {
+                jsonReturn.put("success", false);
+                jsonReturn.put("msg", "系统错误");
+                jsonReturn.put("rowsData",null);
+                ResponseUtil.write(response, jsonReturn);
+                return null;
+            }
+
+            //验证登录
+
+            if(json!=null){
+
                 if(employee_no!=null&&employee_no!=""&&ppassword!=null&&ppassword!=""){
                      person=personDao.userLoginOfWinform(employee_no,ppassword);
                 }
             }
-            jsonReturn.put("rowsData",person);
+            if(person!=null){
+                jsonReturn.put("success", true);
+                jsonReturn.put("msg", "登录成功");
+                jsonReturn.put("rowsData",person);
+            }else{
+                jsonReturn.put("success", false);
+                jsonReturn.put("msg", "用户名密码错误");
+                jsonReturn.put("rowsData",null);
+            }
+
+
             ResponseUtil.write(response,jsonReturn);
         }catch (Exception e){
             e.printStackTrace();

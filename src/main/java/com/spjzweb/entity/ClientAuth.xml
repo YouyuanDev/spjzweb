@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spjzweb.dao.ClientAuthDao">
+
+
+
+
+    <select id="getAllByLike" resultType="com.spjzweb.entity.ClientAuth">
+        select * from  client_auth c
+        <where>
+            <if test="encrypt_code!=null and encrypt_code!=''">
+                AND c.encrypt_code =#{encrypt_code}
+            </if>
+            <if test="encrypt_code2!=null and encrypt_code2!=''">
+                AND c.encrypt_code2 =#{encrypt_code2}
+            </if>
+
+        </where>
+
+    </select>
+
+    <update id="updateClientAuth" parameterType="com.spjzweb.entity.ClientAuth">
+        UPDATE client_auth set
+            encrypt_code =#{encrypt_code},encrypt_code2 =#{encrypt_code2}
+          where id=#{id}
+    </update>
+
+
+</mapper>
