@@ -243,7 +243,7 @@ public class ThreadInspectionRecordController {
             String item_record=json.getString("item_record");//json数组
             Date inspectionTime=new Date();
             String measure_code="";
-            if(isAdd.equals("edit")){
+            if(isAdd.contains("edit")){
                 thread_inspection_record_code=json.getString("thread_inspection_record_code");
             }else{
                 thread_inspection_record_code=String.valueOf(System.currentTimeMillis());
@@ -256,6 +256,7 @@ public class ThreadInspectionRecordController {
                     ItemRecord itemRecord=new ItemRecord();
                     itemRecord.setThread_inspection_record_code(thread_inspection_record_code);
                     itemRecord.setItemcode(jsonRecord.getString("itemcode"));
+                    itemRecord.setItemvalue(jsonRecord.getString("itemvalue"));
                     itemRecord.setReading_max(jsonRecord.getString("reading_max"));
                     itemRecord.setReading_min(jsonRecord.getString("reading_min"));
                     itemRecord.setReading_avg(jsonRecord.getString("reading_avg"));
@@ -272,7 +273,7 @@ public class ThreadInspectionRecordController {
                 inspectionTime = simFormat.parse(inspection_time);
             }
 
-            if(isAdd.equals("edit")){
+            if(isAdd.contains("edit")){
                 ThreadInspectionRecord entity=threadInspectionRecordDao.getThreadInspectionRecordByNo(thread_inspection_record_code);
                 if(entity!=null){
                     entity.setCoupling_no(coupling_no);
