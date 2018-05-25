@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String bPath =request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,6 +21,7 @@
     <script src="js/jquery.i18n.properties-1.0.9.js" type="text/javascript"></script>
     <script src="js/language.js" type="text/javascript"></script>
     <script src="js/common.js" type="text/javascript"></script>
+    <script src="../js/jquery.form.js" type="text/javascript"></script>
     <style type="text/css" >
         .ht-table,.ht-table td{border-collapse:collapse;border:1px solid #F0F0F0;}
         .ht-table{width:100%;margin-bottom:10px;}
@@ -130,7 +136,56 @@
             hlLanguage("i18n/");
             //hlLanguage("i18n/");
 
+            $('.btnLogout').click(function () {
 
+                var form = $("<form>");//定义一个form表单
+                form.attr("style", "display:none");
+                form.attr("target", "");
+                form.attr("method", "post");//请求类型
+                form.attr("action","/Login/logout.action");//请求地址
+                $("body").append(form);//将表单放置在web中
+
+                var options={
+                    type:'POST',
+                    url:'/Login/Logout.action',
+                    dataType:'json',
+                    beforeSubmit:function () {
+                        ajaxLoading();
+                    },
+                    success:function (data) {
+                        ajaxLoadEnd();
+                        //alert(data.msg);
+                        if(data.success){
+                            window.location.href="<%=bPath%>"+"login/login.jsp";
+                        }
+
+
+                    },error:function () {
+                        ajaxLoadEnd();
+                    }
+                };
+                //form.submit(function (e) {
+                form.ajaxSubmit(options);
+                return false;
+            });
+
+            function ajaxLoadEnd() {
+                $(".datagrid-mask").remove();
+                $(".datagrid-mask-msg").remove();
+            }
+
+            function ajaxLoading() {
+                $("<div class=\"datagrid-mask\"></div>").css({
+                    display: "block",
+                    width: "100%",
+                    height: $(window).height()
+                }).appendTo("body");
+                $("<div class=\"datagrid-mask-msg\"></div>").html("正在退出，请稍候。。。").appendTo("body").css({
+                    display: "block",
+                    left: ($(document.body).outerWidth(true) - 190) / 2,
+                    top: ($(window).height() - 45) / 2
+                });
+            }
 
             //检验信息
             $('#inspection-ul').tree({
@@ -296,6 +351,7 @@
             <option value="zh-CN">中文</option>
             <option value="en">ENGLISH</option>
         </select>
+        <button class="btnLogout">退出</button>
     </div>
 </div>
 <div data-options="region:'west'" title="导航菜单" class="i18n" name="navigation" style="width:200px;">

@@ -7,13 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="783b5446-4794-433d-a681-97d6d4515d56" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/dao/ClientAuthDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ClientAuth.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/util/AESUtil.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/spjzweb.iml" afterPath="$PROJECT_DIR$/spjzweb.iml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/LoginController.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -42,24 +39,67 @@
       <file leaf-file-name="AESUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/AESUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
+            <state relative-caret-position="810">
               <caret line="54" column="9" lean-forward="false" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#195#227#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/controller/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="156" column="52" lean-forward="true" selection-start-line="156" selection-start-column="52" selection-end-line="156" selection-end-column="52" />
+            <state relative-caret-position="4095">
+              <caret line="273" column="28" lean-forward="false" selection-start-line="273" selection-start-column="22" selection-end-line="273" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SessionFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="341">
+              <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+              <folding>
+                <marker date="1527243168831" expanded="true" signature="2868:2881" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="3040:3053" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="3212:3225" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="3388:3401" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="3555:3568" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="8242:8265" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="9162:9185" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="10019:10042" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="10496:10519" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="10981:11004" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="11892:11915" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="12788:12811" ph="..." />
+                <marker date="1527243168831" expanded="true" signature="13251:13274" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contractmanagement.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/basicinfo/contractmanagement.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,7 +130,7 @@
       <file leaf-file-name="ClientAuth.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ClientAuth.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="165">
               <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
               <folding>
                 <marker date="1527234316815" expanded="true" signature="302:637" ph="select * fro... client_auth" />
@@ -115,28 +155,8 @@
       <file leaf-file-name="ContractInfoDao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/dao/ContractInfoDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
+            <state relative-caret-position="195">
               <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContractInfo.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ContractInfo.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="79" column="13" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="79" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContractInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ContractInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="31" lean-forward="false" selection-start-line="5" selection-start-column="3" selection-end-line="6" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -156,8 +176,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>win</find>
-      <find>ftp</find>
       <find>getContractAllByLike</find>
       <find>getDynamicMeasurementItemByItemCodeOfEdit</find>
       <find>basicinfo</find>
@@ -186,6 +204,8 @@
       <find>aesEncrypt</find>
       <find>userAgent</find>
       <find>jsonReturn</find>
+      <find>userfunctionMap</find>
+      <find>ajaxLoadEnd</find>
     </findStrings>
     <replaceStrings>
       <replace>threading_process</replace>
@@ -230,13 +250,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/ItemRecordController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/basicinfo/threadingprocess.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/production/contractmanagement.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/ContractController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/ClientAppUpdateController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/system/clientappupdate.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/util/propertyReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/util/PropertyReader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/upload/videos/readme.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/StaticMeasurementItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/entity/DynamicMeasurementItem.java" />
@@ -265,6 +283,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/dao/ClientAuthDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/util/AESUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/controller/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
       </list>
     </option>
   </component>
@@ -301,8 +321,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -343,6 +361,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="spjzweb" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spjzweb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="spjzweb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="spjzweb" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -359,12 +386,22 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="spjzweb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="spjzweb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="basicinfo" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -411,7 +448,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.index.jsp (2)">
+  <component name="RunManager" selected="Tomcat Server.index.jsp">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -567,45 +604,6 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
     </configuration>
-    <configuration name="index.jsp (1)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
-      <deployment>
-        <artifact name="spjzweb:war">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(1)_spjzweb_48" />
-      </server-settings>
-      <predefined_log_file id="Tomcat" enabled="true" />
-      <predefined_log_file id="Tomcat Catalina" enabled="true" />
-      <predefined_log_file id="Tomcat Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="spjzweb:war" />
-        </option>
-      </method>
-    </configuration>
     <configuration name="index.jsp (2)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
       <deployment>
@@ -642,6 +640,45 @@
       <method>
         <option name="BuildArtifacts" enabled="true">
           <artifact name="spjzweb:war" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="index.jsp (3)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.5.24" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
+      <deployment>
+        <artifact name="spjzweb:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_(3)_spjzweb_46" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="spjzweb:war exploded" />
         </option>
       </method>
     </configuration>
@@ -694,7 +731,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="index_jsp_spjzweb_47" />
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_spjzweb_48" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -732,18 +769,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
       <item index="1" class="java.lang.String" itemvalue="Application.AESUtil" />
-      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
-      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
+      <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
+      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
+      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
+      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
-        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
-        <item index="2" class="java.lang.String" itemvalue="Application.AESUtil" />
-        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (1)" />
-        <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (3)" />
+        <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (2)" />
+        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp (4)" />
+        <item index="4" class="java.lang.String" itemvalue="Application.AESUtil" />
       </list>
     </recent_temporary>
   </component>
@@ -804,15 +841,21 @@
       <workItem from="1524739399952" duration="1625000" />
       <workItem from="1524884455298" duration="5078000" />
       <workItem from="1524898593575" duration="251000" />
-      <workItem from="1527223027459" duration="17466000" />
+      <workItem from="1527223027459" duration="17521000" />
+      <workItem from="1527242851570" duration="52000" />
+      <workItem from="1527242956810" duration="53000" />
+      <workItem from="1527243021344" duration="50000" />
+      <workItem from="1527243094952" duration="61000" />
+      <workItem from="1527243166387" duration="36000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170818000" />
+    <option name="totallyTimeSpent" value="171125000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1440" height="835" extended-state="6" />
+    <frame x="0" y="24" width="1440" height="835" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.62283736" sideWeight="0.27209798" order="7" side_tool="true" content_ui="tabs" />
@@ -831,7 +874,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44692007" sideWeight="0.727902" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44692007" sideWeight="0.727902" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -958,14 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="23" lean-forward="false" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/login/login.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="975">
@@ -984,16 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="57" column="311" lean-forward="false" selection-start-line="57" selection-start-column="311" selection-end-line="57" selection-end-column="311" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/basicinfo/contractmanagement.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="16" lean-forward="false" selection-start-line="76" selection-start-column="16" selection-end-line="76" selection-end-column="16" />
-          <folding>
-            <marker date="1527131952140" expanded="true" signature="1966:2232" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1028,7 +1053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
           <caret line="88" column="11" lean-forward="false" selection-start-line="88" selection-start-column="11" selection-end-line="88" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1046,7 +1070,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2190">
           <caret line="146" column="16" lean-forward="false" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="100" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1054,7 +1077,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="915">
           <caret line="75" column="37" lean-forward="false" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1062,7 +1084,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2775">
           <caret line="185" column="22" lean-forward="false" selection-start-line="185" selection-start-column="22" selection-end-line="185" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1070,13 +1091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
           <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="41" column="21" lean-forward="false" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1091,7 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="27" column="50" lean-forward="false" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1155,7 +1168,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1163,41 +1175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="33" column="24" lean-forward="false" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-          <folding>
-            <element signature="e#1056#1057#0" expanded="false" />
-            <element signature="e#1089#1090#0" expanded="false" />
-            <element signature="e#1117#1118#0" expanded="false" />
-            <element signature="e#1173#1174#0" expanded="false" />
-            <element signature="e#1225#1226#0" expanded="false" />
-            <element signature="e#1438#1439#0" expanded="false" />
-            <element signature="e#1477#1478#0" expanded="false" />
-            <element signature="e#1539#1540#0" expanded="false" />
-            <element signature="e#1595#1596#0" expanded="false" />
-            <element signature="e#1624#1625#0" expanded="false" />
-            <element signature="e#1649#1650#0" expanded="false" />
-            <element signature="e#1685#1686#0" expanded="false" />
-            <element signature="e#1713#1714#0" expanded="false" />
-            <element signature="e#1742#1743#0" expanded="false" />
-            <element signature="e#1767#1768#0" expanded="false" />
-            <element signature="e#1803#1804#0" expanded="false" />
-            <element signature="e#1831#1832#0" expanded="false" />
-            <element signature="e#1871#1872#0" expanded="false" />
-            <element signature="e#1907#1908#0" expanded="false" />
-            <element signature="e#1965#1966#0" expanded="false" />
-            <element signature="e#2015#2016#0" expanded="false" />
-            <element signature="e#2055#2056#0" expanded="false" />
-            <element signature="e#2091#2092#0" expanded="false" />
-            <element signature="e#2149#2150#0" expanded="false" />
-            <element signature="e#2199#2200#0" expanded="false" />
-            <element signature="e#2240#2241#0" expanded="false" />
-            <element signature="e#2277#2278#0" expanded="false" />
-            <element signature="e#2337#2338#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
-            <element signature="e#2422#2423#0" expanded="false" />
-            <element signature="e#2451#2452#0" expanded="false" />
-            <element signature="e#2495#2496#0" expanded="false" />
-            <element signature="e#2531#2532#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1213,12 +1190,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding>
-            <marker date="1526919385545" expanded="true" signature="1424:2486" ph="select * fro... threading_acceptance_criteria" />
-            <marker date="1526919385545" expanded="true" signature="2603:2691" ph="select * fro... threading_acceptance_criteria" />
-            <marker date="1526919385545" expanded="true" signature="3336:3617" ph="INSERT INTO threading_acceptance_criteria... " />
-            <marker date="1526919385545" expanded="true" signature="3756:4059" ph="UPDATE threading_acceptance_criteria... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1226,7 +1197,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="323" column="20" lean-forward="false" selection-start-line="323" selection-start-column="20" selection-end-line="323" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1242,18 +1212,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="12" column="61" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/ClientInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="45" column="77" lean-forward="false" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/ClientInfo.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ContractInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1264,7 +1226,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ContractInfo.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
+        <state relative-caret-position="1185">
           <caret line="79" column="13" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="79" selection-end-column="13" />
           <folding />
         </state>
@@ -1293,7 +1255,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/dao/ContractInfoDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
+        <state relative-caret-position="195">
           <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="61" />
           <folding />
         </state>
@@ -1311,7 +1273,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/entity/ClientAuth.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="165">
           <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
           <folding>
             <marker date="1527234316815" expanded="true" signature="302:637" ph="select * fro... client_auth" />
@@ -1332,27 +1294,63 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-249">
           <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/AESUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
+        <state relative-caret-position="810">
           <caret line="54" column="9" lean-forward="false" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#195#227#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/util/SessionFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/spjzweb/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="156" column="52" lean-forward="true" selection-start-line="156" selection-start-column="52" selection-end-line="156" selection-end-column="52" />
+        <state relative-caret-position="4095">
+          <caret line="273" column="28" lean-forward="false" selection-start-line="273" selection-start-column="22" selection-end-line="273" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/basicinfo/contractmanagement.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+          <folding>
+            <marker date="1527243168831" expanded="true" signature="2868:2881" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="3040:3053" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="3212:3225" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="3388:3401" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="3555:3568" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="8242:8265" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="9162:9185" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="10019:10042" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="10496:10519" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="10981:11004" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="11892:11915" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="12788:12811" ph="..." />
+            <marker date="1527243168831" expanded="true" signature="13251:13274" ph="..." />
           </folding>
         </state>
       </provider>

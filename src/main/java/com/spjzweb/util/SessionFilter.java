@@ -53,7 +53,8 @@ public class SessionFilter extends OncePerRequestFilter{
             "getItemRecordByInspectionNoOfWinform",
             "getAllContractNoOfWinform",
             "userLoginOfWinform",
-            "getMeasureDataByInspectionNoOfWinform"
+            "getMeasureDataByInspectionNoOfWinform",
+            "Logout"
     }; // 不过滤的uri
 
     @Override
