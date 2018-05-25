@@ -92,9 +92,9 @@
     </select>
 
     <insert id="addItemRecordByWinform" parameterType="java.util.ArrayList">
-       INSERT INTO item_record (itemcode,itemvalue,toolcode1,toolcode2,measure_sample1,measure_sample2,thread_inspection_record_code)VALUES
+       INSERT INTO item_record (itemcode,itemvalue,toolcode1,toolcode2,measure_sample1,measure_sample2,thread_inspection_record_code,reading_max,reading_min,reading_avg,reading_ovality)VALUES
        <foreach collection="list" item="item" index="index" separator=",">
-           (#{item.itemcode},#{item.itemvalue},#{item.toolcode1},#{item.toolcode2},#{item.measure_sample1},#{item.measure_sample2},#{item.thread_inspection_record_code})
+           (#{item.itemcode},#{item.itemvalue},#{item.toolcode1},#{item.toolcode2},#{item.measure_sample1},#{item.measure_sample2},#{item.thread_inspection_record_code},#{item.reading_max},#{item.reading_min},#{item.reading_avg},#{item.reading_ovality})
        </foreach>
     </insert>
 
@@ -115,12 +115,16 @@
                  toolcode1=#{item.toolcode1},
                  toolcode2=#{item.toolcode2},
                  measure_sample1=#{item.measure_sample1},
-                 measure_sample2=#{item.measure_sample2}
+                 measure_sample2=#{item.measure_sample2},
+                 reading_max=#{item.reading_max},
+                 reading_min=#{item.reading_min},
+                 reading_avg=#{item.reading_avg},
+                 reading_ovality=#{item.reading_ovality}
                where itemcode = #{item.itemcode} AND thread_inspection_record_code=#{item.thread_inspection_record_code}
         </foreach>
     </update>
     <update id="updataItemRecordByCodeSingle" parameterType="com.spjzweb.entity.ItemRecord">
-        UPDATE item_record set  itemvalue=#{itemvalue},toolcode1=#{toolcode1},toolcode2=#{toolcode2},measure_sample1=#{measure_sample1},measure_sample2=#{measure_sample2} where itemcode=#{itemcode} AND thread_inspection_record_code=#{thread_inspection_record_code}
+        UPDATE item_record set  itemvalue=#{itemvalue},toolcode1=#{toolcode1},toolcode2=#{toolcode2},measure_sample1=#{measure_sample1},measure_sample2=#{measure_sample2},reading_max=#{reading_max},reading_min=#{reading_min},reading_avg=#{reading_avg},reading_ovality=#{reading_ovality} where itemcode=#{itemcode} AND thread_inspection_record_code=#{thread_inspection_record_code}
     </update>
     <!--根据接箍检验编号查询检验记录-->
     <select id="getInspectionRecordByInspectionNo" resultType="map">
