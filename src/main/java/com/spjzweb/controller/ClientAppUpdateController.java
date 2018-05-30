@@ -35,11 +35,24 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @RequestMapping("/ClientAppUpdate")
 public class ClientAppUpdateController {
 
+    public static boolean isServerTomcat=true; //是否为Tomcat部署
+
     //客户端程序包上传
     @RequestMapping(value = "/uploadClientAppPackage",method = RequestMethod.POST)
     public String uploadClientAppPackage(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
-            String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
+            //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
+
+            String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+            System.out.println("saveDirector1="+saveDirectory);
+            if(isServerTomcat){
+                saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+            }
+            saveDirectory=saveDirectory+"/upload/clientapp";
+
+            System.out.println("saveDirector2="+saveDirectory);
+
             File uploadPath = new File(saveDirectory);
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();
@@ -88,7 +101,18 @@ public class ClientAppUpdateController {
     @RequestMapping(value = "/uploadClientAppAutoUpdaterXML",method = RequestMethod.POST)
     public String uploadClientAppAutoUpdaterXML(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
-            String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
+            //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
+            String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+
+            if(isServerTomcat){
+                saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+            }
+            saveDirectory=saveDirectory+"/upload/clientapp";
+
+            System.out.println("saveDirector1="+saveDirectory);
+
+
             File uploadPath = new File(saveDirectory);
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();

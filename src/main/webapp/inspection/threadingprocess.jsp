@@ -3,6 +3,10 @@
 <%
     String path = request.getContextPath();
     String basePath= request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+    basePath=basePath.substring(0,basePath.lastIndexOf('/'));
+    basePath=basePath.substring(0,basePath.lastIndexOf('/'));
+
 %>
 <html>
 <head>

@@ -143,7 +143,17 @@ public class ContractController {
     @RequestMapping(value = "/uploadContractList",method = RequestMethod.POST)
     public String uploadContractList(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
-            String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/contracts");
+           // String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/contracts");
+
+            String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+            System.out.println("saveDirector1="+saveDirectory);
+            if(ClientAppUpdateController.isServerTomcat){
+                saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+            }
+            saveDirectory=saveDirectory+"/upload/contracts";
+
+
             File uploadPath = new File(saveDirectory);
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();

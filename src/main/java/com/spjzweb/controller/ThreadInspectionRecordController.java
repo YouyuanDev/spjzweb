@@ -199,7 +199,16 @@ public class ThreadInspectionRecordController {
     }
 
     private void writeToDir(HttpServletRequest request,String fileName, byte[] body, int begin, int end) throws Exception {
-        String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/videos");
+        //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/videos");
+
+        String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+        saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+        System.out.println("saveDirector1="+saveDirectory);
+        if(ClientAppUpdateController.isServerTomcat){
+            saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+        }
+        saveDirectory=saveDirectory+"/upload/videos";
+
         File uploadPath = new File(saveDirectory);
         if (!uploadPath.exists()){
             uploadPath.mkdirs();
