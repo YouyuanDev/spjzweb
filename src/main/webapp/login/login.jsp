@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>登录</title>
+    <title>螺纹车丝检验监造系统登录</title>
 
     <link rel="stylesheet" type="text/css" href="../easyui/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="../easyui/themes/bootstrap/window.css">
@@ -34,7 +34,11 @@
                 $("#logrem").attr("checked",true);
                 //alert("读取cookie完毕");
             }
+            //如果存在框架，则调用login.jsp
+            if(window.parent.location.href.indexOf("/login/login.jsp")==-1){
 
+                window.parent.location.href="/login/login.jsp";
+            }
         });
 
         //重置用户名密码
@@ -79,7 +83,7 @@
     <%--<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>--%>
     <%--<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">Close</a>--%>
 <%--</div>--%>
-<div id="w" class="easyui-window" title="请先登录" data-options="modal:true,closed:false,iconCls:'Lockgo',closable:false,minimizable:false" style="width:400px;padding:20px 70px 20px 70px;">
+<div id="w" class="easyui-window" title="螺纹车丝检验监造系统" data-options="modal:true,closed:false,iconCls:'Lockgo',closable:false,minimizable:false" style="width:400px;padding:20px 70px 20px 70px;">
     <form id="frmLogin" method="post">
     <div style="margin-bottom:10px">
         <input class="easyui-textbox" id="employee_no" name="employee_no"  style="width:100%;height:30px;padding:12px" data-options="prompt:'员工工号',iconCls:'icon-man',iconWidth:38">
