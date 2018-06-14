@@ -13,6 +13,7 @@ import com.spjzweb.util.AESUtil;
 import com.spjzweb.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -121,6 +122,59 @@ public class LoginController {
                     }
                 }
 
+
+
+
+                //更新验证码
+                Format fo = new SimpleDateFormat("yyyyMMdd");
+                Date today = new Date();
+                Calendar c = Calendar.getInstance();
+                c.setTime(today);
+                c.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天
+
+                Date tomorrow = c.getTime();
+                String newkey=fo.format(tomorrow)+"00000000";
+                System.out.println("明天是:" + newkey);
+                String key2=AESUtil.KEY2;
+                List<ClientAuth> res=clientAuthDao.getAllByLike(null,null);
+                for(int i=0;i<res.size();i++){
+                    int id=  res.get(i).getId();
+                    String code1=  res.get(i).getEncrypt_code();
+                    String code2= res.get(i).getEncrypt_code2();
+                    System.out.println("code1="+code1);
+                    System.out.println("code2="+code2);
+                    if(code2!=null&&!code2.equals("")){
+
+                        String keyforc1 = AESUtil.aesDecrypt(code2,key2);
+                        if(keyforc1==null||keyforc1.equals("")){
+                            clientAuthDao.delClientAuth(id);
+                            continue;
+                        }
+                        System.out.println("keyforc1"+keyforc1);
+                        //code1=AESUtil.decrypt(keyforc1, code1);
+                        String orgcode1=AESUtil.aesDecrypt(code1,keyforc1 );
+                        if(orgcode1==null||orgcode1.equals("")){
+                            clientAuthDao.delClientAuth(id);
+                            continue;
+                        }
+                        String newCode1inDatabase= AESUtil.aesEncrypt(orgcode1,newkey );
+                        //String newCode1inDatabase=AESUtil.encrypt(key, a);
+                        String newCode2inDatabase=AESUtil.aesEncrypt(newkey,key2 );
+                        //更新
+                        ClientAuth ca=new ClientAuth();
+                        ca.setId(res.get(i).getId());
+                        ca.setEncrypt_code(newCode1inDatabase);
+                        ca.setEncrypt_code2(newCode2inDatabase);
+                        System.out.println("update code1="+newCode1inDatabase);
+                        System.out.println("update code2="+newCode2inDatabase);
+                        clientAuthDao.updateClientAuth(ca);
+
+                    }
+
+
+                }
+
+
                 //functionMap.put("index","1");
                 session.setAttribute("userfunctionMap", functionMap);
 
@@ -157,9 +211,9 @@ public class LoginController {
             c.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天
 
             Date tomorrow = c.getTime();
-            String key=fo.format(tomorrow)+"00000000";
-            System.out.println("明天是:" + key);
-            String key2="SPJZWEB000000000";
+            String newkey=fo.format(tomorrow)+"00000000";
+            System.out.println("明天是:" + newkey);
+            String key2=AESUtil.KEY2;
 
             //更新验证码
             List<ClientAuth> res=clientAuthDao.getAllByLike(null,null);
@@ -174,9 +228,9 @@ public class LoginController {
                     System.out.println("keyforc1"+keyforc1);
                     //code1=AESUtil.decrypt(keyforc1, code1);
                     String orgcode1=AESUtil.aesDecrypt(code1,keyforc1 );
-                    String newCode1inDatabase= AESUtil.aesEncrypt(orgcode1,key );
+                    String newCode1inDatabase= AESUtil.aesEncrypt(orgcode1,newkey );
                     //String newCode1inDatabase=AESUtil.encrypt(key, a);
-                    String newCode2inDatabase=AESUtil.aesEncrypt(key,key2 );
+                    String newCode2inDatabase=AESUtil.aesEncrypt(newkey,key2 );
                     //更新
                     ClientAuth ca=new ClientAuth();
                     ca.setId(res.get(i).getId());
@@ -216,7 +270,7 @@ public class LoginController {
             if(verificationCode!=null){
                 System.out.println("111111111="+verificationCode);
                 String encryptData = verificationCode;
-                String encryptData2 = AESUtil.aesEncrypt(key,key2 );
+                String encryptData2 = AESUtil.aesEncrypt(newkey,key2 );
                 List<ClientAuth> lt=clientAuthDao.getAllByLike(encryptData,encryptData2);
                 if(lt.size()>0) {
 
@@ -291,4 +345,36 @@ public class LoginController {
         }
         return null;
     }
+    @RequestMapping("registKey")
+    @ResponseBody
+    public String registKey(HttpServletRequest request,HttpServletResponse response){
+        JSONObject json=new JSONObject();
+        try{
+            String key1=request.getParameter("key1");
+            String key2=request.getParameter("key2");
+            System.out.println(key1+":"+key2);
+            if(key1!=null&&!key1.equals("")&&key2!=null&&!key2.equals("")){
+                ClientAuth ca=new ClientAuth();
+                ca.setId(0);
+                ca.setEncrypt_code(key1);
+                ca.setEncrypt_code2(key2);
+                int ret=clientAuthDao.addClientAuth(ca);
+                if(ret>0){
+                    json.put("success",true);
+                    json.put("msg","注册成功");
+                }else{
+                    json.put("success",false);
+                    json.put("msg","注册失败");
+                }
+            }else{
+                json.put("success",false);
+                json.put("msg","注册失败");
+            }
+            ResponseUtil.write(response,json);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+        }
 }

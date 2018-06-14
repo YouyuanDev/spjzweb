@@ -214,9 +214,9 @@
                             textField:'text'
                             }
                             }},
-                    {field:'item_std_value',title:'目标值',width:80,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'item_pos_deviation_value',title:'正偏差',width:80,editor:{type:'numberbox',options:{precision:2}}},
-                    {field:'item_neg_deviation_value',title:'负偏差',width:80,editor:{type:'numberbox',options:{precision:2}}},
+                    {field:'item_std_value',title:'目标值',width:80,editor:{type:'numberbox',options:{precision:3}}},
+                    {field:'item_pos_deviation_value',title:'正偏差',width:80,editor:{type:'numberbox',options:{precision:3}}},
+                    {field:'item_neg_deviation_value',title:'负偏差',width:80,editor:{type:'numberbox',options:{precision:3}}},
                     {field:'reading_types',title:'读数类型',width:100,editor:{type:'combobox',editable:false,
                             options:{
                                 required: true,
@@ -235,7 +235,7 @@
 
 
                     }},
-                    {field:'ovality_max',title:'椭圆度最大值',width:80,editor:{type:'numberbox',options:{precision:2}}}
+                    {field:'ovality_max',title:'椭圆度最大值',width:80,editor:{type:'numberbox',options:{precision:3}}}
                 ]]
             });
         }
@@ -293,6 +293,13 @@
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             if (row){
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
+                if(index!=editIndex){
+                    onClickRow(editIndex);
+                    index=editIndex;
+                    row = $('#dynamicDatagrids').datagrid('getSelected');
+                    index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
+                    //alert("123123");
+                }
                 var ed_measure_item_code = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'measure_item_code'});
                 var measure_item_code=$(ed_measure_item_code.target).textbox('getValue');
                 // var ed_item_max_value = $('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'item_max_value'});
@@ -359,7 +366,7 @@
                             if(data.promptkey=="success"){
                                 $("#dynamicDatagrids").datagrid("reload");
                                 hlAlertFour("保存成功!");
-                            }else if(data.promptkey="ishave"){
+                            }else if(data.promptkey=="ishave"){
                                 hlAlertFour(data.promptValue);
                                 $('#dynamicDatagrids').datagrid('beginEdit',index);
                             }else{

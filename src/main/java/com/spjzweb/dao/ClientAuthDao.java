@@ -13,4 +13,9 @@ public interface ClientAuthDao {
 
 
     public int updateClientAuth(ClientAuth clientAuth);
+    public int addClientAuth(ClientAuth clientAuth);
+
+    public int delClientAuth(@Param("id") int id);
+
+
 }

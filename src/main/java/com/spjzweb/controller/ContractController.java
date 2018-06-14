@@ -208,87 +208,93 @@ public class ContractController {
     public HashMap importExcelInfo( String fullfilename) throws Exception{
 
         HashMap retMap = new HashMap();//返回值
+        try{
+            List<List<Object>> listob = ExcelUtil.readFromFiletoList(fullfilename);
+            //遍历listob数据，把数据放到List中
+
+            List<Object> ob = listob.get(ExcelUtil.CONTRACT_NO_INDEX_i);
+            if(ob!=null&&ExcelUtil.CONTRACT_NO_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.CONTRACT_NO_INDEX_j));
+                retMap.put("contract_no", val);
+                System.out.println("contract_no:"+val);
+            }
+            ob = listob.get(ExcelUtil.CUSTOMER_SPEC_INDEX_i);
+            if(ob!=null&&ExcelUtil.CUSTOMER_SPEC_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.CUSTOMER_SPEC_INDEX_j));
+                retMap.put("customer_spec", val);
+                System.out.println("customer_spec:"+val);
+            }
+
+            ob = listob.get(ExcelUtil.MACHINING_CONTRACT_NO_INDEX_i);
+            if(ob!=null&&ExcelUtil.MACHINING_CONTRACT_NO_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.MACHINING_CONTRACT_NO_INDEX_j));
+                retMap.put("machining_contract_no", val);
+                System.out.println("machining_contract_no:"+val);
+            }
 
 
+            ob = listob.get(ExcelUtil.OD_WT_INDEX_i);
+            if(ob!=null&&ExcelUtil.OD_WT_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.OD_WT_INDEX_j));
+                //od * wt mm 格式
+                int index_start=val.lastIndexOf('*');
+                int index_mm=val.lastIndexOf("mm");
+                String od="",wt="";
+                if(index_start!=-1){
+                     od=val.substring(0,index_start);
+                     if(index_mm!=-1)
+                       wt=val.substring(index_start+1,index_mm);
+                     else
+                       wt=val.substring(index_start+1);
+                    od=od.trim();
+                    wt=wt.trim();
+                }
+                retMap.put("od", od);
+                retMap.put("wt", wt);
+                System.out.println("od:"+od);
+                System.out.println("wt:"+wt);
+            }
 
-        List<List<Object>> listob = ExcelUtil.readFromFiletoList(fullfilename);
-        //遍历listob数据，把数据放到List中
+            ob = listob.get(ExcelUtil.LOT_NO_INDEX_i);
+            if(ob!=null&&ExcelUtil.LOT_NO_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.LOT_NO_INDEX_j));
+                retMap.put("lot_no", val);
+                System.out.println("lot_no:"+val);
+            }
 
-        List<Object> ob = listob.get(ExcelUtil.CONTRACT_NO_INDEX_i);
-        if(ob!=null&&ExcelUtil.CONTRACT_NO_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.CONTRACT_NO_INDEX_j));
-            retMap.put("contract_no", val);
-            System.out.println("contract_no:"+val);
+            ob = listob.get(ExcelUtil.MATERIAL_NO_INDEX_i);
+            if(ob!=null&&ExcelUtil.MATERIAL_NO_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.MATERIAL_NO_INDEX_j));
+                retMap.put("material_no", val);
+                System.out.println("material_no:"+val);
+            }
+
+            ob = listob.get(ExcelUtil.STEEL_GRADE_INDEX_i);
+            if(ob!=null&&ExcelUtil.STEEL_GRADE_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.STEEL_GRADE_INDEX_j));
+                retMap.put("steel_grade", val);
+                System.out.println("steel_grade:"+val);
+            }
+
+            ob = listob.get(ExcelUtil.THREADING_TYPE_INDEX_i);
+            if(ob!=null&&ExcelUtil.THREADING_TYPE_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.THREADING_TYPE_INDEX_j));
+                retMap.put("threading_type", val);
+                System.out.println("threading_type:"+val);
+            }
+
+            ob = listob.get(ExcelUtil.COUPING_TYPE_INDEX_i);
+            if(ob!=null&&ExcelUtil.COUPING_TYPE_INDEX_j<=ob.size()-1) {
+                String val=String.valueOf(ob.get(ExcelUtil.COUPING_TYPE_INDEX_j));
+                retMap.put("coupling_type", val);
+                System.out.println("coupling_type:"+val);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            return retMap;
         }
-        ob = listob.get(ExcelUtil.CUSTOMER_SPEC_INDEX_i);
-        if(ob!=null&&ExcelUtil.CUSTOMER_SPEC_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.CUSTOMER_SPEC_INDEX_j));
-            retMap.put("customer_spec", val);
-            System.out.println("customer_spec:"+val);
-        }
-
-        ob = listob.get(ExcelUtil.MACHINING_CONTRACT_NO_INDEX_i);
-        if(ob!=null&&ExcelUtil.MACHINING_CONTRACT_NO_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.MACHINING_CONTRACT_NO_INDEX_j));
-            retMap.put("machining_contract_no", val);
-            System.out.println("machining_contract_no:"+val);
-        }
-
-
-        ob = listob.get(ExcelUtil.OD_WT_INDEX_i);
-        if(ob!=null&&ExcelUtil.OD_WT_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.OD_WT_INDEX_j));
-            //od * wt mm 格式
-            String od=val.substring(0,val.lastIndexOf('*'));
-            String wt=val.substring(val.lastIndexOf('*')+1,val.lastIndexOf("mm"));
-            od=od.trim();
-            wt=wt.trim();
-
-            retMap.put("od", od);
-            retMap.put("wt", wt);
-            System.out.println("od:"+od);
-            System.out.println("wt:"+wt);
-
-        }
-
-        ob = listob.get(ExcelUtil.LOT_NO_INDEX_i);
-        if(ob!=null&&ExcelUtil.LOT_NO_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.LOT_NO_INDEX_j));
-            retMap.put("lot_no", val);
-            System.out.println("lot_no:"+val);
-        }
-
-        ob = listob.get(ExcelUtil.MATERIAL_NO_INDEX_i);
-        if(ob!=null&&ExcelUtil.MATERIAL_NO_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.MATERIAL_NO_INDEX_j));
-            retMap.put("material_no", val);
-            System.out.println("material_no:"+val);
-        }
-
-        ob = listob.get(ExcelUtil.STEEL_GRADE_INDEX_i);
-        if(ob!=null&&ExcelUtil.STEEL_GRADE_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.STEEL_GRADE_INDEX_j));
-            retMap.put("steel_grade", val);
-            System.out.println("steel_grade:"+val);
-        }
-
-        ob = listob.get(ExcelUtil.THREADING_TYPE_INDEX_i);
-        if(ob!=null&&ExcelUtil.THREADING_TYPE_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.THREADING_TYPE_INDEX_j));
-            retMap.put("threading_type", val);
-            System.out.println("threading_type:"+val);
-        }
-
-        ob = listob.get(ExcelUtil.COUPING_TYPE_INDEX_i);
-        if(ob!=null&&ExcelUtil.COUPING_TYPE_INDEX_j<=ob.size()-1) {
-            String val=String.valueOf(ob.get(ExcelUtil.COUPING_TYPE_INDEX_j));
-            retMap.put("coupling_type", val);
-            System.out.println("coupling_type:"+val);
-        }
-
-
-
-        return retMap;
     }
     //获取所有下拉接收标准
     @RequestMapping("/getAllDropDownContractInfo")

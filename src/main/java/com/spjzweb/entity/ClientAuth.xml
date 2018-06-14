@@ -28,5 +28,14 @@
           where id=#{id}
     </update>
 
+    <insert id="addClientAuth" parameterType="com.spjzweb.entity.ClientAuth">
+           INSERT INTO client_auth(encrypt_code,encrypt_code2) VALUES (#{encrypt_code},#{encrypt_code2})
+    </insert>
 
+
+    <delete id="delClientAuth"   >
+        delete from client_auth WHERE
+         id=#{id}
+
+    </delete>
 </mapper>

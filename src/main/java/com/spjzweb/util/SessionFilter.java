@@ -21,6 +21,7 @@ public class SessionFilter extends OncePerRequestFilter{
     boolean adminMode=false; //测试时暂时关闭
     String[] notFilterList = new String[] {
             "login.jsp",
+            "registkey",
             "commitLogin.action",
             "error.jsp",
             "getPersonNoByName",
@@ -54,7 +55,8 @@ public class SessionFilter extends OncePerRequestFilter{
             "getAllContractNoOfWinform",
             "userLoginOfWinform",
             "getMeasureDataByInspectionNoOfWinform",
-            "Logout"
+            "Logout",
+            "registKey"
     }; // 不过滤的uri
 
     @Override

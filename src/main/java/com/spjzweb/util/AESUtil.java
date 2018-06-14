@@ -12,6 +12,8 @@ import sun.misc.*;
 @SuppressWarnings("restriction")
 public class AESUtil {
 
+    public static String KEY2="SPJZWEB000000000";
+
     public static String aesEncrypt(String str, String key) {
         byte[] bytes=null;
         try {
@@ -45,7 +47,10 @@ public class AESUtil {
         }
         finally {
             try {
-                return new String(bytes, "utf-8");
+                if(bytes!=null)
+                    return new String(bytes, "utf-8");
+                else
+                    return "";
 
             }
             catch (Exception e){
