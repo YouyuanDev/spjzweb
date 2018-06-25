@@ -360,7 +360,7 @@
                     $.ajax({
                         url:'/DynamicMeasure/saveDynamicMeasureItem.action',
                         dataType:'json',
-                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:row.item_max_value,item_min_value:row.item_min_value,item_frequency:row.item_frequency,both_ends: row.both_ends,reading_types:row.reading_types,item_std_value:row.item_std_value,item_pos_deviation_value:row.item_pos_deviation_value,item_neg_deviation_value:row.item_neg_deviation_value,ovality_max:ovality_max},
+                        data:{id:row.id,measure_item_code:row.measure_item_code,thread_acceptance_criteria_no:thread_acceptance_criteria_no,item_max_value:item_max_value,item_min_value:item_min_value,item_frequency:row.item_frequency,both_ends: row.both_ends,reading_types:row.reading_types,item_std_value:row.item_std_value,item_pos_deviation_value:row.item_pos_deviation_value,item_neg_deviation_value:row.item_neg_deviation_value,ovality_max:ovality_max},
                         success:function (data) {
                             //如果是新增，则返回新增id,如果是修改，则返回执行结果
                             if(data.promptkey=="success"){
