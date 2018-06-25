@@ -405,5 +405,47 @@ public class ThreadInspectionRecordController {
         }
         return null;
     }
+    //删除检验记录数据(winform)
+    @RequestMapping(value = "/delThreadInspectionRecordOfWinform")
+    @ResponseBody
+    public String delThreadInspectionRecordOfWinform(HttpServletRequest request,HttpServletResponse response){
+        JSONObject jsonReturn=new JSONObject();
+        try{
+            StringBuilder sb=new StringBuilder();
+            BufferedReader reader=request.getReader();
+            String input=null;
+            while ((input=reader.readLine())!=null){
+                sb.append(input);
+            }
+            JSONObject json=JSONObject.parseObject(sb.toString());
+            String thread_inspection_record_code=null;
+            if(json!=null){
+                thread_inspection_record_code=json.getString("thread_inspection_record_code").trim();
+            }
+            if(thread_inspection_record_code!=null){
+                int result=threadInspectionRecordDao.delThreadInspectionRecordOfWinform(thread_inspection_record_code);
+                if(result>0){
+                    //删除测量项记录
+                    int result1=itemRecordDao.delItemRecordByCodeSingle(thread_inspection_record_code);
+                    if(result1>0)
+                        jsonReturn.put("rowsData",true);
+                    else
+                        jsonReturn.put("rowsData",false);
+                }else{
+                    jsonReturn.put("rowsData",false);
+                }
+            }else{
+                jsonReturn.put("rowsData",false);
+            }
+            ResponseUtil.write(response,jsonReturn);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            ResponseUtil.write(response,jsonReturn);
+        }catch (Exception e){
 
+        }
+        return null;
+    }
 }

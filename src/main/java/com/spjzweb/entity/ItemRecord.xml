@@ -130,4 +130,7 @@
     <select id="getInspectionRecordByInspectionNo" resultType="map">
         SELECT * from item_record WHERE thread_inspection_record_code=#{thread_inspection_record_code}
     </select>
+    <delete id="delItemRecordByCodeSingle">
+        delete from item_record WHERE thread_inspection_record_code=#{thread_inspection_record_code}
+    </delete>
 </mapper>

@@ -43,5 +43,7 @@ public interface ItemRecordDao {
     public  int updataItemRecordByCodeSingle(ItemRecord ItemRecord);
     //根据检验记录编号查询检验数据
     public List<HashMap<String,Object>>getInspectionRecordByInspectionNo(@Param("thread_inspection_record_code")String thread_inspection_record_code);
+    //客户端删除检验测量记录
+    public int delItemRecordByCodeSingle(@Param("thread_inspection_record_code") String thread_inspection_record_code);
 }
 

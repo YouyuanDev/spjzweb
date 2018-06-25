@@ -51,6 +51,7 @@ public class SessionFilter extends OncePerRequestFilter{
             "getMeasureDataByContractNoOfWinform",
             "saveThreadInspectionRecordOfWinform",
             "getThreadInspectionRecordOfWinform",
+            "delThreadInspectionRecordOfWinform",
             "getItemRecordByInspectionNoOfWinform",
             "getAllContractNoOfWinform",
             "userLoginOfWinform",
