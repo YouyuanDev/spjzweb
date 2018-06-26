@@ -83,7 +83,7 @@
     <%--<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>--%>
     <%--<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">Close</a>--%>
 <%--</div>--%>
-<div id="w" class="easyui-window" title="螺纹车丝检验监造系统" data-options="modal:true,closed:false,iconCls:'Lockgo',closable:false,minimizable:false" style="width:400px;padding:20px 70px 20px 70px;">
+<div id="w" class="easyui-window" title="螺纹车丝检验监造系统(v1.0.0.0)" data-options="modal:true,closed:false,iconCls:'Lockgo',closable:false,minimizable:false" style="width:400px;padding:20px 70px 20px 70px;">
     <form id="frmLogin" method="post">
     <div style="margin-bottom:10px">
         <input class="easyui-textbox" id="employee_no" name="employee_no"  style="width:100%;height:30px;padding:12px" data-options="prompt:'员工工号',iconCls:'icon-man',iconWidth:38">

@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-    String path = request.getContextPath();
-    String basePath= request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-    basePath=basePath.substring(0,basePath.lastIndexOf('/'));
-    basePath=basePath.substring(0,basePath.lastIndexOf('/'));
+    String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
 %>
 <html>
 <head>
@@ -14,9 +11,10 @@
     <script type="text/javascript">
         $(function () {
              var videoName=GetQueryString("video_url");
-             var videoSrc="<%=basePath%>"+"upload/videos/"+videoName;
-             $('#video1').attr("src",videoSrc);
-             $("#video1")[0].play();
+             var videoSrc="<%=basePath%>/upload/videos/"+videoName;
+             var x = document.getElementById("video1");
+             var source ='<source src='+videoSrc+' type="video/mp4">';
+             x.innerHTML=source;
         });
         function GetQueryString(name)
         {
@@ -29,9 +27,9 @@
 </head>
 
 <body>
-   <div style="width:100%;height:600px;">
-       <video id="video1" width="100%" height="100%" controls>
-           <source src="" type="video/mp4">
+   <div style="width:100%;height:100%;padding:10px;background:black;">
+       <video id="video1" width="100%" height="100%" autoplay="autoplay" controls>
+
        </video>
    </div>
 </body>

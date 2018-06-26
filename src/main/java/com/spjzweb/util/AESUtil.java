@@ -65,9 +65,9 @@ public class AESUtil {
 
     public static void main(String arg[])
     {
-        //String Data="BC7574E1A12D";
+        String Data="BC7574E1A129";
 
-        String Data="8CEC4B40200E";
+        //String Data="8CEC4B40200E";
         String key1="2018052300000000";
         String key2="SPJZWEB000000000";
 
