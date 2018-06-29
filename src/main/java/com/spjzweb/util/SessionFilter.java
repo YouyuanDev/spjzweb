@@ -58,7 +58,8 @@ public class SessionFilter extends OncePerRequestFilter{
             "getMeasureDataByInspectionNoOfWinform",
             "Logout",
             "registKey",
-            "videoPlayer.jsp"
+            "videoPlayer.jsp",
+            "uploadClientAppAutoUpdaterReadme"
     }; // 不过滤的uri
 
     @Override

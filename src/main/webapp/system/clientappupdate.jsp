@@ -71,6 +71,24 @@
 </div>
 
 
+<div align="left">
+    <h3><span class="i18n1" name="plsselectuploadclientappAutoUpdaterReadme">请选择要上传的升级说明文件readme.txt</span></h3>
+    <br />
+    <label id="readmefilename" class="hl-label"></label>
+
+    <br/>
+    <input id="fileupload3" class="mini-fileupload" name="Fdata" limitType="*.txt;"
+           flashUrl="../miniui/fileupload/swfupload/swfupload.swf"
+           uploadUrl="/ClientAppUpdate/uploadClientAppAutoUpdaterReadme.action"
+           onuploadsuccess="onUploadSuccess"
+           onuploaderror="onUploadError" onfileselect="onFileSelect" width="400px"
+    />
+
+    <a class="mini-button mini-button-success" width="100px" value="上传" onclick="startUploadReadme()"><span class="i18n1" name="upload">上传</span></a>
+
+</div>
+
+
 
 <div class="description">
     <h3><span class="i18n1" name="description">描述</span></h3>
@@ -124,6 +142,12 @@
     function startUploadXML() {
         var fileupload = mini.get("fileupload2");
         fileupload.setUploadUrl("/ClientAppUpdate/uploadClientAppAutoUpdaterXML.action");
+        fileupload.startUpload();
+    }
+
+    function startUploadReadme() {
+        var fileupload = mini.get("fileupload3");
+        fileupload.setUploadUrl("/ClientAppUpdate/uploadClientAppAutoUpdaterReadme.action");
         fileupload.startUpload();
     }
 
