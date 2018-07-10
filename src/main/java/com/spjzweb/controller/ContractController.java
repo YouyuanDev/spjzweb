@@ -146,6 +146,9 @@ public class ContractController {
            // String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/contracts");
 
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             System.out.println("saveDirector1="+saveDirectory);
             if(ClientAppUpdateController.isServerTomcat){

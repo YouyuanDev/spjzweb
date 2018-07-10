@@ -44,6 +44,13 @@ public class ClientAppUpdateController {
             //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
 
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+
+            System.out.println("saveDirectory="+saveDirectory);
+
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
+
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             System.out.println("saveDirector1="+saveDirectory);
             if(isServerTomcat){
@@ -103,6 +110,9 @@ public class ClientAppUpdateController {
         try {
             //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
 
             if(isServerTomcat){
@@ -163,6 +173,9 @@ public class ClientAppUpdateController {
         try {
             //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
 
             if(isServerTomcat){
