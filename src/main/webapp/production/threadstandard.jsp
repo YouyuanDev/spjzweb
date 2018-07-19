@@ -118,6 +118,11 @@
             });
         }
         function CancelSubmit() {
+            var temp=$('#hlcancelBtn').attr('operationtype');
+            if(editIndex!=undefined&&temp=="edit"){
+                hlAlertFour("请先保存测量项!");
+                return false;
+            }
             $('#addEditDialog').dialog('close');
         }
 
@@ -249,8 +254,7 @@
             if(!endEditing()){
                 return;
             }
-
-            $('#dynamicDatagrids').datagrid('appendRow',{ });
+            $('#dynamicDatagrids').datagrid('appendRow',{item_frequency:1,item_std_value:0,item_pos_deviation_value:0,item_neg_deviation_value:0,ovality_max:0});
             var insertIndex = $('#dynamicDatagrids').datagrid('getRows').length-1;
             $('#dynamicDatagrids').datagrid('selectRow', insertIndex);
             onClickRow(insertIndex);
@@ -320,7 +324,7 @@
                 var reading_types=$(ed_reading_types.target).combobox('getValues');
                 var ed_ovality_max=$('#dynamicDatagrids').datagrid('getEditor', {index:index,field:'ovality_max'});
                 var ovality_max=$(ed_ovality_max.target).textbox('getValue');
-                if(measure_item_code==null||measure_item_code==""){
+                if(measure_item_code==undefined||measure_item_code==""){
                     hlAlertFour("请选择测量项!");
                     return false;
                 }
@@ -329,34 +333,50 @@
                 //     hlAlertFour("请确保【最大值】>=【最小值】!");
                 //     return false;
                 // }
-                else if(item_frequency!=null&&item_frequency!=""&&(item_frequency>1||item_frequency<=0)){
+                if(item_frequency!=undefined&&item_frequency!=""&&(item_frequency>1||item_frequency<=0)){
                     hlAlertFour("请确保0<检验频率<1!");
                     return false;
                 }
-
-                else if(both_ends==null||both_ends==""){
+                if(both_ends==undefined||both_ends==""){
                     hlAlertFour("请选择测量AB端项!");
                     return false;
                 }
-                else if(reading_types==null||reading_types==""){
+                if(reading_types==undefined||reading_types==""){
                     hlAlertFour("请选择测量项类型!");
                     return false;
                 }
-                else if(item_pos_deviation_value!=null&&item_pos_deviation_value!=""&&item_pos_deviation_value<0){
-                    hlAlertFour("请保证正偏差>=0!");
-                    return false;
+                if(item_pos_deviation_value!=undefined&&item_pos_deviation_value!=""){
+                    if(item_pos_deviation_value<0){
+                        hlAlertFour("请保证正偏差>=0!");
+                        return false;
+                    }
+                }else{
+                    item_pos_deviation_value=0;
                 }
-                else if(item_neg_deviation_value!=null&&item_neg_deviation_value!=""&&item_neg_deviation_value>0){
-                    hlAlertFour("请保证负偏差<=0!");
-                    return false;
-                }else if(ovality_max!=null&&ovality_max!=""&&ovality_max<0){
-                    hlAlertFour("请保证椭圆度>=0!");
-                    return false;
+                if(item_neg_deviation_value!=undefined&&item_neg_deviation_value!=""){
+                    if(item_neg_deviation_value>0){
+                        hlAlertFour("请保证负偏差<=0!");
+                        return false;
+                    }
+                }else{
+                    item_neg_deviation_value=0;
                 }
-                else{
-                    $('#dynamicDatagrids').datagrid('endEdit',index);
+                if(ovality_max!=undefined&&ovality_max!=""){
+                    if(ovality_max<0){
+                        hlAlertFour("请保证椭圆度>=0!");
+                        return false;
+                    }
+                }{
+                    ovality_max=0;
+                }
+                if(!isNaN(item_std_value)&&!isNaN(item_pos_deviation_value)&&!isNaN(item_neg_deviation_value)){
                     item_max_value=parseFloat(item_std_value)+parseFloat(item_pos_deviation_value);
                     item_min_value=parseFloat(item_std_value)+parseFloat(item_neg_deviation_value);
+                }else{
+                    hlAlertFour("有非法字符存在,请检查!");
+                    return false;
+                }
+                $('#dynamicDatagrids').datagrid('endEdit',index);
                     $.ajax({
                         url:'/DynamicMeasure/saveDynamicMeasureItem.action',
                         dataType:'json',
@@ -376,7 +396,7 @@
                             hlAlertFour("系统繁忙!");
                         }
                     });
-                }
+                // }
             } else {
                 hlAlertFour("请选中要修改或添加的行!");
             }
@@ -397,7 +417,7 @@
             //var index;
             if (row){
                 var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-                if(row.id==null){
+                if(row.id==undefined){
                     //删除未保存的新增记录行
                     $('#dynamicDatagrids').datagrid('deleteRow',index);
                     return;
@@ -407,7 +427,7 @@
                 $.messager.confirm('Confirm','确定要删除吗?',function(r){
                     if (r){
                         var index= $('#dynamicDatagrids').datagrid('getRowIndex', row);
-                        if(row.id==null||row.id==""){
+                        if(row.id==undefined||row.id==""){
                             $('#dynamicDatagrids').datagrid('deleteRow',index);
                         }else{
                             $.ajax({
@@ -570,7 +590,7 @@
         <%--<a href="#" id="delLinkBtn" class="easyui-linkbutton"  data-options="iconCls:'icon-remove',plain:true" onclick="delDynamicItem()"></a>--%>
 <%--</div>--%>
 <!--添加、修改框-->
-<div id="addEditDialog" class="easyui-dialog" data-options="title:'添加',modal:true" closed="true" buttons="#dlg-buttons" style="display: none;padding:5px;width:950px;max-height:500px;overflow-y:auto;">
+<div id="addEditDialog" class="easyui-dialog" data-options="closable:false,title:'添加',modal:true" closed="true" buttons="#dlg-buttons" style="display: none;padding:5px;width:950px;max-height:500px;overflow-y:auto;">
     <form id="addEditForm" method="post">
         <fieldset style="width:900px;border:solid 1px #aaa;position:relative;">
             <legend>标准信息</legend>
