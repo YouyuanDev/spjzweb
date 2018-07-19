@@ -44,6 +44,13 @@ public class ClientAppUpdateController {
             //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
 
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+
+            System.out.println("saveDirectory="+saveDirectory);
+
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
+
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             System.out.println("saveDirector1="+saveDirectory);
             if(isServerTomcat){
@@ -103,6 +110,9 @@ public class ClientAppUpdateController {
         try {
             //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
 
             if(isServerTomcat){
@@ -154,4 +164,66 @@ public class ClientAppUpdateController {
         }
         return null;
     }
+
+
+
+    //客户端程readme文件上传
+    @RequestMapping(value = "/uploadClientAppAutoUpdaterReadme",method = RequestMethod.POST)
+    public String uploadClientAppAutoUpdaterReadme(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        try {
+            //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
+            String saveDirectory = request.getSession().getServletContext().getRealPath("/");
+            if(saveDirectory.lastIndexOf('/')==-1){
+                saveDirectory=saveDirectory.replace('\\','/');
+            }
+            saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+
+            if(isServerTomcat){
+                saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
+            }
+            saveDirectory=saveDirectory+"/upload/clientapp";
+
+            System.out.println("saveDirector1="+saveDirectory);
+
+
+            File uploadPath = new File(saveDirectory);
+            if (!uploadPath.exists()) {
+                uploadPath.mkdirs();
+            }
+            //FileRenameUtil util = new FileRenameUtil();
+            System.out.println("saveDirectory="+saveDirectory);
+            MultipartRequest multi = new MultipartRequest(request, saveDirectory, 100* 1024 * 1024, "UTF-8");
+            Enumeration files = multi.getFileNames();
+            String newName = "";
+            File file=null;
+            //HashMap retMap=null;
+            if (files.hasMoreElements()) {
+                String name = (String) files.nextElement();
+
+                file = multi.getFile(name);
+                if (file != null) {
+                    newName = file.getName();
+
+                }
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("filename", newName);
+            json.put("filesize", file.length());
+            json.put("success",true);
+            ResponseUtil.write(response, json);
+            System.out.print("uploadClientReadme成功");
+            System.out.println("saveDirectory File="+saveDirectory+"/"+newName);
+            System.out.println("file.length()="+file.length());
+        } catch (Exception e) {
+            System.err.println("Exception=" + e.getMessage().toString());
+            System.out.println("Exception=" + e.getMessage().toString());
+            e.printStackTrace();
+            JSONObject json = new JSONObject();
+            json.put("success",false);
+            ResponseUtil.write(response, json);
+        }
+        return null;
+    }
+
 }
