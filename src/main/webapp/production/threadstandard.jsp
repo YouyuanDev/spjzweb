@@ -98,6 +98,11 @@
             });
         }
         function addEditFormSubmit() {
+            var temp=$('#hlcancelBtn').attr('operationtype');
+            if(editIndex!=undefined&&temp=="edit"){
+                hlAlertFour("请先保存测量项!");
+                return false;
+            }
             $('#addEditForm').form('submit',{
                 url:url,
                 onSubmit:function () {
@@ -454,11 +459,13 @@
             }
         }
         function rowCancel() {
-            var row = $('#dynamicDatagrids').datagrid('getSelected');
-            if (row){
-                var index= $('#dynamicDatagrids').datagrid('getRowIndex',row);
-                $('#dynamicDatagrids').datagrid('endEdit',index);
-            }
+            $('#dynamicDatagrids').datagrid('rejectChanges');
+            editIndex = undefined;
+            // var row = $('#dynamicDatagrids').datagrid('getSelected');
+            // if (row){
+            //     var index= $('#dynamicDatagrids').datagrid('getRowIndex',row);
+            //     $('#dynamicDatagrids').datagrid('endEdit',index);
+            // }
         }
         function getStataticItem() {
             $.ajax({
