@@ -23,7 +23,13 @@ import java.util.Map;
 public class RoleController {
     @Autowired
     private RoleDao roleDao;
-    //获取所有role列表
+    /**
+     * 分页获取角色列表
+     * @param role_no(角色编号)
+     * @param role_name(角色名称)
+     * @param request
+     * @return
+     */
     @RequestMapping("getRoleByLike")
     @ResponseBody
     public String getRoleByLike(@RequestParam(value = "role_no",required = false)String role_no, @RequestParam(value = "role_name",required = false)String role_name, HttpServletRequest request){
@@ -46,8 +52,13 @@ public class RoleController {
         return mmp;
 
     }
-
-    //搜索
+    /**
+     * 根据角色编号和名称获取所有角色信息
+     * @param role_no(角色编号)
+     * @param role_name(角色名称)
+     * @param request
+     * @return
+     */
     @RequestMapping(value ="/getAllRoleByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getAllRoleByLike(@RequestParam(value = "role_no",required = false)String role_no, @RequestParam(value = "role_name",required = false)String role_name, HttpServletRequest request){
@@ -55,25 +66,23 @@ public class RoleController {
         String mmp= JSONArray.toJSONString(list);
         return mmp;
     }
-
-    //保存Role
+    /**
+     * 添加或修改角色信息
+     * @param role(角色信息)
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveRole")
     @ResponseBody
     public String saveRole(Role role, HttpServletResponse response){
-        System.out.print("saveRole");
-
         JSONObject json=new JSONObject();
         try{
             int resTotal=0;
-
-
             if(role.getId()==0){
                 //添加
                 resTotal=roleDao.addRole(role);
-
             }else{
                 //修改！
-
                 resTotal=roleDao.updateRole(role);
             }
             if(resTotal>0){
@@ -98,9 +107,13 @@ public class RoleController {
         }
         return null;
     }
-
-
-    //删除person信息
+    /**
+     * hlparam(角色id集合,","分割)
+     * @param hlparam
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delRole")
     public String delRole(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");
@@ -112,10 +125,8 @@ public class RoleController {
         sbmessage.append(Integer.toString(resTotal));
         sbmessage.append("项角色信息删除成功\n");
         if(resTotal>0){
-            //System.out.print("删除成功");
             json.put("success",true);
         }else{
-            //System.out.print("删除失败");
             json.put("success",false);
         }
         json.put("message",sbmessage.toString());

@@ -14,6 +14,12 @@ public class AESUtil {
 
     public static String KEY2="SPJZWEB000000000";
 
+    /**
+     * AES加密
+     * @param str(要加密字符串)
+     * @param key(秘钥)
+     * @return
+     */
     public static String aesEncrypt(String str, String key) {
         byte[] bytes=null;
         try {
@@ -31,7 +37,12 @@ public class AESUtil {
         }
 
     }
-
+    /**
+     * AES解密
+     * @param str(要解密字符串)
+     * @param key(秘钥)
+     * @return
+     */
     public static String aesDecrypt(String str, String key){
         byte[] bytes=null;
 

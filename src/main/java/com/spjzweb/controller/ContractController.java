@@ -46,7 +46,16 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 public class ContractController {
     @Autowired
     private ContractInfoDao contractInfoDao;
-    //搜索
+    /**
+     * 合同分页查询
+     * @param contract_no(合同编号)
+     * @param customer_spec(客户标准)
+     * @param od(外径)
+     * @param wt(壁厚)
+     * @param threading_type(螺纹类型)
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getContractAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getContractAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "customer_spec",required = false)String customer_spec,@RequestParam(value = "od",required = false)String od,@RequestParam(value = "wt",required = false)String wt,@RequestParam(value = "threading_type",required = false)String threading_type,HttpServletRequest request){
@@ -69,7 +78,12 @@ public class ContractController {
         return mmp;
 
     }
-    //保存function
+    /**
+     * 合同信息添加和修改
+     * @param contractInfo(合同信息)
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveContract")
     @ResponseBody
     public String saveContract(ContractInfo contractInfo, HttpServletResponse response){
@@ -116,9 +130,13 @@ public class ContractController {
         }
         return null;
     }
-
-
-    //删除Function信息
+    /**
+     * 删除合同信息
+     * @param hlparam(合同信息id集合,","分割)
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delContract")
     public String delContract(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");
@@ -138,13 +156,16 @@ public class ContractController {
         ResponseUtil.write(response,json);
         return null;
     }
-
-    //合同录入
+    /**
+     * 合同录入
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/uploadContractList",method = RequestMethod.POST)
     public String uploadContractList(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
-           // String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/contracts");
-
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
             if(saveDirectory.lastIndexOf('/')==-1){
                 saveDirectory=saveDirectory.replace('\\','/');
@@ -161,8 +182,6 @@ public class ContractController {
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();
             }
-            //FileRenameUtil util = new FileRenameUtil();
-            System.out.println("saveDirectory="+saveDirectory);
             MultipartRequest multi = new MultipartRequest(request, saveDirectory, 100* 1024 * 1024, "UTF-8");
             Enumeration files = multi.getFileNames();
             String newName = "";
@@ -173,12 +192,10 @@ public class ContractController {
                 file = multi.getFile(name);
                 if (file != null) {
                     newName = file.getName();
-
                     //处理excel文件
-                      retMap =importExcelInfo(saveDirectory+"/"+newName);
+                    retMap =importExcelInfo(saveDirectory+"/"+newName);
                 }
             }
-
             JSONObject json = new JSONObject();
             json.put("fileUrl", newName);
             json.put("contract_no",retMap.get("contract_no").toString());
@@ -191,8 +208,6 @@ public class ContractController {
             json.put("steel_grade",retMap.get("steel_grade").toString());
             json.put("threading_type",retMap.get("threading_type").toString());
             json.put("coupling_type",retMap.get("coupling_type").toString());
-
-
             json.put("success",true);
             ResponseUtil.write(response, json);
             System.out.print("uploadContractList成功");
@@ -208,13 +223,17 @@ public class ContractController {
         }
         return null;
     }
+    /**
+     * 合同Excel文件导入
+     * @param fullfilename(Excel名称)
+     * @return
+     * @throws Exception
+     */
     public HashMap importExcelInfo( String fullfilename) throws Exception{
-
         HashMap retMap = new HashMap();//返回值
         try{
             List<List<Object>> listob = ExcelUtil.readFromFiletoList(fullfilename);
             //遍历listob数据，把数据放到List中
-
             List<Object> ob = listob.get(ExcelUtil.CONTRACT_NO_INDEX_i);
             if(ob!=null&&ExcelUtil.CONTRACT_NO_INDEX_j<=ob.size()-1) {
                 String val=String.valueOf(ob.get(ExcelUtil.CONTRACT_NO_INDEX_j));
@@ -234,8 +253,6 @@ public class ContractController {
                 retMap.put("machining_contract_no", val);
                 System.out.println("machining_contract_no:"+val);
             }
-
-
             ob = listob.get(ExcelUtil.OD_WT_INDEX_i);
             if(ob!=null&&ExcelUtil.OD_WT_INDEX_j<=ob.size()-1) {
                 String val=String.valueOf(ob.get(ExcelUtil.OD_WT_INDEX_j));
@@ -257,7 +274,6 @@ public class ContractController {
                 System.out.println("od:"+od);
                 System.out.println("wt:"+wt);
             }
-
             ob = listob.get(ExcelUtil.LOT_NO_INDEX_i);
             if(ob!=null&&ExcelUtil.LOT_NO_INDEX_j<=ob.size()-1) {
                 String val=String.valueOf(ob.get(ExcelUtil.LOT_NO_INDEX_j));
@@ -299,7 +315,12 @@ public class ContractController {
             return retMap;
         }
     }
-    //获取所有下拉接收标准
+    /**
+     * 根据接收标准编号获取所有下拉接收标准
+     * @param thread_acceptance_criteria_no(接收标准编号)
+     * @param request
+     * @return
+     */
     @RequestMapping("/getAllDropDownContractInfo")
     @ResponseBody
     public String getAllDropDownContractInfo(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
@@ -315,8 +336,13 @@ public class ContractController {
         String map= JSONObject.toJSONString(colist);
         return map;
     }
-
-    //获取所有下拉合同编号(windform)
+    /**
+     * 获取所有下拉合同编号(windform使用)
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/getAllDropDownContractNoOfWinform")
     @ResponseBody
     public String getAllDropDownContractNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
@@ -341,7 +367,14 @@ public class ContractController {
         }
         return  null;
     }
-    //获取所有下拉合同信息用于客户端搜索(windform)
+
+    /**
+     * 获取所有下拉合同信息用于客户端搜索(windform使用)
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/getAllContractNoOfWinform")
     @ResponseBody
     public String getAllContractNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{

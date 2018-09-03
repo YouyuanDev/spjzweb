@@ -22,9 +22,11 @@ import java.util.Map;
 public class PersonController {
     @Autowired
     private PersonDao personDao;
-
-
-    //根据姓名模糊查询用户编号,小页面查询
+    /**
+     * 根据姓名模糊查询用户编号,小页面查询
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getPersonNoByName",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getPersonNoByName(HttpServletRequest request){
@@ -34,15 +36,25 @@ public class PersonController {
         String mmp= JSONArray.toJSONString(list);
         return mmp;
     }
-
+    /**
+     * 根据id查询操作工信息
+     * @param id
+     * @param request
+     * @return
+     */
     @RequestMapping("getPersonById")
     public String getPersonById(int id,HttpServletRequest request){
         Person person=personDao.getPersonById(id);
         request.getSession().setAttribute("sa",person);
         return "personedit";
     }
-
-    //搜索
+    /**
+     * 分页查询操作工信息
+     * @param employee_no(工号)
+     * @param pname(名字)
+     * @param request
+     * @return
+     */
     @RequestMapping("getPersonByLike")
     @ResponseBody
     public String getPersonByLike( @RequestParam(value = "employee_no",required = false)String employee_no,@RequestParam(value = "pname",required = false)String pname,  HttpServletRequest request){
@@ -65,26 +77,23 @@ public class PersonController {
         return mmp;
 
     }
-
-    //保存Person
-    //增加或修改Pipe信息
+    /**
+     * 增加或修改操作工信息
+     * @param person
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/savePerson")
     @ResponseBody
     public String savePerson(Person person, HttpServletResponse response){
-        System.out.print("savePerson");
-
         JSONObject json=new JSONObject();
         try{
             int resTotal=0;
-
-
             if(person.getId()==0){
                 //添加
                 resTotal=personDao.addPerson(person);
-
             }else{
                 //修改！
-
                 resTotal=personDao.updatePerson(person);
             }
             if(resTotal>0){
@@ -109,9 +118,13 @@ public class PersonController {
         }
         return null;
     }
-
-
-    //删除person信息
+    /**
+     * 删除操作工信息
+     * @param hlparam(操作工id集合,","分割)
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delPerson")
     public String delPerson(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");
@@ -123,10 +136,8 @@ public class PersonController {
         sbmessage.append(Integer.toString(resTotal));
         sbmessage.append("项人员信息删除成功\n");
         if(resTotal>0){
-            //System.out.print("删除成功");
             json.put("success",true);
         }else{
-            //System.out.print("删除失败");
             json.put("success",false);
         }
         json.put("message",sbmessage.toString());

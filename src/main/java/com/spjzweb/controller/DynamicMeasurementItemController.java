@@ -26,6 +26,14 @@ import java.util.Map;
 public class DynamicMeasurementItemController {
     @Autowired
     private DynamicMeasurementItemDao dynamicMeasurementItemDao;
+
+    /**
+     * 分页查询获取动态测量项
+     * @param measure_item_code(测量项编码)
+     * @param thread_acceptance_criteria_no(接收标准编号)
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getDynamicMeasureItemAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getDynamicMeasureItemAllByLike(@RequestParam(value = "measure_item_code",required = false)String measure_item_code,@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
@@ -46,7 +54,11 @@ public class DynamicMeasurementItemController {
         String mmp= JSONArray.toJSONString(list);
         return mmp;
     }
-    //根据就收标准的编号查询所有的动态测量项信息
+    /**
+     * 根据就收标准的编号查询所有的动态测量项信息
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getDynamicMeasureItemByAcceptanceNo",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getDynamicMeasureItemByAcceptanceNo(HttpServletRequest request){
@@ -61,7 +73,12 @@ public class DynamicMeasurementItemController {
         return mmp;
     }
 
-    //保存function
+    /**
+     * 保存动态测量项
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveDynamicMeasureItem")
     @ResponseBody
     public String saveDynamicMeasureItem(HttpServletRequest request,HttpServletResponse response){
@@ -81,8 +98,6 @@ public class DynamicMeasurementItemController {
             String item_neg_deviation_value=request.getParameter("item_neg_deviation_value");
             String reading_types=request.getParameter("reading_types");
             String ovality_max=request.getParameter("ovality_max");
-            System.out.println("-----------------------");
-            System.out.println(reading_types);
             if((measure_item_code!=null&&!measure_item_code.equals(""))&&(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals(""))){
                 DynamicMeasurementItem item=new DynamicMeasurementItem();
                 if(id!=null&&!id.equals("")){
@@ -175,7 +190,14 @@ public class DynamicMeasurementItemController {
         }
         return null;
     }
-    //删除Function信息
+
+    /**
+     * 删除动态测量项
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delDynamicMeasureItem")
     @ResponseBody
     public String delDynamicMeasureItem(HttpServletRequest request,HttpServletResponse response)throws Exception{
@@ -201,8 +223,13 @@ public class DynamicMeasurementItemController {
         ResponseUtil.write(response,json);
         return null;
     }
-    //获取静态测量项的下拉框信息
-    //获取所有下拉接收标准
+
+    /**
+     * 获取所有接收标准(下拉框使用)
+     * @param thread_acceptance_criteria_no
+     * @param request
+     * @return
+     */
     @RequestMapping("/getAllDropDownAcceptanceCriteria")
     @ResponseBody
     public String getAllDropDownAcceptanceCriteria(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
@@ -220,7 +247,12 @@ public class DynamicMeasurementItemController {
         String map= JSONObject.toJSONString(colist);
         return map;
     }
-    //获取所有的静态测量项的编码和名字
+    /**
+     * 根据接箍检验编号获取所有的静态测量项的编码和名字
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/getAllDropdownMeasureItemByInspectionNo",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getAllDropdownMeasureItemByInspectionNo(HttpServletRequest request,HttpServletResponse response){

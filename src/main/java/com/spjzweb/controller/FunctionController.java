@@ -23,7 +23,13 @@ import java.util.Map;
 public class FunctionController {
     @Autowired
     private FunctionDao functionDao;
-    //搜索
+    /**
+     * 分页查询权限列表
+     * @param function_no(权限编号)
+     * @param function_name(权限名称)
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getFunctionAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getFunctionAllByLike(@RequestParam(value = "function_no",required = false)String function_no, @RequestParam(value = "function_name",required = false)String function_name, HttpServletRequest request){
@@ -46,6 +52,13 @@ public class FunctionController {
         return mmp;
 
     }
+    /**
+     * 根据权限编号和名称查询权限列表
+     * @param function_no(权限编号)
+     * @param function_name(权限名称)
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getFunctionByNoName",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getFunctionByNoName(@RequestParam(value = "function_no",required = false)String function_no, @RequestParam(value = "function_name",required = false)String function_name, HttpServletRequest request){
@@ -54,8 +67,12 @@ public class FunctionController {
         System.out.println(mmp);
         return mmp;
     }
-
-    //保存function
+    /**
+     * 添加和修改权限
+     * @param function(权限)
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveFunction")
     @ResponseBody
     public String saveFunction(Function function, HttpServletResponse response){
@@ -64,15 +81,9 @@ public class FunctionController {
         JSONObject json=new JSONObject();
         try{
             int resTotal=0;
-
-
             if(function.getId()==0){
-                //添加
                 resTotal=functionDao.addFunction(function);
-
             }else{
-                //修改！
-
                 resTotal=functionDao.updateFunction(function);
             }
             if(resTotal>0){
@@ -97,9 +108,13 @@ public class FunctionController {
         }
         return null;
     }
-
-
-    //删除Function信息
+    /**
+     * 删除权限
+     * @param hlparam(权限id集合,","分割)
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delFunction")
     public String delFunction(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");

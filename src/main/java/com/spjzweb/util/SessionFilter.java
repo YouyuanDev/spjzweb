@@ -62,6 +62,14 @@ public class SessionFilter extends OncePerRequestFilter{
             "uploadClientAppAutoUpdaterReadme"
     }; // 不过滤的uri
 
+    /**
+     * 权限检查
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -69,10 +77,6 @@ public class SessionFilter extends OncePerRequestFilter{
             filterChain.doFilter(request, response);//不执行过滤,继续执行操作
             return;
         }
-
-
-
-        //System.out.println("====测试Filter功能====拦截用户登陆====");
         String strUri = request.getRequestURI();
         String suffix=strUri.substring(strUri.lastIndexOf('.')+1);
         //从uri中取出functioncode 如/index.jsp 为 index
@@ -82,24 +86,18 @@ public class SessionFilter extends OncePerRequestFilter{
         if(request.getSession().getAttribute("userSession")==null ){
             //进入后台,必须先登陆
             if(isURIinNotFilterList(strUri)){//请求的URI允许不过滤,包括login等
-                //System.out.println("====login 不需要验证====");
                 System.out.println("请求登录="+strUri);
                 filterChain.doFilter(request, response);//不执行过滤,继续执行操作
                 return;
             }else{//uri需要被过滤
                 System.out.println("目标URI禁止访问，请先登录"+strUri);
                 response.sendRedirect("/login/login.jsp") ;
-
             }
         }else{//存在登录信息session
             if(isURIinNotFilterList(strUri)){//请求的URI允许不过滤,包括login等
                 filterChain.doFilter(request, response);//不执行过滤,继续执行操作
                 return;
             }
-
-
-            //System.out.println("存在用户session 可以进入 session="+request.getSession().getAttribute("userSession"));
-            //System.out.println("检测用户是否存在页面"+reqfunctionCode+"的权限");
             boolean authrized=false;
             //下面开始验证访问权限
             HashMap<String,Object> functionMap=(HashMap<String,Object>)request.getSession().getAttribute("userfunctionMap");
@@ -107,7 +105,6 @@ public class SessionFilter extends OncePerRequestFilter{
                 System.out.println("存在存在页面"+reqfunctionCode+"的权限");
                 authrized=true;
             }
-            //System.out.println("authrized===="+authrized);
             if(!authrized) {
                 System.out.println("Error：不存在存在页面"+reqfunctionCode+"的权限");
                 if(suffix.equals("jsp")) {
@@ -131,27 +128,22 @@ public class SessionFilter extends OncePerRequestFilter{
             }
             else
                 filterChain.doFilter(request, response);//不执行过滤,继续执行操作
-            //filterChain.doFilter(new MyFilter((HttpServletRequest)request), response);//调用下一个filter
             return ;
         }
     }
-
-    //检查URI是否在免过滤列表中
+    /**
+     * 检查URI是否在免过滤列表中
+     * @param URI
+     * @return
+     */
     private boolean isURIinNotFilterList(String URI){
         if(URI==null)
             return false;
-
-
         for(int i=0;i<notFilterList.length;i++){
             if( URI.indexOf(notFilterList[i])!=-1)
                 return true;
         }
-
-
         return false;
     }
-
-
-
 
 }

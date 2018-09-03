@@ -36,8 +36,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 public class ClientAppUpdateController {
 
     public static boolean isServerTomcat=true; //是否为Tomcat部署
-
-    //客户端程序包上传
+    /**
+     * 客户端程序包上传
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/uploadClientAppPackage",method = RequestMethod.POST)
     public String uploadClientAppPackage(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
@@ -64,8 +69,6 @@ public class ClientAppUpdateController {
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();
             }
-            //FileRenameUtil util = new FileRenameUtil();
-            System.out.println("saveDirectory="+saveDirectory);
             MultipartRequest multi = new MultipartRequest(request, saveDirectory, 100* 1024 * 1024, "UTF-8");
             Enumeration files = multi.getFileNames();
             String newName = "";
@@ -77,9 +80,6 @@ public class ClientAppUpdateController {
                 file = multi.getFile(name);
                 if (file != null) {
                     newName = file.getName();
-
-                    //处理excel文件
-                    //retMap =importExcelInfo(saveDirectory+"/"+newName);
                 }
             }
 
@@ -101,10 +101,13 @@ public class ClientAppUpdateController {
         }
         return null;
     }
-
-
-
-    //客户端程序包配置文件上传
+    /**
+     * 客户端程序包配置文件上传
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/uploadClientAppAutoUpdaterXML",method = RequestMethod.POST)
     public String uploadClientAppAutoUpdaterXML(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
@@ -119,30 +122,20 @@ public class ClientAppUpdateController {
                 saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             }
             saveDirectory=saveDirectory+"/upload/clientapp";
-
-            System.out.println("saveDirector1="+saveDirectory);
-
-
             File uploadPath = new File(saveDirectory);
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();
             }
-            //FileRenameUtil util = new FileRenameUtil();
-            System.out.println("saveDirectory="+saveDirectory);
             MultipartRequest multi = new MultipartRequest(request, saveDirectory, 100* 1024 * 1024, "UTF-8");
             Enumeration files = multi.getFileNames();
             String newName = "";
             File file=null;
-            //HashMap retMap=null;
             if (files.hasMoreElements()) {
                 String name = (String) files.nextElement();
 
                 file = multi.getFile(name);
                 if (file != null) {
                     newName = file.getName();
-
-                    //处理excel文件
-                    //retMap =importExcelInfo(saveDirectory+"/"+newName);
                 }
             }
 
@@ -164,14 +157,16 @@ public class ClientAppUpdateController {
         }
         return null;
     }
-
-
-
-    //客户端程readme文件上传
+    /**
+     * 客户端程readme文件上传
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/uploadClientAppAutoUpdaterReadme",method = RequestMethod.POST)
     public String uploadClientAppAutoUpdaterReadme(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
-            //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
             if(saveDirectory.lastIndexOf('/')==-1){
                 saveDirectory=saveDirectory.replace('\\','/');
@@ -182,21 +177,14 @@ public class ClientAppUpdateController {
                 saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             }
             saveDirectory=saveDirectory+"/upload/clientapp";
-
-            System.out.println("saveDirector1="+saveDirectory);
-
-
             File uploadPath = new File(saveDirectory);
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();
             }
-            //FileRenameUtil util = new FileRenameUtil();
-            System.out.println("saveDirectory="+saveDirectory);
             MultipartRequest multi = new MultipartRequest(request, saveDirectory, 100* 1024 * 1024, "UTF-8");
             Enumeration files = multi.getFileNames();
             String newName = "";
             File file=null;
-            //HashMap retMap=null;
             if (files.hasMoreElements()) {
                 String name = (String) files.nextElement();
 
@@ -206,7 +194,6 @@ public class ClientAppUpdateController {
 
                 }
             }
-
             JSONObject json = new JSONObject();
             json.put("filename", newName);
             json.put("filesize", file.length());

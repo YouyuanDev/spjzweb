@@ -9,6 +9,18 @@ import java.util.List;
 public interface ContractInfoDao {
 
     //模糊搜索带分页
+
+    /**
+     *
+     * @param contract_no
+     * @param customer_spec
+     * @param od
+     * @param wt
+     * @param threading_type
+     * @param skip
+     * @param take
+     * @return
+     */
     public List<HashMap<String,Object>> getAllByLike(@Param("contract_no") String contract_no,@Param("customer_spec") String customer_spec,@Param("od") String od,@Param("wt") String wt,@Param("threading_type") String threading_type, @Param("skip") int skip, @Param("take") int take);
 
     //模糊搜索总数

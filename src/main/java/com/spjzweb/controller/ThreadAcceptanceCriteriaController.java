@@ -22,7 +22,17 @@ import java.util.*;
 public class ThreadAcceptanceCriteriaController {
     @Autowired
     ThreadingAcceptanceCriteriaDao threadingAcceptanceCriteriaDao;
-
+    /**
+     * 分页查询检验接收标准
+     * @param thread_acceptance_criteria_no(标准编号)
+     * @param od(外径)
+     * @param wt(壁厚)
+     * @param customer_spec(客户标准)
+     * @param coupling_type(接箍类型)
+     * @param threading_type(螺纹类型)
+     * @param request
+     * @return
+     */
     @RequestMapping("/getThreadAcceptanceCriteriaAllByLike")
     @ResponseBody
     public String getThreadAcceptanceCriteriaAllByLike(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,@RequestParam(value = "od",required = false)String od,@RequestParam(value = "wt",required = false)String wt,@RequestParam(value = "customer_spec",required = false)String customer_spec,@RequestParam(value = "coupling_type",required = false)String coupling_type,@RequestParam(value = "threading_type",required = false)String threading_type, HttpServletRequest request){
@@ -42,6 +52,13 @@ public class ThreadAcceptanceCriteriaController {
         String mmp= JSONArray.toJSONString(maps);
         return mmp;
     }
+    /**
+     * 添加或修改接收标准
+     * @param threadingAcceptanceCriteria(接收标准信息)
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/saveThreadAcceptanceCriteria")
     @ResponseBody
     public String saveThreadAcceptanceCriteria(ThreadingAcceptanceCriteria threadingAcceptanceCriteria, HttpServletRequest request, HttpServletResponse response){
@@ -52,12 +69,10 @@ public class ThreadAcceptanceCriteriaController {
             System.out.println("threadingAcceptanceCriteria.getId()="+threadingAcceptanceCriteria.getId());
             if(threadingAcceptanceCriteria.getId()==0){
                 //添加
-
                 threadingAcceptanceCriteria.setThread_acceptance_criteria_no(String.valueOf(System.currentTimeMillis()));
                 resTotal=threadingAcceptanceCriteriaDao.addThreadingAcceptanceCriteria(threadingAcceptanceCriteria);
             }else{
                 //修改！
-
                 resTotal=threadingAcceptanceCriteriaDao.updateThreadingAcceptanceCriteria(threadingAcceptanceCriteria);
             }
             if(resTotal>0){
@@ -67,9 +82,6 @@ public class ThreadAcceptanceCriteriaController {
                 json.put("success",false);
                 json.put("message","保存失败");
             }
-
-
-
         }catch (Exception e){
             e.printStackTrace();
             json.put("success",false);
@@ -83,8 +95,13 @@ public class ThreadAcceptanceCriteriaController {
         }
         return null;
     }
-//
-    //删除标准
+    /**
+     * 删除标准
+     * @param hlparam(标准id集合,","分割)
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delThreadAcceptanceCriteria")
     public String delThreadAcceptanceCriteria(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");
@@ -106,8 +123,12 @@ public class ThreadAcceptanceCriteriaController {
         ResponseUtil.write(response,json);
         return null;
     }
-//
-    //获取所有下拉接收标准
+    /**
+     * 获取所有下拉接收标准
+     * @param thread_acceptance_criteria_no(接收标准编号)
+     * @param request
+     * @return
+     */
     @RequestMapping("/getAllDropDownAcceptanceCriteria")
     @ResponseBody
     public String getAllDropDownAcceptanceCriteria(@RequestParam(value = "thread_acceptance_criteria_no",required = false)String thread_acceptance_criteria_no,HttpServletRequest request){
@@ -124,46 +145,4 @@ public class ThreadAcceptanceCriteriaController {
         String map= JSONObject.toJSONString(colist);
         return map;
     }
-//    //windform获取所有下拉接收标准
-//    @RequestMapping("/getAllDropDownAcceptanceCriteriaByWinform")
-//    @ResponseBody
-//    public String getAllDropDownAcceptanceCriteriaByWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
-//        List<ComboxItem> colist=new ArrayList<ComboxItem>();
-//        JSONObject jsonReturn=new JSONObject();
-//        try{
-//            List<ThreadAcceptanceCriteria>list=threadAcceptanceCriteriaDao.getAllDropDownAcceptanceCriteria(null);
-//            for(int i=0;i<list.size();i++){
-//                ComboxItem citem= new ComboxItem();
-//                ThreadAcceptanceCriteria ps=((ThreadAcceptanceCriteria)list.get(i));
-//                citem.id=ps.getThread_acceptance_criteria_no();
-//                citem.text=ps.getThread_acceptance_criteria_no();
-//                colist.add(citem);
-//            }
-//            jsonReturn.put("rowsData",colist);
-//
-//        }catch (Exception e){
-//            jsonReturn.put("rowsData",colist);
-//            e.printStackTrace();
-//        }finally {
-//            ResponseUtil.write(response,jsonReturn.toString());
-//        }
-//        return  null;
-//    }
-//    //根据接收标准编号查询标准信息
-//    @RequestMapping("/getAcceptanceCriteriaByNo")
-//    @ResponseBody
-//    public String getAcceptanceCriteriaByNo(HttpServletRequest request){
-//        String thread_acceptance_criteria_no=request.getParameter("thread_acceptance_criteria_no");
-//        String map=null;
-//        if(thread_acceptance_criteria_no!=null&&thread_acceptance_criteria_no!=""){
-//            List<ThreadAcceptanceCriteria> criteriaList=threadAcceptanceCriteriaDao.getAllDropDownAcceptanceCriteria(thread_acceptance_criteria_no);
-//            if(criteriaList.size()>0){
-//                ThreadAcceptanceCriteria criteria=criteriaList.get(0);
-//                if(criteria!=null){
-//                    map= JSONObject.toJSONString(criteria);
-//                }
-//            }
-//        }
-//        return map;
-//    }
 }

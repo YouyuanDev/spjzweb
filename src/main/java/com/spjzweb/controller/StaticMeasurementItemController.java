@@ -37,7 +37,13 @@ public class StaticMeasurementItemController {
     private ThreadInspectionRecordDao threadInspectionRecordDao;
     @Autowired
     private ItemRecordDao itemRecordDao;
-    //搜索
+    /**
+     * 分页查询静态测量项
+     * @param measure_item_code(测量项编码)
+     * @param measure_item_name(测量项名称)
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getStaticMeasureItemAllByLike",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getStaticMeasureItemAllByLike(@RequestParam(value = "measure_item_code",required = false)String measure_item_code,@RequestParam(value = "measure_item_name",required = false)String measure_item_name, HttpServletRequest request){
@@ -56,11 +62,14 @@ public class StaticMeasurementItemController {
         maps.put("total",count);
         maps.put("rows",list);
         String mmp= JSONArray.toJSONString(list);
-        //System.out.print("mmp:"+mmp);
         return mmp;
-
     }
-    //保存function
+    /**
+     * 添加或修改静态测量项
+     * @param staticMeasurementItem(静态测量项)
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveStaticMeasureItem")
     @ResponseBody
     public String saveStaticMeasureItem(StaticMeasurementItem staticMeasurementItem, HttpServletResponse response){
@@ -74,7 +83,6 @@ public class StaticMeasurementItemController {
             }else{
                 InfoList=staticMeasurementItemDao.getStaticMeasurementItemByItemCodeOfEdit(staticMeasurementItem.getMeasure_item_code());
             }
-
             if(InfoList!=null&&InfoList.size()>0){
                 json.put("promptkey","fail1");
                 json.put("promptValue","该静态测量项编码已存在!");
@@ -108,9 +116,13 @@ public class StaticMeasurementItemController {
         }
         return null;
     }
-
-
-    //删除Function信息
+    /**
+     * 删除静态测量项
+     * @param hlparam(测量项id集合,","分割)
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delStaticMeasureItem")
     public String delStaticMeasureItem(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");
@@ -130,7 +142,11 @@ public class StaticMeasurementItemController {
         ResponseUtil.write(response,json);
         return null;
     }
-    //获取所有的静态测量项的编码和名字
+    /**
+     * 获取所有的静态测量项的编码和名字
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/getAllDropdownStaticItem",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getAllDropdownStaticItem(HttpServletResponse response){
@@ -152,7 +168,13 @@ public class StaticMeasurementItemController {
         }
         return null;
     }
-    //根据合同编号获取使用测量工具和标准等信息(Winform)
+    /**
+     * 根据合同编号获取使用测量工具和标准等信息(Winform使用)
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/getMeasureDataByContractNoOfWinform")
     @ResponseBody
     public String getMeasureDataByContractNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{
@@ -192,7 +214,13 @@ public class StaticMeasurementItemController {
         }
         return  null;
     }
-    //根据接箍检验编号获取使用测量工具和标准等信息(Winform)
+    /**
+     * 根据接箍检验编号获取使用测量工具和标准等信息(Winform使用)
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/getMeasureDataByInspectionNoOfWinform")
     @ResponseBody
     public String getMeasureDataByInspectionNoOfWinform(HttpServletRequest request,HttpServletResponse response)throws  Exception{

@@ -25,7 +25,11 @@ import java.util.Map;
 public class ItemRecordController {
     @Autowired
     private ItemRecordDao itemRecordDao;
-    //根据螺纹记录编号查询测量项值
+    /**
+     * 根据螺纹记录编号查询测量项值
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "getItemRecordByInspectionNo",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getItemRecordByInspectionNo(HttpServletRequest request){
@@ -39,7 +43,12 @@ public class ItemRecordController {
         }
         return mmp;
     }
-    //保存function
+    /**
+     * 添加和修改螺纹测量项
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveItemRecord")
     @ResponseBody
     public String saveItemRecord(HttpServletRequest request,HttpServletResponse response){
@@ -123,14 +132,10 @@ public class ItemRecordController {
                         if(reading_ovality!=null&&!reading_ovality.equals(""))
                             item.setReading_ovality(reading_ovality);
                         resTotal=itemRecordDao.addItemRecord(item);
-                        //接收id的值
-
                     }
                 }
             }
             if(resTotal>0){
-                //判断检测项是否符合标准,
-
                 json.put("promptkey","success");
                 json.put("promptValue","legal");
             }else{
@@ -144,7 +149,6 @@ public class ItemRecordController {
 
         }finally {
             try {
-
                 ResponseUtil.write(response, json);
             }catch  (Exception e) {
                 e.printStackTrace();
@@ -152,6 +156,14 @@ public class ItemRecordController {
         }
         return null;
     }
+
+    /**
+     * 删除螺纹测量项
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delItemRecord")
     @ResponseBody
     public String delItemRecord(HttpServletRequest request,HttpServletResponse response)throws Exception{
@@ -177,7 +189,12 @@ public class ItemRecordController {
         ResponseUtil.write(response,json);
         return null;
     }
-    //根据检测记录编号查询测量项数据(winform)
+    /**
+     * 根据检测记录编号查询测量项数据(winform使用)
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/getItemRecordByInspectionNoOfWinform")
     @ResponseBody
     public String getItemRecordByInspectionNoOfWinform(HttpServletRequest request,HttpServletResponse response){

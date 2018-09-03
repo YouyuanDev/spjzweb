@@ -49,6 +49,11 @@ public class ExcelUtil {
     public  static int COUPING_TYPE_INDEX_i=6;
     public  static int COUPING_TYPE_INDEX_j=5;
 
+    /**
+     * 判断字符串是否能转float类型
+     * @param str
+     * @return
+     */
     public static boolean isNumeric00(String str)
     {
         try{
@@ -61,16 +66,16 @@ public class ExcelUtil {
         }
     }
 
-    //readFromFiletoList
+    /**
+     * 读取Excel文件中列和行数据
+     * @param fileFullname(文件路径)
+     * @return
+     */
     public static List<List<Object>> readFromFiletoList(String fileFullname){
-
-        //fileFullname="/Users/kurt/Documents/apache-tomcat-8.5.27/webapps/ROOT/upload/pipes/pipes.xls";
         List<List<Object>> datalist = new ArrayList<List<Object>>();
-
         File file = new File(fileFullname);
         StringBuffer sb = new StringBuffer();
         try {
-
             Workbook book = Workbook.getWorkbook(file);
             try{
                 //支持多sheet上传
@@ -90,7 +95,6 @@ public class ExcelUtil {
                         datalist.add(rowitem);
                     }
                 }
-                System.out.println(sb);
             }finally{
                 if(book != null){
                     book.close();

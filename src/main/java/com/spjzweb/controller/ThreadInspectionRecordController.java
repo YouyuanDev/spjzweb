@@ -33,6 +33,16 @@ public class ThreadInspectionRecordController {
     private ThreadInspectionRecordDao threadInspectionRecordDao;
     @Autowired
     private ItemRecordDao itemRecordDao;
+    /**
+     * 分页查询接箍检验记录
+     * @param contract_no(合同编号)
+     * @param coupling_no(接箍编号)
+     * @param operator_no(操作工号)
+     * @param begin_time(开始时间)
+     * @param end_time(结束时间)
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getThreadInspectionAllByLike")
     @ResponseBody
     public String getThreadInspectionAllByLike(@RequestParam(value = "contract_no",required = false)String contract_no,@RequestParam(value = "coupling_no",required = false)String coupling_no, @RequestParam(value = "operator_no",required = false)String operator_no, @RequestParam(value = "begin_time",required = false)String begin_time, @RequestParam(value = "end_time",required = false)String end_time, HttpServletRequest request){
@@ -68,6 +78,13 @@ public class ThreadInspectionRecordController {
         String mmp= JSONArray.toJSONString(maps);
         return mmp;
     }
+    /**
+     * 添加或修改检验记录
+     * @param threadingProcess(检验记录信息)
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/saveThreadingProcess")
     @ResponseBody
     public String saveThreadingProcess(ThreadInspectionRecord threadingProcess, HttpServletRequest request, HttpServletResponse response){
@@ -92,7 +109,6 @@ public class ThreadInspectionRecordController {
                     resTotal=threadInspectionRecordDao.updateThreadInspectionRecord(threadingProcess);
                 }
             }
-            //System.out.println("-----"+resTotal);
             if(resTotal>0){
                 json.put("promptkey","success");
                 json.put("promptValue","保存成功");
@@ -112,6 +128,13 @@ public class ThreadInspectionRecordController {
         }
         return null;
     }
+    /**
+     * (检验记录id集合,","分割)
+     * @param hlparam
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delThreadingProcess")
     public String delThreadingProcess(@RequestParam(value = "hlparam")String hlparam,HttpServletResponse response)throws Exception{
         String[]idArr=hlparam.split(",");
@@ -123,16 +146,20 @@ public class ThreadInspectionRecordController {
         sbmessage.append(Integer.toString(resTotal));
         sbmessage.append("项螺纹检验信息删除成功\n");
         if(resTotal>0){
-            //System.out.print("删除成功");
             json.put("success",true);
         }else{
-            //System.out.print("删除失败");
             json.put("success",false);
         }
         json.put("message",sbmessage.toString());
         ResponseUtil.write(response,json);
         return null;
     }
+    /**
+     * 获取录制视频位置
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/getVideoAddress")
     public String getVideoAddress(HttpServletResponse response)throws Exception{
         JSONObject json=new JSONObject();
@@ -141,6 +168,12 @@ public class ThreadInspectionRecordController {
         ResponseUtil.write(response,json);
         return null;
     }
+    /**
+     * 上传录制的视频
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/uploadVideoFile")
     @ResponseBody
     public String uploadVideoFile(HttpServletRequest request,HttpServletResponse response){
@@ -177,6 +210,12 @@ public class ThreadInspectionRecordController {
         }
         return null;
     }
+    /**
+     * 获取流对象字节数组
+     * @param request
+     * @return
+     * @throws Exception
+     */
     private byte[] readBody(HttpServletRequest request) throws Exception {
         // 获取请求文本字节长度
         int formDataLength = request.getContentLength();
@@ -190,30 +229,37 @@ public class ThreadInspectionRecordController {
         }
         return body;
     }
-
+    /**
+     * 获取文件名称
+     * @param requestBody
+     * @return
+     */
     private String getFileName(String requestBody) {
         String fileName = requestBody.substring(requestBody.indexOf("filename=\"") + 10);
         fileName = fileName.substring(0, fileName.indexOf("\n"));
         fileName = fileName.substring(fileName.indexOf("\n") + 1, fileName.indexOf("\""));
         return fileName;
     }
-
+    /**
+     * 将文件写到指定目录
+     * @param request
+     * @param fileName(文件名)
+     * @param body(byte 数组)
+     * @param begin(数组中偏移量)
+     * @param end(字节长度)
+     * @throws Exception
+     */
     private void writeToDir(HttpServletRequest request,String fileName, byte[] body, int begin, int end) throws Exception {
-        //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/videos");
-
         String saveDirectory = request.getSession().getServletContext().getRealPath("/");
-
         if(saveDirectory.lastIndexOf('/')==-1){
             saveDirectory=saveDirectory.replace('\\','/');
         }
-
         saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
         System.out.println("saveDirector1="+saveDirectory);
         if(ClientAppUpdateController.isServerTomcat){
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
         }
         saveDirectory=saveDirectory+"/upload/videos";
-
         File uploadPath = new File(saveDirectory);
         if (!uploadPath.exists()){
             uploadPath.mkdirs();
@@ -224,6 +270,12 @@ public class ThreadInspectionRecordController {
         fileOutputStream.flush();
         fileOutputStream.close();
     }
+    /**
+     * 添加或修改接箍检验记录
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/saveThreadInspectionRecordOfWinform")
     @ResponseBody
     public String saveThreadInspectionRecordOfWinform(HttpServletRequest request,HttpServletResponse response){
@@ -358,8 +410,12 @@ public class ThreadInspectionRecordController {
         }
         return null;
     }
-
-    //获取检验记录数据(winform)
+    /**
+     * 获取检验记录数据(winform使用)
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/getThreadInspectionRecordOfWinform")
     @ResponseBody
     public String getThreadInspectionRecordOfWinform(HttpServletRequest request,HttpServletResponse response){
@@ -375,7 +431,6 @@ public class ThreadInspectionRecordController {
             String operator_no=null,production_crew=null,production_shift=null,contract_no=null,threading_type=null,od=null,wt=null,pipe_heat_no=null,pipe_lot_no=null,beginTimeStr=null,endTimeStr=null;
             Date beginTime=null;
             Date endTime=null;
-           // float odFloat=0,wtFloat=0;
             if(json!=null){
                 //工号、班次、班别、合同号、螺纹类型、外径、壁厚、炉号、批号、开始时间、结束时间
                 operator_no=json.getString("operator_no").trim();
@@ -410,7 +465,12 @@ public class ThreadInspectionRecordController {
         }
         return null;
     }
-    //删除检验记录数据(winform)
+    /**
+     * 删除检验记录数据(winform使用)
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/delThreadInspectionRecordOfWinform")
     @ResponseBody
     public String delThreadInspectionRecordOfWinform(HttpServletRequest request,HttpServletResponse response){
