@@ -134,6 +134,7 @@ function loadPipeBaiscInfo(row) {
     $('#p_length').text(row.p_length);$('#weight').text(row.weight);
     $('#grade').text(row.grade);$('#heat_no').text(row.heat_no);
 }
+//图片展示模板
 function getGalleryCon() {
     var str='<div id="hl-gallery" class="hl-gallery">'+
         '<span class="prev"><</span>'+

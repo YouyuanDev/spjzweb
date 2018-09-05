@@ -169,7 +169,7 @@ public class StaticMeasurementItemController {
         return null;
     }
     /**
-     * 根据合同编号获取使用测量工具和标准等信息(Winform使用)
+     * 根据合同编号获取使用测量工具和标准等信息(客户端使用)
      * @param request
      * @param response
      * @return
@@ -181,6 +181,7 @@ public class StaticMeasurementItemController {
         StringBuilder sb=new StringBuilder();
         JSONObject jsonReturn=new JSONObject();
         try{
+            //读取客户端传过来的合同编号
             BufferedReader reader=request.getReader();
             String input=null;
             while ((input=reader.readLine())!=null){
@@ -215,7 +216,7 @@ public class StaticMeasurementItemController {
         return  null;
     }
     /**
-     * 根据接箍检验编号获取使用测量工具和标准等信息(Winform使用)
+     * 根据接箍检验编号获取使用测量工具和标准等信息(客户端使用)
      * @param request
      * @param response
      * @return

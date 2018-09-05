@@ -26,7 +26,7 @@ public class ItemRecordController {
     @Autowired
     private ItemRecordDao itemRecordDao;
     /**
-     * 根据螺纹记录编号查询测量项值
+     * 根据螺纹检验记录编号查询测量项值
      * @param request
      * @return
      */
@@ -38,7 +38,6 @@ public class ItemRecordController {
         String mmp= "";
         if(inspection_record_no!=null&&!inspection_record_no.equals("")){
             list=itemRecordDao.getItemRecordByInspectionRecordCode(inspection_record_no);
-            Map<String,Object> maps=new HashMap<String,Object>();
             mmp= JSONArray.toJSONString(list);
         }
         return mmp;
@@ -190,7 +189,7 @@ public class ItemRecordController {
         return null;
     }
     /**
-     * 根据检测记录编号查询测量项数据(winform使用)
+     * 根据检测记录编号查询测量项数据(客户端使用)
      * @param request
      * @param response
      * @return
@@ -200,6 +199,7 @@ public class ItemRecordController {
     public String getItemRecordByInspectionNoOfWinform(HttpServletRequest request,HttpServletResponse response){
         JSONObject jsonReturn=new JSONObject();
         try{
+            //读取传过来的检验记录编号
             StringBuilder sb=new StringBuilder();
             BufferedReader reader=request.getReader();
             String input=null;

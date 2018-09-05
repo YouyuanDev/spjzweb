@@ -74,9 +74,7 @@ public class ContractController {
         maps.put("total",count);
         maps.put("rows",list);
         String mmp= JSONArray.toJSONString(list);
-        //System.out.print("mmp:"+mmp);
         return mmp;
-
     }
     /**
      * 合同信息添加和修改
@@ -93,9 +91,9 @@ public class ContractController {
             //先判断是否存在相通的合同编号
             List<ContractInfo>contractInfoList=null;
             if(contractInfo.getId()==0){
-                contractInfoDao.getContractInfoByContractNoOfAdd(contractInfo.getContract_no());
+                contractInfoList=contractInfoDao.getContractInfoByContractNoOfAdd(contractInfo.getContract_no());
             }else{
-                contractInfoDao.getContractInfoByContractNoOfEdit(contractInfo.getContract_no());
+                contractInfoList=contractInfoDao.getContractInfoByContractNoOfEdit(contractInfo.getContract_no());
             }
             if(contractInfoList!=null&&contractInfoList.size()>0){
                 json.put("promptkey","fail1");
@@ -157,7 +155,7 @@ public class ContractController {
         return null;
     }
     /**
-     * 合同录入
+     * Excel合同文件上传
      * @param request
      * @param response
      * @return
@@ -171,13 +169,10 @@ public class ContractController {
                 saveDirectory=saveDirectory.replace('\\','/');
             }
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
-            System.out.println("saveDirector1="+saveDirectory);
             if(ClientAppUpdateController.isServerTomcat){
                 saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             }
             saveDirectory=saveDirectory+"/upload/contracts";
-
-
             File uploadPath = new File(saveDirectory);
             if (!uploadPath.exists()) {
                 uploadPath.mkdirs();
@@ -210,12 +205,11 @@ public class ContractController {
             json.put("coupling_type",retMap.get("coupling_type").toString());
             json.put("success",true);
             ResponseUtil.write(response, json);
-            System.out.print("uploadContractList成功");
-            System.out.println("saveDirectory File="+saveDirectory+"/"+newName);
-            System.out.println("file.length()="+file.length());
+            System.out.print("Excel合同文件录入成功");
+            System.out.println("Excel合同文件保存路径："+saveDirectory+"/"+newName);
+            System.out.println("Excel合同文件大小："+file.length());
         } catch (Exception e) {
-            System.err.println("Exception=" + e.getMessage().toString());
-            System.out.println("Exception=" + e.getMessage().toString());
+            System.out.println("Excel合同文件录入异常，异常信息：" + e.getMessage().toString());
             e.printStackTrace();
             JSONObject json = new JSONObject();
             json.put("success",false);
@@ -224,7 +218,7 @@ public class ContractController {
         return null;
     }
     /**
-     * 合同Excel文件导入
+     * Excel合同文件数据导入
      * @param fullfilename(Excel名称)
      * @return
      * @throws Exception
@@ -271,8 +265,7 @@ public class ContractController {
                 }
                 retMap.put("od", od);
                 retMap.put("wt", wt);
-                System.out.println("od:"+od);
-                System.out.println("wt:"+wt);
+                System.out.println("od:"+od+"，wt:"+wt);
             }
             ob = listob.get(ExcelUtil.LOT_NO_INDEX_i);
             if(ob!=null&&ExcelUtil.LOT_NO_INDEX_j<=ob.size()-1) {
@@ -308,15 +301,16 @@ public class ContractController {
                 retMap.put("coupling_type", val);
                 System.out.println("coupling_type:"+val);
             }
-
+            System.out.println("Excel合同文件导入成功！");
         }catch (Exception e){
+            System.out.println("Excel合同文件录入异常，异常信息：" + e.getMessage().toString());
             e.printStackTrace();
         }finally {
             return retMap;
         }
     }
     /**
-     * 根据接收标准编号获取所有下拉接收标准
+     * 根据接收标准编号获取所有接收标准(下拉框使用)
      * @param thread_acceptance_criteria_no(接收标准编号)
      * @param request
      * @return
@@ -337,7 +331,7 @@ public class ContractController {
         return map;
     }
     /**
-     * 获取所有下拉合同编号(windform使用)
+     * 获取所有下拉合同编号(客户端使用)
      * @param request
      * @param response
      * @return
@@ -367,9 +361,8 @@ public class ContractController {
         }
         return  null;
     }
-
     /**
-     * 获取所有下拉合同信息用于客户端搜索(windform使用)
+     * 获取所有下拉合同信息用于客户端搜索(客户端使用)
      * @param request
      * @param response
      * @return

@@ -47,15 +47,12 @@ public class ClientAppUpdateController {
     public String uploadClientAppPackage(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
             //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
-
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
-
-            System.out.println("saveDirectory="+saveDirectory);
-
+            System.out.println("---------uploadClientAppPackage saveDirectory="+saveDirectory);
+            //如果服务器部署在window系统上路径处理
             if(saveDirectory.lastIndexOf('/')==-1){
                 saveDirectory=saveDirectory.replace('\\','/');
             }
-
             saveDirectory=saveDirectory.substring(0,saveDirectory.lastIndexOf('/'));
             System.out.println("saveDirector1="+saveDirectory);
             if(isServerTomcat){
@@ -88,12 +85,11 @@ public class ClientAppUpdateController {
             json.put("filesize", file.length());
             json.put("success",true);
             ResponseUtil.write(response, json);
-            System.out.print("uploadClientAppPackage成功");
-            System.out.println("saveDirectory File="+saveDirectory+"/"+newName);
-            System.out.println("file.length()="+file.length());
+            System.out.print("上传客户端更新包成功");
+            System.out.println("客户端更新包保存路径："+saveDirectory+"/"+newName);
+            System.out.println("客户端更新包大小："+file.length());
         } catch (Exception e) {
-            System.err.println("Exception=" + e.getMessage().toString());
-            System.out.println("Exception=" + e.getMessage().toString());
+            System.err.println("上传客户端更新包异常，异常信息:" + e.getMessage().toString());
             e.printStackTrace();
             JSONObject json = new JSONObject();
             json.put("success",false);
@@ -144,12 +140,11 @@ public class ClientAppUpdateController {
             json.put("filesize", file.length());
             json.put("success",true);
             ResponseUtil.write(response, json);
-            System.out.print("uploadClientAppAutoUpdaterXML成功");
-            System.out.println("saveDirectory File="+saveDirectory+"/"+newName);
-            System.out.println("file.length()="+file.length());
+            System.out.print("上传客户端程序包配置文件成功");
+            System.out.println("客户端程序包配置文件保存路径："+saveDirectory+"/"+newName);
+            System.out.println("客户端程序包配置文件大小："+file.length());
         } catch (Exception e) {
-            System.err.println("Exception=" + e.getMessage().toString());
-            System.out.println("Exception=" + e.getMessage().toString());
+            System.out.println("上传客户端程序包配置文件异常,异常信息：" + e.getMessage().toString());
             e.printStackTrace();
             JSONObject json = new JSONObject();
             json.put("success",false);
@@ -199,12 +194,11 @@ public class ClientAppUpdateController {
             json.put("filesize", file.length());
             json.put("success",true);
             ResponseUtil.write(response, json);
-            System.out.print("uploadClientReadme成功");
-            System.out.println("saveDirectory File="+saveDirectory+"/"+newName);
-            System.out.println("file.length()="+file.length());
+            System.out.print("上传客户端更新说明文件成功");
+            System.out.println("客户端更新说明文件保存路径："+saveDirectory+"/"+newName);
+            System.out.println("客户端更新说明文件大小："+file.length());
         } catch (Exception e) {
-            System.err.println("Exception=" + e.getMessage().toString());
-            System.out.println("Exception=" + e.getMessage().toString());
+            System.out.println("上传客户端更新说明文件异常,异常信息：" + e.getMessage().toString());
             e.printStackTrace();
             JSONObject json = new JSONObject();
             json.put("success",false);

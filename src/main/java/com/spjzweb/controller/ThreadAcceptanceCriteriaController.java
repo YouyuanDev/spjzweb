@@ -66,7 +66,6 @@ public class ThreadAcceptanceCriteriaController {
         try{
             int resTotal=0;
             threadingAcceptanceCriteria.setLast_update_time(new Date());
-            System.out.println("threadingAcceptanceCriteria.getId()="+threadingAcceptanceCriteria.getId());
             if(threadingAcceptanceCriteria.getId()==0){
                 //添加
                 threadingAcceptanceCriteria.setThread_acceptance_criteria_no(String.valueOf(System.currentTimeMillis()));
@@ -113,10 +112,8 @@ public class ThreadAcceptanceCriteriaController {
         sbmessage.append(Integer.toString(resTotal));
         sbmessage.append("条接收标准删除成功\n");
         if(resTotal>0){
-            //System.out.print("删除成功");
             json.put("success",true);
         }else{
-            //System.out.print("删除失败");
             json.put("success",false);
         }
         json.put("message",sbmessage.toString());
@@ -124,7 +121,7 @@ public class ThreadAcceptanceCriteriaController {
         return null;
     }
     /**
-     * 获取所有下拉接收标准
+     * 获取所有接收标准(下拉框使用)
      * @param thread_acceptance_criteria_no(接收标准编号)
      * @param request
      * @return

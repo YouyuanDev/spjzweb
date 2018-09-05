@@ -261,7 +261,6 @@ public class DynamicMeasurementItemController {
             String thread_inspection_record_code=request.getParameter("thread_inspection_record_code");
             List<HashMap<String,Object>>hsList=dynamicMeasurementItemDao.getAllDropdownItemRecordByInspectionNo(thread_inspection_record_code);
             String mmp= JSONArray.toJSONString(hsList);
-            System.out.println(mmp+"-----------");
             json.put("promptkey","success");
             json.put("promptValue",mmp);
         }catch (Exception e){
