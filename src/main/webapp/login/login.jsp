@@ -77,7 +77,7 @@
         }
     </script>
 </head>
-<body >
+<body>
 
 <%--<div style="margin:20px 0;">--%>
     <%--<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>--%>

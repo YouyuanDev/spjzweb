@@ -342,10 +342,10 @@
     </script>
 </head>
 <body class="easyui-layout">
-<%--<div data-options="region:'south',split:true" style="height:50px;">--%>
-    <%--<div style="text-align: center"><h3>@2018 友元科技 版权所有</h3></div>--%>
-<%--</div>--%>
-<div data-options="region:'north',split:true">
+<div data-options="region:'north',split:true" style="background:linear-gradient(to right,#66CDAA 0%,#5F9EA0 100%);">
+    <div style="float:left;padding:10px;font-size:15px;color: #fff;">
+        螺纹车丝检验监造系统
+    </div>
     <div style="float: right;padding:10px">
         <select id="language">
             <option value="zh-CN">中文</option>
