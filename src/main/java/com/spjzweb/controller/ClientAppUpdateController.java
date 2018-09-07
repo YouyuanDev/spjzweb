@@ -107,7 +107,6 @@ public class ClientAppUpdateController {
     @RequestMapping(value = "/uploadClientAppAutoUpdaterXML",method = RequestMethod.POST)
     public String uploadClientAppAutoUpdaterXML(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
-            //String saveDirectory = request.getSession().getServletContext().getRealPath("/upload/clientapp");
             String saveDirectory = request.getSession().getServletContext().getRealPath("/");
             if(saveDirectory.lastIndexOf('/')==-1){
                 saveDirectory=saveDirectory.replace('\\','/');
