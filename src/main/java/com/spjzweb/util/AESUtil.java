@@ -76,7 +76,7 @@ public class AESUtil {
 
     public static void main(String arg[])
     {
-        String Data="BC7574E1A129";
+        String Data="BC7574E1A12D";
 
         //String Data="8CEC4B40200E";
         String key1="2018052300000000";

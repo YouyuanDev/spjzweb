@@ -183,11 +183,11 @@ public class LoginController {
             for(int i=0;i<res.size();i++){
                 String code1=  res.get(i).getEncrypt_code();
                 String code2= res.get(i).getEncrypt_code2();
-                System.out.println("code1="+code1);
-                System.out.println("code2="+code2);
+                System.out.println("getEncrypt_code="+code1);
+                System.out.println("getEncrypt_code2="+code2);
                 if(code2!=null&&!code2.equals("")){
                     String keyforc1 = AESUtil.aesDecrypt(code2,key2);
-                    System.out.println("keyforc1"+keyforc1);
+                    System.out.println("aesDecrypt(code2,key2)="+keyforc1);
                     String orgcode1=AESUtil.aesDecrypt(code1,keyforc1 );
                     String newCode1inDatabase= AESUtil.aesEncrypt(orgcode1,newkey );
                     String newCode2inDatabase=AESUtil.aesEncrypt(newkey,key2 );
@@ -196,8 +196,8 @@ public class LoginController {
                     ca.setId(res.get(i).getId());
                     ca.setEncrypt_code(newCode1inDatabase);
                     ca.setEncrypt_code2(newCode2inDatabase);
-                    System.out.println("update code1="+newCode1inDatabase);
-                    System.out.println("update code2="+newCode2inDatabase);
+                    System.out.println("aesEncrypt(orgcode1,newkey )="+newCode1inDatabase);
+                    System.out.println("aesEncrypt(newkey,key2 )="+newCode2inDatabase);
                     clientAuthDao.updateClientAuth(ca);
                 }
             }
@@ -219,7 +219,7 @@ public class LoginController {
                 verificationCode=json.getString("verification_code");
             }
             if(verificationCode!=null){
-                System.out.println("111111111="+verificationCode);
+                System.out.println("verificationCode="+verificationCode);
                 String encryptData = verificationCode;
                 String encryptData2 = AESUtil.aesEncrypt(newkey,key2 );
                 List<ClientAuth> lt=clientAuthDao.getAllByLike(encryptData,encryptData2);

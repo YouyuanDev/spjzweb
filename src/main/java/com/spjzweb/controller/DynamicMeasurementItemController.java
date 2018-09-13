@@ -98,6 +98,7 @@ public class DynamicMeasurementItemController {
             String item_neg_deviation_value=request.getParameter("item_neg_deviation_value");
             String reading_types=request.getParameter("reading_types");
             String ovality_max=request.getParameter("ovality_max");
+
             if((measure_item_code!=null&&!measure_item_code.equals(""))&&(thread_acceptance_criteria_no!=null&&!thread_acceptance_criteria_no.equals(""))){
                 DynamicMeasurementItem item=new DynamicMeasurementItem();
                 if(id!=null&&!id.equals("")){
