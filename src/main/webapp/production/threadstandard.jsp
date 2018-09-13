@@ -318,15 +318,21 @@
             }
             var id="";
             var measure_item_code="";
-            var item_max_value=$('#nbMeasureMax').numberbox('getValue');;
-            var item_min_value=$('#nbMeasureMin').numberbox('getValue');;
-            var ovality_max=$('#nbMeasureOvality').numberbox('getValue');;
-            var item_frequency=$('#nbMeasureFre').numberbox('getValue');;
-            var both_ends=$('#cmbMeasureBoth').combobox('getValue');;
-            var reading_types=$('#cmbMeasureTypes').combobox('getValue');;
-            var item_std_value=$('#nbMeasureStd').numberbox('getValue');;
-            var item_pos_deviation_value=$('#nbMeasurePos').numberbox('getValue');;
-            var item_neg_deviation_value=$('#nbMeasureNeg').numberbox('getValue');;
+            var item_max_value=$('#nbMeasureMax').numberbox('getValue');
+            var item_min_value=$('#nbMeasureMin').numberbox('getValue');
+            var ovality_max=$('#nbMeasureOvality').numberbox('getValue');
+            var item_frequency=$('#nbMeasureFre').numberbox('getValue');
+            var both_ends=$('#cmbMeasureBoth').combobox('getValue');
+            var reading_types=$('#cmbMeasureTypes').combobox('getValues');
+            var item_std_value=$('#nbMeasureStd').numberbox('getValue');
+            var item_pos_deviation_value=$('#nbMeasurePos').numberbox('getValue');
+            var item_neg_deviation_value=$('#nbMeasureNeg').numberbox('getValue');
+            if(reading_types.length>0){
+                reading_types=reading_types.join(',');
+            }else{
+                hlAlertFour("请选择读数类型!");
+                return;
+            }
             //如果是新增
             if(isAdd){
                 id="";
