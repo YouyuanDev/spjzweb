@@ -594,9 +594,9 @@
         </div>
         <div style="margin-bottom:20px;padding:5px">
             <input id="nbMeasureMax" class="easyui-numberbox" value="0" name="item_max_value" style="width:300px;"
-                   editable="false" data-options="label:'接收最大值:'">
+                    data-options="label:'接收最大值:'">
             <input id="nbMeasureMin" class="easyui-numberbox" value="0" name="item_min_value" style="width:300px;"
-                   editable="false" data-options="label:'接收最小值:'">
+                    data-options="label:'接收最小值:'">
         </div>
     </form>
     <div style="text-align:center;padding:5px 0">

@@ -71,7 +71,7 @@
     </select>
 
     <select id="getDynamicAndStaticDataByAcceptanceNo" resultType="map">
-        select s.*,d.* from static_measurement_item s inner join dynamic_measurement_item d
+        select s.measure_item_name,s.measure_item_name_en,s.measure_tool1,s.measure_tool2,s.measure_unit,d.* from static_measurement_item s inner join dynamic_measurement_item d
         on s.measure_item_code=d.measure_item_code where d.thread_acceptance_criteria_no=#{thread_acceptance_criteria_no}
     </select>
 </mapper>
