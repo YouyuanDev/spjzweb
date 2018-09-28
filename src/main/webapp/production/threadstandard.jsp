@@ -45,7 +45,7 @@
             addOrEdit = true;
             clearFormLabel();
             getStataticItem();
-            thread_acceptance_criteria_no="";
+            thread_acceptance_criteria_no = "";
             loadDynamicByAcceptanceNo();
             $('#dynamicDatagrids').datagrid('loadData', {total: 0, rows: []});
             url = "/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action";
@@ -85,7 +85,7 @@
                 //$('#thread_acceptance_criteria_no').text(row.thread_acceptance_criteria_no);
                 $('#createNoBtn').css('display', 'none');
                 url = "/AcceptanceCriteriaOperation/saveThreadAcceptanceCriteria.action?id=" + row.id;
-                thread_acceptance_criteria_no=row.thread_acceptance_criteria_no;
+                thread_acceptance_criteria_no = row.thread_acceptance_criteria_no;
                 getStataticItem();
                 loadDynamicByAcceptanceNo();
             } else {
@@ -138,6 +138,7 @@
             $('#addEditForm').form('clear');
             $('.hl-label').text('');
         }
+
         //根据接收标准编号加载动态测量项
         function loadDynamicByAcceptanceNo() {
             $('#dynamicDatagrids').datagrid({
@@ -178,7 +179,7 @@
                         width: 80
                     },
                     {
-                        field: 'both_ends', title: 'AB端检测', width:80
+                        field: 'both_ends', title: 'AB端检测', width: 80
                     },
                     {
                         field: 'item_std_value',
@@ -206,14 +207,16 @@
                 ]]
             });
         }
+
         function rowInsert() {
-            isAdd=true;
+            isAdd = true;
             $('#cmbMeasureItem').combobox('enable');
             clearForm();
             $('#win').window('open');
         }
+
         function rowEdit() {
-            isAdd=false;
+            isAdd = false;
             var row = $('#dynamicDatagrids').datagrid('getSelected');
             if (row) {
                 $('#ff').form('load', row);
@@ -256,6 +259,7 @@
                 hlAlertFour("请选中要修改或添加的行!");
             }
         }
+
         function getStataticItem() {
             $.ajax({
                 url: '/StaticMeasure/getAllDropdownStaticItem.action',
@@ -271,85 +275,94 @@
                 }
             });
         }
-        var isAdd=true;
+
+        var isAdd = true;
+
         //测量项下拉框值改变
         function ChangeMeasureItem() {
-            if(isAdd){
-                var val=$('#cmbMeasureItem').combobox('getText');
+            if (isAdd) {
+                var val = $('#cmbMeasureItem').combobox('getText');
                 $('#txtMeasureItemName').textbox('setValue', val);
             }
         }
+
         //椭圆度值改变
         function ChangeOvality() {
-            var ovality_max=$('#nbMeasureOvality').numberbox('getValue');
-            if(ovality_max<0){
+            var ovality_max = $('#nbMeasureOvality').numberbox('getValue');
+            if (ovality_max < 0) {
                 hlAlertFour('请保证椭圆度>=0!');
-                $('#nbMeasureOvality').numberbox('setValue',0);
+                $('#nbMeasureOvality').numberbox('setValue', 0);
             }
         }
+
         function RequireMaxAndMIn() {
-            var item_std_value = $('#nbMeasureStd').numberbox('getValue');
-            var item_pos_deviation_value = $('#nbMeasurePos').numberbox('getValue');
-            var item_neg_deviation_value = $('#nbMeasureNeg').numberbox('getValue');
-            if (!isNaN(item_std_value) && !isNaN(item_pos_deviation_value) && !isNaN(item_neg_deviation_value)) {
-                if (item_pos_deviation_value < 0) {
-                    hlAlertFour("请保证正偏差>=0!");
-                    $('#nbMeasurePos').numberbox('setValue', 0);
-                    return false;
+            try {
+                var item_std_value = $('#nbMeasureStd').numberbox('getValue');
+                var item_pos_deviation_value = $('#nbMeasurePos').numberbox('getValue');
+                var item_neg_deviation_value = $('#nbMeasureNeg').numberbox('getValue');
+                if (!isNaN(item_std_value) && !isNaN(item_pos_deviation_value) && !isNaN(item_neg_deviation_value)) {
+                    if (item_pos_deviation_value < 0) {
+                        hlAlertFour("请保证正偏差>=0!");
+                        $('#nbMeasurePos').numberbox('setValue', 0);
+                        return false;
+                    }
+                    if (item_neg_deviation_value > 0) {
+                        hlAlertFour("请保证负偏差<=0!");
+                        $('#nbMeasureNeg').numberbox('setValue', 0);
+                        return false;
+                    }
+                    var item_max_value = (parseFloat(item_std_value) + parseFloat(item_pos_deviation_value));
+                    var item_min_value = (parseFloat(item_std_value) + parseFloat(item_neg_deviation_value));
+                    $('#nbMeasureMax').numberbox('setValue', item_max_value);
+                    $('#nbMeasureMin').numberbox('setValue', item_min_value);
                 }
-                if (item_neg_deviation_value > 0) {
-                    hlAlertFour("请保证负偏差<=0!");
-                    $('#nbMeasureNeg').numberbox('setValue', 0);
-                    return false;
-                }
-                var item_max_value = parseFloat(item_std_value) + parseFloat(item_pos_deviation_value);
-                var item_min_value = parseFloat(item_std_value) + parseFloat(item_neg_deviation_value);
-                $('#nbMeasureMax').numberbox('setValue', item_max_value);
-                $('#nbMeasureMin').numberbox('setValue', item_min_value);
+            } catch (e) {
+
             }
         }
+
         function submitForm() {
-            if(!$('#ff').form('validate')){
+            if (!$('#ff').form('validate')) {
                 return;
             }
-            if(thread_acceptance_criteria_no==""){
+            if (thread_acceptance_criteria_no == "") {
                 hlAlertFour("未找到接收标准编号,请重新打开!");
                 return;
             }
-            var id="";
-            var measure_item_code="";
-            var item_max_value=$('#nbMeasureMax').numberbox('getValue');
-            var item_min_value=$('#nbMeasureMin').numberbox('getValue');
-            var ovality_max=$('#nbMeasureOvality').numberbox('getValue');
-            var item_frequency=$('#nbMeasureFre').numberbox('getValue');
-            var both_ends=$('#cmbMeasureBoth').combobox('getValue');
-            var reading_types=$('#cmbMeasureTypes').combobox('getValues');
-            var item_std_value=$('#nbMeasureStd').numberbox('getValue');
-            var item_pos_deviation_value=$('#nbMeasurePos').numberbox('getValue');
-            var item_neg_deviation_value=$('#nbMeasureNeg').numberbox('getValue');
-            if(reading_types.length>0){
-                reading_types=reading_types.join(',');
-            }else{
+            var id = "";
+            var measure_item_code = "";
+            var item_max_value = $('#nbMeasureMax').numberbox('getValue');
+            var item_min_value = $('#nbMeasureMin').numberbox('getValue');
+            var ovality_max = $('#nbMeasureOvality').numberbox('getValue');
+            var item_frequency = $('#nbMeasureFre').numberbox('getValue');
+            var both_ends = $('#cmbMeasureBoth').combobox('getValue');
+            var reading_types = $('#cmbMeasureTypes').combobox('getValues');
+            var item_std_value = $('#nbMeasureStd').numberbox('getValue');
+            var item_pos_deviation_value = $('#nbMeasurePos').numberbox('getValue');
+            var item_neg_deviation_value = $('#nbMeasureNeg').numberbox('getValue');
+            if (reading_types.length > 0) {
+                reading_types = reading_types.join(',');
+            } else {
                 hlAlertFour("请选择读数类型!");
                 return;
             }
             //如果是新增
-            if(isAdd){
-                id="";
-                measure_item_code=$('#cmbMeasureItem').combobox('getValue');
-            }else{//修改
+            if (isAdd) {
+                id = "";
+                measure_item_code = $('#cmbMeasureItem').combobox('getValue');
+            } else {//修改
                 var row = $('#dynamicDatagrids').datagrid('getSelected');
-                if(row){
-                    id=row.id;
-                    measure_item_code=row.measure_item_code;
+                if (row) {
+                    id = row.id;
+                    measure_item_code = row.measure_item_code;
                 }
             }
             $.ajax({
                 url: '/DynamicMeasure/saveDynamicMeasureItem.action',
                 dataType: 'json',
                 data: {
-                    id:id,
-                    measure_item_code:measure_item_code,
+                    id: id,
+                    measure_item_code: measure_item_code,
                     thread_acceptance_criteria_no: thread_acceptance_criteria_no,
                     item_max_value: item_max_value,
                     item_min_value: item_min_value,
@@ -357,8 +370,8 @@
                     both_ends: both_ends,
                     reading_types: reading_types,
                     item_std_value: item_std_value,
-                    item_pos_deviation_value:item_pos_deviation_value,
-                    item_neg_deviation_value:item_neg_deviation_value,
+                    item_pos_deviation_value: item_pos_deviation_value,
+                    item_neg_deviation_value: item_neg_deviation_value,
                     ovality_max: ovality_max
                 },
                 success: function (data) {
@@ -377,13 +390,14 @@
                 }
             });
         }
+
         function clearForm() {
             $('#ff').form('clear');
-            $('#nbMeasureStd').numberbox('setValue',0);
-            $('#nbMeasurePos').numberbox('setValue',0);
-            $('#nbMeasureNeg').numberbox('setValue',0);
-            $('#nbMeasureMax').numberbox('setValue',0);
-            $('#nbMeasureMin').numberbox('setValue',0);
+            $('#nbMeasureStd').numberbox('setValue', 0);
+            $('#nbMeasurePos').numberbox('setValue', 0);
+            $('#nbMeasureNeg').numberbox('setValue', 0);
+            $('#nbMeasureMax').numberbox('setValue', 0);
+            $('#nbMeasureMin').numberbox('setValue', 0);
             $('#win').window('close');
         }
     </script>
@@ -594,9 +608,9 @@
         </div>
         <div style="margin-bottom:20px;padding:5px">
             <input id="nbMeasureMax" class="easyui-numberbox" value="0" name="item_max_value" style="width:300px;"
-                    data-options="label:'接收最大值:'">
+                   data-options="label:'接收最大值:',precision:3">
             <input id="nbMeasureMin" class="easyui-numberbox" value="0" name="item_min_value" style="width:300px;"
-                    data-options="label:'接收最小值:'">
+                   data-options="label:'接收最小值:',precision:3">
         </div>
     </form>
     <div style="text-align:center;padding:5px 0">
